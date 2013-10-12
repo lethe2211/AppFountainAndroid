@@ -27,13 +27,16 @@ import com.appfountain.util.Common;
  */
 public class RegisterActivity extends ActionBarActivity {
 	private final String url = Common.getApiBaseUrl(this) + "user/register";
+	private static final int MAX_NAME_LENGTH = 32;
+	private static final int MIN_NAME_LENGTH = 4;
+	private static final int MIN_PASSWORD_LENGTH = 4;
 
 	private ActionBarActivity self = this;
 	private RequestQueue queue;
 
-	private EditText loginRegisterName;
-	private EditText loginRegisterPassword;
-	private EditText loginRegisterPasswordConfirm;
+	private EditText registerName;
+	private EditText registerPassword;
+	private EditText registerPasswordConfirm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +50,11 @@ public class RegisterActivity extends ActionBarActivity {
 
 	private void initViews() {
 		// 登録系のinitialize
-		loginRegisterName = (EditText) findViewById(R.id.login_register_name);
-		loginRegisterPassword = (EditText) findViewById(R.id.login_register_password);
-		loginRegisterPasswordConfirm = (EditText) findViewById(R.id.login_register_password_confirm);
+		registerName = (EditText) findViewById(R.id.register_name);
+		registerPassword = (EditText) findViewById(R.id.register_password);
+		registerPasswordConfirm = (EditText) findViewById(R.id.register_password_confirm);
 
-		findViewById(R.id.login_register_button).setOnClickListener(
+		findViewById(R.id.register_button).setOnClickListener(
 				new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -62,24 +65,19 @@ public class RegisterActivity extends ActionBarActivity {
 									Toast.LENGTH_LONG).show();
 							return;
 						}
-						registerButtonClicked(loginRegisterName.getText()
-								.toString(), loginRegisterPassword.getText()
-								.toString(), loginRegisterPasswordConfirm
+						registerButtonClicked(registerName.getText()
+								.toString(), registerPassword.getText()
+								.toString(), registerPasswordConfirm
 								.getText().toString());
 					}
 				});
 	}
-
-	/**
-	 * volleyつかって通信する
-	 */
+	
+	// 通信してユーザ登録する
 	private void registerButtonClicked(final String name,
 			final String password, final String passwordConfirm) {
-		if (password.equals(passwordConfirm)) {
-			Toast.makeText(this, getString(R.string.register_password_invalid),
-					Toast.LENGTH_SHORT).show();
+		if (!isValidInput(name, password, passwordConfirm))
 			return;
-		}
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
@@ -123,9 +121,35 @@ public class RegisterActivity extends ActionBarActivity {
 		Common.initializeProgressBar(this, "signup...");
 	}
 
+	// 入力チェック
+	private boolean isValidInput(String name, String password,
+			String passwordConfirm) {
+		if (!(MIN_NAME_LENGTH <= name.length() && name.length() <= MAX_NAME_LENGTH)) {
+			Toast.makeText(this, getString(R.string.register_name_length_invalid),
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
+		if (password.length() < MIN_PASSWORD_LENGTH) {
+			Toast.makeText(this,
+					getString(R.string.register_password_too_short),
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
+		if (password.equals(passwordConfirm)) {
+			Toast.makeText(this, getString(R.string.register_password_invalid),
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
+		return true;
+	}
+
+	// EditTextを全て初期化
 	private void clearRegisterInfo() {
-		loginRegisterName.setText("");
-		loginRegisterPassword.setText("");
-		loginRegisterPasswordConfirm.setText("");
+		registerName.setText("");
+		registerPassword.setText("");
+		registerPasswordConfirm.setText("");
 	}
 }

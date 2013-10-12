@@ -6,7 +6,6 @@
     tools:context=".RegisterActivity" >
 
     <LinearLayout
-        android:id="@+id/login_register_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
@@ -23,7 +22,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/login_register_name"
+            android:id="@+id/register_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -32,7 +31,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/login_register_password"
+            android:id="@+id/register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -41,7 +40,7 @@
             android:inputType="numberPassword" />
 
         <EditText
-            android:id="@+id/login_register_password_confirm"
+            android:id="@+id/register_password_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -50,7 +49,7 @@
             android:inputType="numberPassword" />
 
         <Button
-            android:id="@+id/login_register_button"
+            android:id="@+id/register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
