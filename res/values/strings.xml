@@ -13,6 +13,7 @@
     <!-- RegisterActivity -->
     <string name="title_activity_register">RegisterActivity</string>
     <string name="activity_login_text">LoginActivity</string>
+    <string name="register_password_invalid">パスワードが一致していません</string>
 
     <!-- TopPageActivity -->
     <string name="title_activity_top_page">TopPageActivity</string>
