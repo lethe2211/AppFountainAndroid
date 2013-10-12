@@ -1,5 +1,9 @@
 package com.appfountain.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.apache.commons.codec.digest.DigestUtils;
 
 import android.app.Activity;
@@ -10,7 +14,6 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.util.Pair;
 
 import com.appfountain.model.User;
 import com.appfountain.model.UserContainer;
@@ -23,7 +26,8 @@ public class Common {
 	private static final String USER_PASSWORD = "user_password";
 	private static final String USER_RK = "user_rk";
 
-	public static User user = null;
+	private static User _user = null;
+	private static String _baseApiUrl = null;
 	public static ProgressDialog progressBar;
 
 	/**
@@ -68,6 +72,26 @@ public class Common {
 	}
 
 	/**
+	 * apiのbase urlの取得
+	 * @param context
+	 * @return
+	 */
+	public static String getApiBaseUrl(Context context) {
+		if (_baseApiUrl == null) {
+			Properties props = new Properties();
+			InputStream inputStream = context.getClass().getClassLoader()
+					.getResourceAsStream("config.properties");
+			try {
+				props.load(inputStream);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			_baseApiUrl = props.getProperty("baseapiurl");
+		}
+		return _baseApiUrl;
+	}
+
+	/**
 	 * md5への変換
 	 * 
 	 * @param str
@@ -90,8 +114,9 @@ public class Common {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Editor editor = pref.edit();
-		editor.putString(USER_NAME, user.getName());
+		editor.putString(USER_NAME, name);
 		editor.putString(USER_PASSWORD, md5Hex(password));
+		editor.putString(USER_RK, rk);
 		editor.commit();
 	}
 
@@ -119,7 +144,7 @@ public class Common {
 	 * @param user
 	 */
 	public static void setUser(User user) {
-		Common.user = user;
+		_user = user;
 	}
 
 	/**
@@ -128,6 +153,6 @@ public class Common {
 	 * @return
 	 */
 	public static User getUser() {
-		return user;
+		return _user;
 	}
 }
