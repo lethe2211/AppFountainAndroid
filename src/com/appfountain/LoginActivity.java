@@ -73,7 +73,7 @@ public class LoginActivity extends ActionBarActivity {
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
-		params.put("password", password);
+		params.put("password", Common.md5Hex(password));
 
 		GsonRequest<UserSource> req = new GsonRequest<UserSource>(Method.POST,
 				url, UserSource.class, params, null,
