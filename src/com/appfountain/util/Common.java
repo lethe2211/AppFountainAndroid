@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import android.app.Activity;
@@ -14,6 +15,7 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 
 import com.appfountain.model.User;
 import com.appfountain.model.UserContainer;
@@ -28,7 +30,7 @@ public class Common {
 
 	private static User _user = null;
 	private static String _baseApiUrl = null;
-	public static ProgressDialog progressBar;
+	private static ProgressDialogFragment progressDialog;
 
 	/**
 	 * プログレスバーを表示する
@@ -36,20 +38,20 @@ public class Common {
 	 * @param parent
 	 * @param message
 	 */
-	public static void initializeProgressBar(Activity parent, String message) {
-		final ProgressDialog progressDialog = new ProgressDialog(parent);
-		progressDialog.setMessage(message);
-		progressDialog.setCancelable(false);
-		progressBar = progressDialog;
-		progressBar.show();
+	public static void initializeProgressBar(ActionBarActivity parent,
+			String message) {
+		progressDialog = ProgressDialogFragment
+				.newInstance(message);
+		progressDialog.show(parent.getSupportFragmentManager(),
+				"progress_dialog_fragment");
 	}
 
 	/**
 	 * プログレスバーを閉じる
 	 */
 	public static void closeProgressBar() {
-		if (progressBar != null && progressBar.isShowing()) {
-			progressBar.hide();
+		if (progressDialog != null && progressDialog.isVisible()) {
+			progressDialog.dismiss();
 		}
 	}
 
@@ -73,6 +75,7 @@ public class Common {
 
 	/**
 	 * apiのbase urlの取得
+	 * 
 	 * @param context
 	 * @return
 	 */
@@ -98,7 +101,7 @@ public class Common {
 	 * @return
 	 */
 	public static String md5Hex(String str) {
-		return DigestUtils.md5Hex(str);
+		return new String(Hex.encodeHex(DigestUtils.sha256(str)));
 	}
 
 	/**
