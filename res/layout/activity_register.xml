@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity" >
+    tools:context=".RegisterActivity" >
 
     <LinearLayout
-        android:id="@+id/login_login_layout"
+        android:id="@+id/login_register_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
@@ -19,11 +19,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:text="ログインします"
+            android:text="新しくユーザを作成します"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/login_login_name"
+            android:id="@+id/login_register_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -32,7 +32,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/login_login_password"
+            android:id="@+id/login_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -40,12 +40,21 @@
             android:hint="password"
             android:inputType="numberPassword" />
 
+        <EditText
+            android:id="@+id/login_register_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:ems="10"
+            android:hint="password confirm"
+            android:inputType="numberPassword" />
+
         <Button
-            android:id="@+id/login_login_button"
+            android:id="@+id/login_register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:text="ログイン" />
+            android:text="新規登録" />
     </LinearLayout>
 
 </LinearLayout>
