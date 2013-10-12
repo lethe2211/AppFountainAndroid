@@ -4,32 +4,32 @@
     <!-- common text -->
     <string name="app_name">AppFountain</string>
     <string name="action_settings">Settings</string>
-    
     <string name="hello_world">Hello world!</string>
-    
+
     <!-- LoginActivity -->
     <string name="title_activity_login">LoginActivity</string>
     <string name="activity_login_text">LoginActivity</string>
-    
+
     <!-- TopPageActivity -->
     <string name="title_activity_top_page">TopPageActivity</string>
     <string name="activity_top_page_text">TopPageActivity</string>
-    
+
     <!-- PostActivity -->
     <string name="title_activity_post">PostActivity</string>
     <string name="activity_post_text">PostActivity</string>
-    
+
     <!-- UserPageActivity -->
     <string name="title_activity_user_page">UserPageActivity</string>
-    <string name="activity_user_page_text">UserPageActivity</string>
-    
+    <string name="fragment_user_info_text">UserInfoFragment</string>
+    <string name="fragment_user_question_text">UserQuestionFragment</string>
+    <string name="fragment_user_answer_text">UserAnswerFragment</string>
+
     <!-- QuestionDetailActivity -->
     <string name="title_activity_question_detail">QuestionDetailActivity</string>
     <string name="activity_question_detail_text">QuestionDetailActivity</string>
-    
+
     <!-- SearchResultActivity -->
     <string name="title_activity_search_result">SearchResultActivity</string>
     <string name="activity_search_result_text">SearchResultActivity</string>
-    
 
 </resources>
