@@ -1,5 +1,7 @@
 package com.appfountain.util;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,8 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * どこでも使えるCommonクラス
- * プログレスバー，インターネットのチェック
+ * どこでも使えるCommonクラス プログレスバー，インターネットのチェック
  */
 public class Common {
 	public static ProgressDialog progressBar;
@@ -38,6 +39,7 @@ public class Common {
 
 	/**
 	 * インターネットが利用可能か調べる
+	 * 
 	 * @param context
 	 * @return
 	 */
@@ -51,6 +53,9 @@ public class Common {
 		if (ni != null && ni.isAvailable() && ni.isConnected())
 			return true;
 		return false;
+	}
 
+	public static String md5Hex(String str) {
+		return DigestUtils.md5Hex(str);
 	}
 }
