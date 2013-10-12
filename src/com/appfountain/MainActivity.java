@@ -36,6 +36,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				.setOnClickListener(this);
 		findViewById(R.id.move_to_user_page_activity_button)
 				.setOnClickListener(this);
+		findViewById(R.id.move_to_register_activity_button)
+		.setOnClickListener(this);
 	}
 
 	@Override
@@ -59,6 +61,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			break;
 		case R.id.move_to_user_page_activity_button:
 			intent = new Intent(MainActivity.this, UserPageActivity.class);
+			break;
+		case R.id.move_to_register_activity_button:
+			intent = new Intent(MainActivity.this, RegisterActivity.class);
 			break;
 		default:
 			new IllegalArgumentException();
