@@ -26,7 +26,7 @@ import com.appfountain.util.Common;
  * ユーザの新規登録のための画面
  */
 public class RegisterActivity extends ActionBarActivity {
-	private static final String url = "";
+	private final String url = Common.getApiBaseUrl(this) + "user/register";
 
 	private ActionBarActivity self = this;
 	private RequestQueue queue;
@@ -90,6 +90,7 @@ public class RegisterActivity extends ActionBarActivity {
 				new Listener<UserSource>() {
 					@Override
 					public void onResponse(UserSource response) {
+						Common.closeProgressBar();
 						if (response.getStatus()) {
 							// User情報を端末へ登録&キャッシュ
 							User user = response.getUser();
@@ -111,6 +112,7 @@ public class RegisterActivity extends ActionBarActivity {
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
+						Common.closeProgressBar();
 						Toast.makeText(self, error.getMessage(),
 								Toast.LENGTH_SHORT).show();
 						clearRegisterInfo();
@@ -118,6 +120,7 @@ public class RegisterActivity extends ActionBarActivity {
 				});
 
 		queue.add(req);
+		Common.initializeProgressBar(this, "signup...");
 	}
 
 	private void clearRegisterInfo() {
