@@ -1,10 +1,13 @@
 package com.appfountain;
 
+import com.appfountain.util.Common;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 /**
  * 開発用，全ての画面へ遷移可能な画面
@@ -15,6 +18,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		if(Common.isInternetAvailable(this)) {
+	        Toast.makeText(this, "インターネットが利用出来ます", Toast.LENGTH_SHORT).show();
+		}else {
+	        Toast.makeText(this, "インターネットに接続されていません", Toast.LENGTH_SHORT).show();
+		}
 
 		findViewById(R.id.move_to_login_activity_button).setOnClickListener(
 				this);
