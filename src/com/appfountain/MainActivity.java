@@ -13,16 +13,18 @@ import android.widget.Toast;
  * 開発用，全ての画面へ遷移可能な画面
  */
 public class MainActivity extends ActionBarActivity implements OnClickListener {
+	private static final String TAG = MainActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		if(Common.isInternetAvailable(this)) {
-	        Toast.makeText(this, "インターネットが利用出来ます", Toast.LENGTH_SHORT).show();
-		}else {
-	        Toast.makeText(this, "インターネットに接続されていません", Toast.LENGTH_SHORT).show();
+
+		if (Common.isInternetAvailable(this)) {
+			Toast.makeText(this, "インターネットが利用出来ます", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, "インターネットに接続されていません", Toast.LENGTH_SHORT)
+					.show();
 		}
 
 		findViewById(R.id.move_to_login_activity_button).setOnClickListener(
@@ -36,8 +38,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				.setOnClickListener(this);
 		findViewById(R.id.move_to_user_page_activity_button)
 				.setOnClickListener(this);
-		findViewById(R.id.move_to_register_activity_button)
-		.setOnClickListener(this);
+		findViewById(R.id.move_to_register_activity_button).setOnClickListener(
+				this);
 	}
 
 	@Override

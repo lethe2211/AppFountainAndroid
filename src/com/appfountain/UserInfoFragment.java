@@ -10,6 +10,7 @@ import android.view.ViewGroup;
  * UserPageActivityで，ユーザ情報を表示するFragment
  */
 public class UserInfoFragment extends Fragment {
+	private static final String TAG = UserInfoFragment.class.getSimpleName();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

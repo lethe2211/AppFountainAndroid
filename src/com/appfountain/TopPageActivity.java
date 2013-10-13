@@ -8,6 +8,7 @@ import android.view.Menu;
  * トップページ
  */
 public class TopPageActivity extends ActionBarActivity {
+	private static final String TAG = TopPageActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

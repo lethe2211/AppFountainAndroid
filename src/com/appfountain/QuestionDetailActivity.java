@@ -1,7 +1,6 @@
 package com.appfountain;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
@@ -9,6 +8,8 @@ import android.view.Menu;
  * 質問詳細ページ：コメント等
  */
 public class QuestionDetailActivity extends ActionBarActivity {
+	private static final String TAG = QuestionDetailActivity.class
+			.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

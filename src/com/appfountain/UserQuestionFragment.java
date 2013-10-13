@@ -10,6 +10,8 @@ import android.view.ViewGroup;
  * UserPageActivityで，ユーザの質問情報を表示するFragment
  */
 public class UserQuestionFragment extends Fragment {
+	private static final String TAG = UserQuestionFragment.class
+			.getSimpleName();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

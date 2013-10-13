@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarActivity;
  * ViewPagerとTABの双方に対応させている
  */
 public class UserPageActivity extends ActionBarActivity implements TabListener {
+	private static final String TAG = UserPageActivity.class.getSimpleName();
 
 	UserPagePagerAdapter pagerAdapter;
 	ViewPager viewPager;
@@ -41,10 +42,13 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
-		
-		actionBar.addTab(actionBar.newTab().setText("ユーザ情報").setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText("質問一覧").setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText("回答一覧").setTabListener(this));
+
+		actionBar.addTab(actionBar.newTab().setText("ユーザ情報")
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText("質問一覧")
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText("回答一覧")
+				.setTabListener(this));
 	}
 
 	@Override
