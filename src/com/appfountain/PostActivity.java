@@ -8,6 +8,7 @@ import android.view.Menu;
  * 質問投稿ページ
  */
 public class PostActivity extends ActionBarActivity {
+	private static final String TAG = PostActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -9,6 +9,8 @@ import android.view.Menu;
  * タイトル・タグ検索，カテゴリ検索
  */
 public class SearchResultActivity extends ActionBarActivity {
+	private static final String TAG = SearchResultActivity.class
+			.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

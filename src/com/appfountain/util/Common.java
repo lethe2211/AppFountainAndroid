@@ -7,8 +7,6 @@ import java.util.Properties;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -24,6 +22,8 @@ import com.appfountain.model.UserContainer;
  * どこでも使えるCommonクラス
  */
 public class Common {
+	private static final String TAG = Common.class.getSimpleName();
+	
 	private static final String USER_NAME = "user_name";
 	private static final String USER_PASSWORD = "user_password";
 	private static final String USER_RK = "user_rk";
@@ -40,8 +40,7 @@ public class Common {
 	 */
 	public static void initializeProgressBar(ActionBarActivity parent,
 			String message) {
-		progressDialog = ProgressDialogFragment
-				.newInstance(message);
+		progressDialog = ProgressDialogFragment.newInstance(message);
 		progressDialog.show(parent.getSupportFragmentManager(),
 				"progress_dialog_fragment");
 	}

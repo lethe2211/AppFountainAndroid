@@ -6,7 +6,6 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -14,8 +13,8 @@ import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response.Listener;
 import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.external.GsonRequest;
@@ -27,6 +26,8 @@ import com.appfountain.util.Common;
  * ユーザの新規登録のための画面
  */
 public class RegisterActivity extends ActionBarActivity {
+	private static final String TAG = RegisterActivity.class.getSimpleName();
+
 	private final String url = Common.getApiBaseUrl(this) + "user/register";
 	private static final int MAX_NAME_LENGTH = 32;
 	private static final int MIN_NAME_LENGTH = 4;
@@ -66,20 +67,20 @@ public class RegisterActivity extends ActionBarActivity {
 									Toast.LENGTH_LONG).show();
 							return;
 						}
-						registerButtonClicked(registerName.getText()
-								.toString(), registerPassword.getText()
-								.toString(), registerPasswordConfirm
-								.getText().toString());
+						registerButtonClicked(
+								registerName.getText().toString(),
+								registerPassword.getText().toString(),
+								registerPasswordConfirm.getText().toString());
 					}
 				});
 	}
-	
+
 	// 通信してユーザ登録する
 	private void registerButtonClicked(final String name,
 			final String password, final String passwordConfirm) {
 		if (!isValidInput(name, password, passwordConfirm))
 			return;
-		
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
 		params.put("password", Common.md5Hex(password));
@@ -126,7 +127,8 @@ public class RegisterActivity extends ActionBarActivity {
 	private boolean isValidInput(String name, String password,
 			String passwordConfirm) {
 		if (!(MIN_NAME_LENGTH <= name.length() && name.length() <= MAX_NAME_LENGTH)) {
-			Toast.makeText(this, getString(R.string.register_name_length_invalid),
+			Toast.makeText(this,
+					getString(R.string.register_name_length_invalid),
 					Toast.LENGTH_SHORT).show();
 			return false;
 		}

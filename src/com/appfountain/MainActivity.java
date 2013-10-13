@@ -13,6 +13,7 @@ import android.widget.Toast;
  * 開発用，全ての画面へ遷移可能な画面
  */
 public class MainActivity extends ActionBarActivity implements OnClickListener {
+	private static final String TAG = MainActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
