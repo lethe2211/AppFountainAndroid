@@ -32,3 +32,4 @@ proguard/
 .settings/
 build.gradle
 src/config.properties
+project.properties
