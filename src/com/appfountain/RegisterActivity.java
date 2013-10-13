@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -78,7 +79,7 @@ public class RegisterActivity extends ActionBarActivity {
 			final String password, final String passwordConfirm) {
 		if (!isValidInput(name, password, passwordConfirm))
 			return;
-
+		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
 		params.put("password", Common.md5Hex(password));
@@ -137,7 +138,7 @@ public class RegisterActivity extends ActionBarActivity {
 			return false;
 		}
 
-		if (password.equals(passwordConfirm)) {
+		if (!password.equals(passwordConfirm)) {
 			Toast.makeText(this, getString(R.string.register_password_invalid),
 					Toast.LENGTH_SHORT).show();
 			return false;
