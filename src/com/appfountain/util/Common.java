@@ -23,7 +23,7 @@ import com.appfountain.model.UserContainer;
  */
 public class Common {
 	private static final String TAG = Common.class.getSimpleName();
-	
+
 	private static final String USER_NAME = "user_name";
 	private static final String USER_PASSWORD = "user_password";
 	private static final String USER_RK = "user_rk";
@@ -49,7 +49,7 @@ public class Common {
 	 * プログレスバーを閉じる
 	 */
 	public static void closeProgressBar() {
-		if (progressDialog != null && progressDialog.isVisible()) {
+		if (progressDialog != null) {
 			progressDialog.dismiss();
 		}
 	}
@@ -100,7 +100,7 @@ public class Common {
 	 * @return
 	 */
 	public static String md5Hex(String str) {
-		return new String(Hex.encodeHex(DigestUtils.sha256(str)));
+		return new String(Hex.encodeHex(DigestUtils.md5(str)));
 	}
 
 	/**

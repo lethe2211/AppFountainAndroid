@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.Volley;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.User;
@@ -44,6 +45,8 @@ public class LoginActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_login);
 
 		initViews();
+
+		queue = Volley.newRequestQueue(this);
 	}
 
 	private void initViews() {
