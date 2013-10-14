@@ -5,9 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * ユーザ情報を保持する SharedPreferenceで情報を保持するためにSerializableを実装する
- * 
+/** 
  * "created":"2013-10-04T17:23:11","invalid_count":0,
  * "name":"aaaaaa","useful_count":0,"down":0,"up":0,
  * "rk":"_ZywdneWS5kDr1zY5vN6XEIDB9WFO0f7","id":1

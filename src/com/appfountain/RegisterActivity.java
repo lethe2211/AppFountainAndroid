@@ -91,7 +91,7 @@ public class RegisterActivity extends ActionBarActivity {
 					@Override
 					public void onResponse(UserSource response) {
 						Common.closeProgressBar();
-						if (response.getStatus()) {
+						if (response.isSuccess()) {
 							// User情報を端末へ登録&キャッシュ
 							User user = response.getUser();
 							Common.registerUser(self, name, password,
