@@ -7,7 +7,7 @@ class BaseSource {
 	private int code;
 	private String message;
 	
-	public Boolean getStatus() {
+	public Boolean isSuccess() {
 		return status;
 	}
 	

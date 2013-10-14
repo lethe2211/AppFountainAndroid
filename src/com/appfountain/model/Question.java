@@ -50,7 +50,19 @@ public class Question {
 		return title;
 	}
 
-	public String getBody() {
+	public String getTitle(int maxTitleSize) {
+		if (title.length() > maxTitleSize)
+			return title.substring(0, maxTitleSize);
+		return title;
+	}
+
+	public String getBdy() {
+		return body;
+	}
+
+	public String getBody(int maxBodySize) {
+		if (body.length() > maxBodySize)
+			return body.substring(0, maxBodySize);
 		return body;
 	}
 
