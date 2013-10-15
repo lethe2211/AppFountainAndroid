@@ -38,5 +38,7 @@
     <!-- SearchResultActivity -->
     <string name="title_activity_search_result">SearchResultActivity</string>
     <string name="activity_search_result_text">SearchResultActivity</string>
+    <string name="drawer_open">open!</string>
+    <string name="drawer_close">close!</string>
 
 </resources>

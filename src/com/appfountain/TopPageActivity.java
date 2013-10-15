@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,6 +42,10 @@ public class TopPageActivity extends ActionBarActivity {
 	private boolean isLast = false;
 	private List<Question> questions = new ArrayList<Question>();
 	private QuestionListAdapter questionListAdapter;
+	
+	private DrawerLayout drawerLayout; // DrawerLayout(ナビゲーションドロワーを使うのに必要なレイアウト)
+	private ListView mDrawerList; // ナビゲーションドロワーの中にあるListView(デバッグ用)
+    private ActionBarDrawerToggle drawerToggle; // ActionBarのアイコンをタップすると，ナビゲーションドロワーが開くようにする
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +57,47 @@ public class TopPageActivity extends ActionBarActivity {
 				R.layout.list_item_question, questions);
 		questionListView.setAdapter(questionListAdapter);
 		questionListView.setOnScrollListener(new EndlessScrollListener());
+		
+		// ActionBar中のアイコンのタップを有効にする
+		ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        
+		// DrawerLayout
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+ 
+        // ナビゲーションドロワーを開く/閉じるトグルボタン
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.drawable.ic_launcher,
+                R.string.drawer_open,
+                R.string.drawer_close
+        ) {
+        	@Override
+            public void onDrawerClosed(View view) {
+                supportInvalidateOptionsMenu();
+            }
+ 
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                supportInvalidateOptionsMenu();
+            }
+        };
+        
+        // レイアウトにボタンを設定
+        drawerLayout.setDrawerListener(drawerToggle);
+        
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // ナビゲーションドロワー中のアプリアイコンがタップされたら
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 	@Override
 	protected void onResume() {
