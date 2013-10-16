@@ -43,9 +43,8 @@ public class TopPageActivity extends ActionBarActivity {
 	private List<Question> questions = new ArrayList<Question>();
 	private QuestionListAdapter questionListAdapter;
 	
-	private DrawerLayout drawerLayout; // DrawerLayout(ナビゲーションドロワーを使うのに必要なレイアウト)
-	private ListView mDrawerList; // ナビゲーションドロワーの中にあるListView(デバッグ用)
-    private ActionBarDrawerToggle drawerToggle; // ActionBarのアイコンをタップすると，ナビゲーションドロワーが開くようにする
+	private DrawerLayout drawerLayout; // DrawerLayout(NavigationDrawerを使うのに必要なレイアウト)
+    private ActionBarDrawerToggle drawerToggle; // ActionBar中のアイコンをタップすると，NavigationDrawerが開く/閉じるようにする
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,36 +62,26 @@ public class TopPageActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         
-		// DrawerLayout
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); // DrawerLayout
  
-        // ナビゲーションドロワーを開く/閉じるトグルボタン
+        // NavigationDrawerを開く/閉じるトグルボタン
         drawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
                 R.drawable.ic_launcher,
                 R.string.drawer_open,
                 R.string.drawer_close
-        ) {
-        	@Override
-            public void onDrawerClosed(View view) {
-                supportInvalidateOptionsMenu();
-            }
- 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                supportInvalidateOptionsMenu();
-            }
-        };
+        );
         
         // レイアウトにボタンを設定
         drawerLayout.setDrawerListener(drawerToggle);
         
 	}
 	
+	// よくわからないけど動く
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // ナビゲーションドロワー中のアプリアイコンがタップされたら
+        // ActionBar中のアプリアイコン(ホームボタン)がタップされたら
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
