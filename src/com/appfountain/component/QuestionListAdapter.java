@@ -2,16 +2,15 @@ package com.appfountain.component;
 
 import java.util.List;
 
-import com.appfountain.model.Question;
-import com.appfountain.R;
-
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.appfountain.R;
+import com.appfountain.model.Question;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 	private static final String TAG = QuestionListAdapter.class.getSimpleName();
