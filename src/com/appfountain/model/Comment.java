@@ -6,54 +6,55 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * {"valid":true,"body":"body","created":"2013-10-04T17:29:43","category_id":1,
- * "id":1,"user_id":1,"title":"\u305f\u3044\u308d\u3064","updated":
- * "2013-10-04T17:29:43"}
+ * 
+ * {"up":0,"useful":0,"user_id": 1,
+ * "user_name":"aaaaaa","body":"bodddddddddddddd", "created"
+ * :"2013-10-05T06:34:03","question_id":1,"updated":"2013-10-05T06:34:03"
+ * ,"id":3,"down":0}
  */
-public class Question {
+public class Comment {
 	private final int id;
-	private final int categoryId;
+	private final int questionId;
 	private final int userId;
-	private final String title;
+	private final String userName;
 	private final String body;
 	private final String created;
 	private Date _created = null;
 	private final String updated;
 	private Date _updated = null;
-	private final Boolean valid;
+	private final int up;
+	private final int down;
+	private final int useful;
 
-	public Question(int id, int categoryId, int userId, String title,
-			String body, String created, String updated, Boolean valid) {
+	public Comment(int id, int questionId, int userId, String userName,
+			String body, String created, String updated, int up, int down,
+			int useful) {
 		this.id = id;
-		this.categoryId = categoryId;
+		this.questionId = questionId;
 		this.userId = userId;
-		this.title = title;
+		this.userName = userName;
 		this.body = body;
 		this.created = created;
 		this.updated = updated;
-		this.valid = valid;
+		this.up = up;
+		this.down = down;
+		this.useful = useful;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public int getCategoryId() {
-		return categoryId;
+	public int getQuestionId() {
+		return questionId;
 	}
 
 	public int getUserId() {
 		return userId;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public String getTitle(int maxTitleSize) {
-		if (title.length() > maxTitleSize)
-			return title.substring(0, maxTitleSize);
-		return title;
+	public String getUserName() {
+		return userName;
 	}
 
 	public String getBody() {
@@ -102,7 +103,15 @@ public class Question {
 		return _updated;
 	}
 
-	public Boolean getValid() {
-		return valid;
+	public int getUp() {
+		return up;
+	}
+
+	public int getDown() {
+		return down;
+	}
+
+	public int getUseful() {
+		return useful;
 	}
 }
