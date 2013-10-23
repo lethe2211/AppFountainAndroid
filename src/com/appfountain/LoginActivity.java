@@ -80,8 +80,11 @@ public class LoginActivity extends ActionBarActivity {
 		params.put("name", name);
 		params.put("password", Common.md5Hex(password));
 
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(Common.getPostHeader(this), "true"); // 値はなんでも良い
+		
 		GsonRequest<UserSource> req = new GsonRequest<UserSource>(Method.POST,
-				url, UserSource.class, params, null,
+				url, UserSource.class, params, headers,
 				new Listener<UserSource>() {
 					@Override
 					public void onResponse(UserSource response) {
