@@ -12,8 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,6 +98,19 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 		// 以下，リストに必要なカテゴリを加えていく
 		categoryListAdapter.add("windows");
+
+		categoryListView
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						ListView listView = (ListView) parent;
+						String item = (String) listView
+								.getItemAtPosition(position);
+						Log.d("click", String.format("onItemClick: %s", item));
+					}
+
+				});
 
 	}
 
