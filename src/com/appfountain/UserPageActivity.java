@@ -1,5 +1,8 @@
 package com.appfountain;
 
+import com.appfountain.model.User;
+import com.appfountain.util.Common;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +28,10 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_page);
+
+		User user = Common.getUser();
+		if (user == null)
+			finish();
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

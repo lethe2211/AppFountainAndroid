@@ -30,6 +30,7 @@ public class Common {
 
 	private static User _user = null;
 	private static String _baseApiUrl = null;
+	private static String _postHeader = null;
 	private static ProgressDialogFragment progressDialog;
 
 	/**
@@ -91,6 +92,25 @@ public class Common {
 			_baseApiUrl = props.getProperty("baseapiurl");
 		}
 		return _baseApiUrl;
+	}
+	
+	/**
+	 * post headerのキー取り出す
+	 * @return
+	 */
+	public static String getPostHeader(Context context) {
+		if (_postHeader == null) {
+			Properties props = new Properties();
+			InputStream inputStream = context.getClass().getClassLoader()
+					.getResourceAsStream("config.properties");
+			try {
+				props.load(inputStream);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			_postHeader = props.getProperty("postheader");
+		}
+		return _postHeader;
 	}
 
 	/**
