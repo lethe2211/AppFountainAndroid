@@ -60,7 +60,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		questionListView.setAdapter(questionListAdapter);
 		questionListView.setOnScrollListener(this);
 
-		
 		// ActionBar中のアイコンのタップを有効にする
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
