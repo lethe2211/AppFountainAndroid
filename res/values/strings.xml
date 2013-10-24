@@ -33,12 +33,15 @@
 
     <!-- QuestionDetailActivity -->
     <string name="title_activity_question_detail">QuestionDetailActivity</string>
-    <string name="activity_question_detail_text">QuestionDetailActivity</string>
+    
 
     <!-- SearchResultActivity -->
-    <string name="title_activity_search_result">SearchResultActivity</string>
+    <string name="title_activity_search_result">SearchResultActivity</string><string name="activity_question_detail_text">QuestionDetailActivity</string>
     <string name="activity_search_result_text">SearchResultActivity</string>
     <string name="drawer_open">open!</string>
     <string name="drawer_close">close!</string>
+    <string name="search_text">検索</string>
+    <string name="search_hint">検索語を入力</string>
+    <string name="category_text">カテゴリ</string>
 
 </resources>
