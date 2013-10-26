@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.appfountain.util.Common;
+
 /**
  * {"valid":true,"body":"body","created":"2013-10-04T17:29:43","category_id":1,
  * "id":1,"user_id":1,"title":"\u305f\u3044\u308d\u3064","updated":
@@ -12,7 +14,8 @@ import java.util.Locale;
  */
 public class Question {
 	private final int id;
-	private final int categoryId;
+	private final int category_id;
+	private Category _category = null;
 	private final int userId;
 	private final String title;
 	private final String body;
@@ -25,7 +28,7 @@ public class Question {
 	public Question(int id, int categoryId, int userId, String title,
 			String body, String created, String updated, Boolean valid) {
 		this.id = id;
-		this.categoryId = categoryId;
+		this.category_id = categoryId;
 		this.userId = userId;
 		this.title = title;
 		this.body = body;
@@ -39,7 +42,14 @@ public class Question {
 	}
 
 	public int getCategoryId() {
-		return categoryId;
+		return category_id;
+	}
+
+	public Category getCategory() {
+		if (_category == null) {
+			_category = Common.getCategory(category_id);
+		}
+		return _category;
 	}
 
 	public int getUserId() {

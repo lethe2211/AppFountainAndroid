@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appfountain.R;
@@ -42,6 +43,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 					.findViewById(R.id.list_item_question_title);
 			holder.snippet = (TextView) view
 					.findViewById(R.id.list_item_question_snippet);
+			holder.category = (ImageView) view
+					.findViewById(R.id.list_item_question_category);
 			holder.created = (TextView) view
 					.findViewById(R.id.list_item_question_created);
 
@@ -53,6 +56,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		Question q = questions.get(position);
 		holder.title.setText(q.getTitle(MAX_TITLE_SIZE));
 		holder.snippet.setText(q.getBody(MAX_SNIPPET_SIZE));
+		holder.category.setImageResource(q.getCategory().getDrawableId());
+		holder.created.setText(q.getCreatedString());
 
 		return view;
 	}
@@ -65,6 +70,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	static class QuestionItemHolder {
 		TextView title;
 		TextView snippet;
+		ImageView category;
 		TextView created;
 	}
 }
