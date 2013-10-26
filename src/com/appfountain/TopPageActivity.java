@@ -33,6 +33,7 @@ import com.appfountain.component.QuestionListAdapter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionsSource;
 import com.appfountain.model.Question;
+import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
 /*
@@ -47,6 +48,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	private boolean inError = false;
 	private List<Question> questions = new ArrayList<Question>();
 	private QuestionListAdapter questionListAdapter;
+	private UserContainer user = null;
 
 	private DrawerLayout drawerLayout; // DrawerLayout(NavigationDrawerを使うのに必要なレイアウト)
 	private ActionBarDrawerToggle drawerToggle; // ActionBar中のアイコンをタップすると，NavigationDrawerが開く/閉じるようにする
@@ -55,6 +57,8 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_top_page);
+
+		user = Common.getUserContainer(this);
 
 		questionListView = (ListView) findViewById(R.id.activity_top_page_question_list);
 		questionListAdapter = new QuestionListAdapter(this,
@@ -123,15 +127,35 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 	}
 
-	// FIXME:よくわからないけど動く
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.top_page, menu);
+		return true;
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// ActionBar中のアプリアイコン(ホームボタン)がタップされたら
 		if (drawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
 
+		// menuボタンのいずれかがタップ
+		switch (item.getItemId()) {
+		case R.id.top_page_move_post_question:
+			// ログイン済みなら質問投稿画面へ
+			if (user != null) {
+				Intent intent = new Intent(TopPageActivity.this,
+						PostActivity.class);
+				startActivity(intent);
+			} else {
+				// TODO ログイン画面へいい感じに(メッセージつけて)遷移
+				Toast.makeText(this, "ログインしてください", Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
@@ -141,13 +165,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		if (hasNext() && !inError) {
 			loadPage();
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.top_page, menu);
-		return true;
 	}
 
 	@Override

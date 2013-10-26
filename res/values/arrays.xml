@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="Categories">
+        <item>カテゴリを選択</item>
+        <item>ウィジェット</item>
+        <item>エンタテイメント</item>
+        <item>カスタマイズ</item>
+        <item>コミック</item>
+        <item>ショッピング</item>
+        <item>スポーツ</item>
+        <item>ソーシャルネットワーク</item>
+        <item>ツール</item>
+        <item>ニュース＆雑誌</item>
+        <item>ビジネス</item>
+        <item>ファイナンス</item>
+        <item>メディア＆動画</item>
+        <item>ライフスタイル</item>
+        <item>ライブラリ＆デモ</item>
+        <item>ライブ壁紙</item>
+        <item>交通</item>
+        <item>仕事効率化</item>
+        <item>健康＆フィットネス</item>
+        <item>写真</item>
+        <item>医療</item>
+        <item>天気</item>
+        <item>教育</item>
+        <item>旅行＆地域</item>
+        <item>書籍＆文献</item>
+        <item>通信</item>
+        <item>音楽＆オーディオ</item>
+    </string-array>
+
+</resources>

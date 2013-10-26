@@ -6,17 +6,19 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
 import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.appfountain.component.InputJapaneseFilter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.User;
@@ -54,6 +56,9 @@ public class LoginActivity extends ActionBarActivity {
 		loginName = (EditText) findViewById(R.id.login_name);
 		loginPassword = (EditText) findViewById(R.id.login_password);
 
+		loginName.setFilters(filters);
+		loginPassword.setFilters(filters);
+
 		// ボタンのinitialize
 		findViewById(R.id.login_button).setOnClickListener(
 				new OnClickListener() {
@@ -76,13 +81,14 @@ public class LoginActivity extends ActionBarActivity {
 		if (!isValidInput(name, password))
 			return;
 
+		final String md5Password = Common.md5Hex(password);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
-		params.put("password", Common.md5Hex(password));
+		params.put("password", md5Password);
 
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put(Common.getPostHeader(this), "true"); // 値はなんでも良い
-		
+
 		GsonRequest<UserSource> req = new GsonRequest<UserSource>(Method.POST,
 				url, UserSource.class, params, headers,
 				new Listener<UserSource>() {
@@ -92,9 +98,8 @@ public class LoginActivity extends ActionBarActivity {
 						if (response.isSuccess()) {
 							// User情報を端末へ登録&キャッシュ
 							User user = response.getUser();
-							Common.registerUser(self, name, password,
-									user.getRk());
-							Common.setUser(user);
+							Common.setUserContainer(self, user.getId(),
+									user.getName(), md5Password, user.getRk());
 
 							// TopPageへの遷移
 							Intent intent = new Intent(self,
@@ -145,4 +150,7 @@ public class LoginActivity extends ActionBarActivity {
 		loginName.setText("");
 		loginPassword.setText("");
 	}
+
+	// 入力文字を制限するフィルター
+	private InputFilter[] filters = { new InputJapaneseFilter() };
 }
