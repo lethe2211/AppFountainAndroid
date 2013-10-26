@@ -22,7 +22,6 @@ import com.appfountain.component.QuestionListAdapter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionsSource;
 import com.appfountain.model.Question;
-import com.appfountain.model.User;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
