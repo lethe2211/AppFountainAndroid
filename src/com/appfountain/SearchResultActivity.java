@@ -54,7 +54,7 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 		questionListView.setOnScrollListener(this);
 		
 		intent = getIntent();
-		category_id = intent.getIntExtra("category_id", -1); // -1ならエラー(エラー処理書いてない)
+		category_id = intent.getIntExtra("category_id", 0); // 0ならエラー TODO:エラー処理
 		Log.d("category_id", Integer.toString(category_id));
 		
 		

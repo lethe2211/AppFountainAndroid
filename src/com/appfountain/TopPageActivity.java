@@ -117,9 +117,11 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 						String item = (String) listView
 								.getItemAtPosition(position); // 押されたリスト要素の文字列
 						Log.d("click", String.format("onItemClick: %s", item));
+						
+						// 画面遷移
 						Intent intent = new Intent(TopPageActivity.this,
 								SearchResultActivity.class);
-						intent.putExtra("category_id", position);
+						intent.putExtra("category_id", position + 1); // category_idを持ち越す
 						startActivity(intent);
 					}
 
