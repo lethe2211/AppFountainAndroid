@@ -56,8 +56,8 @@
                     android:layout_alignLeft="@+id/list_item_question_category"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/category_1_app_widgets" />
-
             </RelativeLayout>
 
             <LinearLayout
