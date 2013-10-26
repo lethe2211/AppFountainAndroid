@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.appfountain.component.InputJapaneseFilter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.User;
@@ -56,6 +58,9 @@ public class RegisterActivity extends ActionBarActivity {
 		registerPassword = (EditText) findViewById(R.id.register_password);
 		registerPasswordConfirm = (EditText) findViewById(R.id.register_password_confirm);
 
+		registerName.setFilters(filters);
+		registerPassword.setFilters(filters);
+
 		findViewById(R.id.register_button).setOnClickListener(
 				new OnClickListener() {
 					@Override
@@ -84,7 +89,7 @@ public class RegisterActivity extends ActionBarActivity {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
 		params.put("password", Common.md5Hex(password));
-		
+
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put(Common.getPostHeader(this), "true"); // 値はなんでも良い
 
@@ -158,4 +163,7 @@ public class RegisterActivity extends ActionBarActivity {
 		registerPassword.setText("");
 		registerPasswordConfirm.setText("");
 	}
+
+	// 入力文字を制限するフィルター
+	private InputFilter[] filters = { new InputJapaneseFilter() };
 }
