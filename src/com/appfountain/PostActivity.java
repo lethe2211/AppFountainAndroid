@@ -20,7 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionSource;
-import com.appfountain.model.User;
+import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
 /**
@@ -34,7 +34,7 @@ public class PostActivity extends ActionBarActivity {
 	private final String url = Common.getApiBaseUrl(this) + "question";
 
 	private PostActivity self = this;
-	private User user = null;
+	private UserContainer user = null;
 	private EditText titleEditText;
 	private EditText bodyEditText;
 	private Spinner categorySpinner;
@@ -46,7 +46,7 @@ public class PostActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
 
-		user = Common.getUser();
+		user = Common.getUserContainer(this);
 		if (user == null)
 			finish();
 

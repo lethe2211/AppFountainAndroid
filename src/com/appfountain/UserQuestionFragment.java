@@ -23,6 +23,7 @@ import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionsSource;
 import com.appfountain.model.Question;
 import com.appfountain.model.User;
+import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
 /*
@@ -32,7 +33,7 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 	private static final String TAG = UserQuestionFragment.class
 			.getSimpleName();
 
-	private User user = null;
+	private UserContainer userContainer = null;
 	private Fragment self = this;
 	private ListView questionListView;
 	private boolean inError = false;
@@ -43,8 +44,8 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		user = Common.getUser();
-		if (user == null)
+		userContainer = Common.getUserContainer(this.getActivity());
+		if (userContainer == null)
 			this.getActivity().finish();
 	}
 
@@ -79,8 +80,8 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 
 		int next = questions.size();
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
-				Method.GET, getUrl(user) + "?count=5&next=" + next,
-				QuestionsSource.class, null, null,
+				Method.GET, getUrl(userContainer.getId()) + "?count=5&next="
+						+ next, QuestionsSource.class, null, null,
 				new Listener<QuestionsSource>() {
 					@Override
 					public void onResponse(QuestionsSource response) {
@@ -114,11 +115,11 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 	/**
 	 * userの質問取得APIのURL
 	 * 
-	 * @param user
+	 * @param userId
 	 * @return
 	 */
-	private String getUrl(User user) {
-		return Common.getApiBaseUrl(this.getActivity()) + "user/"
-				+ user.getId() + "/question";
+	private String getUrl(int userId) {
+		return Common.getApiBaseUrl(this.getActivity()) + "user/" + userId
+				+ "/question";
 	}
 }

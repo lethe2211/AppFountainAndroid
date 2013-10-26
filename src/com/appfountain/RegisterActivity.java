@@ -86,9 +86,10 @@ public class RegisterActivity extends ActionBarActivity {
 		if (!isValidInput(name, password, passwordConfirm))
 			return;
 
+		final String md5Password = Common.md5Hex(password);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
-		params.put("password", Common.md5Hex(password));
+		params.put("password", md5Password);
 
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put(Common.getPostHeader(this), "true"); // 値はなんでも良い
@@ -102,9 +103,8 @@ public class RegisterActivity extends ActionBarActivity {
 						if (response.isSuccess()) {
 							// User情報を端末へ登録&キャッシュ
 							User user = response.getUser();
-							Common.registerUser(self, name, password,
+							Common.setUserContainer(self, user.getId(), user.getName(), md5Password,
 									user.getRk());
-							Common.setUser(user);
 
 							// TopPageへの遷移
 							Intent intent = new Intent(self,

@@ -31,7 +31,7 @@ import com.appfountain.component.QuestionListAdapter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionsSource;
 import com.appfountain.model.Question;
-import com.appfountain.model.User;
+import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
 /*
@@ -46,7 +46,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	private boolean inError = false;
 	private List<Question> questions = new ArrayList<Question>();
 	private QuestionListAdapter questionListAdapter;
-	private User user = null;
+	private UserContainer user = null;
 
 	private DrawerLayout drawerLayout; // DrawerLayout(NavigationDrawerを使うのに必要なレイアウト)
 	private ActionBarDrawerToggle drawerToggle; // ActionBar中のアイコンをタップすると，NavigationDrawerが開く/閉じるようにする
@@ -56,7 +56,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_top_page);
 
-		user = Common.getUser();
+		user = Common.getUserContainer(this);
 
 		questionListView = (ListView) findViewById(R.id.activity_top_page_question_list);
 		questionListAdapter = new QuestionListAdapter(this,
