@@ -1,13 +1,13 @@
 package com.appfountain;
 
-import com.appfountain.util.Common;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import com.appfountain.util.Common;
 
 /**
  * 開発用，全ての画面へ遷移可能な画面
@@ -31,6 +31,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				this);
 		findViewById(R.id.move_to_post_activity_button)
 				.setOnClickListener(this);
+		// findViewById(R.id.move_to_post_body_activity_button)
+		// .setOnClickListener(this);
 		findViewById(R.id.move_to_question_detail_activity_button)
 				.setOnClickListener(this);
 		findViewById(R.id.move_to_top_activity_button).setOnClickListener(this);
@@ -52,6 +54,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		case R.id.move_to_post_activity_button:
 			intent = new Intent(MainActivity.this, PostActivity.class);
 			break;
+		// case R.id.move_to_post_body_activity_button:
+		// intent = new Intent(MainActivity.this, PostBodyActivity.class);
+		// break;
 		case R.id.move_to_question_detail_activity_button:
 			intent = new Intent(MainActivity.this, QuestionDetailActivity.class);
 			break;
