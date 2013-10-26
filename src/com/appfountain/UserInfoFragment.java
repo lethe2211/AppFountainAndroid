@@ -28,6 +28,7 @@ public class UserInfoFragment extends Fragment {
 
 	private Fragment self = this;
 	private UserContainer userContainer = null;
+	private User user = null;
 
 	private TextView name;
 	private TextView created;
@@ -36,7 +37,6 @@ public class UserInfoFragment extends Fragment {
 	private TextView usefulCount;
 	private TextView upCount;
 	private TextView downCount;
-	private Boolean hasLoaded = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,8 +72,10 @@ public class UserInfoFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 
-		if (!hasLoaded)
+		if (user == null)
 			loadUserInfo();
+		else
+			showUserInfo(user);
 	}
 
 	private void loadUserInfo() {
@@ -85,8 +87,8 @@ public class UserInfoFragment extends Fragment {
 					@Override
 					public void onResponse(UserSource response) {
 						if (response.isSuccess()) {
-							showUserInfo(response.getUser());
-							hasLoaded = true;
+							user = response.getUser();
+							showUserInfo(user);
 						} else {
 							Toast.makeText(self.getActivity(),
 									response.getMessage(), Toast.LENGTH_SHORT)
