@@ -1,8 +1,5 @@
 package com.appfountain;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,9 +26,6 @@ import com.appfountain.util.Common;
 public class UserInfoFragment extends Fragment {
 	private static final String TAG = UserInfoFragment.class.getSimpleName();
 
-	private final String url = Common.getApiBaseUrl(this.getActivity())
-			+ "user/info";
-
 	private Fragment self = this;
 	private UserContainer userContainer = null;
 
@@ -42,6 +36,7 @@ public class UserInfoFragment extends Fragment {
 	private TextView usefulCount;
 	private TextView upCount;
 	private TextView downCount;
+	private Boolean hasLoaded = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,25 +65,28 @@ public class UserInfoFragment extends Fragment {
 		upCount = (TextView) v.findViewById(R.id.fragment_user_info_up_value);
 		downCount = (TextView) v
 				.findViewById(R.id.fragment_user_info_down_value);
-
-		loadUserInfo();
-
 		return v;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		if (!hasLoaded)
+			loadUserInfo();
 	}
 
 	private void loadUserInfo() {
 		RequestQueue queue = Volley.newRequestQueue(this.getActivity());
 
-		Map<String, String> params = new HashMap<String, String>(1);
-		params.put("id", "" + userContainer.getId());
-
 		GsonRequest<UserSource> req = new GsonRequest<UserSource>(Method.GET,
-				url, UserSource.class, params, null,
+				getUrl(userContainer.getId()), UserSource.class, null, null,
 				new Listener<UserSource>() {
 					@Override
 					public void onResponse(UserSource response) {
 						if (response.isSuccess()) {
 							showUserInfo(response.getUser());
+							hasLoaded = true;
 						} else {
 							Toast.makeText(self.getActivity(),
 									response.getMessage(), Toast.LENGTH_SHORT)
@@ -105,14 +103,17 @@ public class UserInfoFragment extends Fragment {
 		queue.add(req);
 	}
 
+	private String getUrl(int id) {
+		return Common.getApiBaseUrl(this.getActivity()) + "user/info?id=" + id;
+	}
+
 	private void showUserInfo(User user) {
 		name.setText(user.getName());
 		created.setText(user.getCreatedString());
-		// TODO まだ鯖側実装してない
-		// totalQuestionCount(user.get)
-		// totalComme
-		usefulCount.setText("" + user.getUsefulCount());
-		upCount.setText("" + user.getUp());
-		downCount.setText("" + user.getDown());
+		totalQuestionCount.setText(user.getQuestionCount() + " 件");
+		totalCommentCount.setText(user.getCommentCount() + " 件");
+		usefulCount.setText(user.getUsefulCount() + " 回");
+		upCount.setText(user.getUp() + " 回");
+		downCount.setText(user.getDown() + " 回");
 	}
 }
