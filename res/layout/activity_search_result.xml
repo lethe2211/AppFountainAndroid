@@ -13,4 +13,10 @@
         android:layout_height="wrap_content"
         android:text="@string/activity_search_result_text" />
 
+    <ListView
+        android:id="@+id/activity_top_page_question_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ListView>
+
 </RelativeLayout>

@@ -1,8 +1,11 @@
 package com.appfountain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import android.R.string;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -92,12 +95,14 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 		// ListViewとそれに対応するアダプタ
 		final ListView categoryListView = (ListView) findViewById(R.id.activity_top_page_category_list);
-		final ArrayAdapter<String> categoryListAdapter = new ArrayAdapter<String>(
-				this, R.layout.list_item_category); // list_item_category.xmlをレイアウトに指定(R.layout.simple_list_item_1と中身は同じ)
-		categoryListView.setAdapter(categoryListAdapter);
+		ArrayList<String> categories = new ArrayList<String>(Arrays.asList(
+				"ウィジェット", "エンタテイメント", "カスタマイズ", "コミック", "ショッピング", "スポーツ",
+				"ソーシャルネットワーク"));
 
-		// 以下，リストに必要なカテゴリを加えていく
-		categoryListAdapter.add("windows");
+		final ArrayAdapter<String> categoryListAdapter = new ArrayAdapter<String>(
+				this, R.layout.list_item_category, categories); // list_item_category.xmlをレイアウトに指定(R.layout.simple_list_item_1と中身は同じ)
+		categoryListView.setAdapter(categoryListAdapter);
+		categoryListView.setOnScrollListener(this);
 
 		categoryListView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,8 +111,12 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 							int position, long id) {
 						ListView listView = (ListView) parent;
 						String item = (String) listView
-								.getItemAtPosition(position);
+								.getItemAtPosition(position); // 押されたリスト要素の文字列
 						Log.d("click", String.format("onItemClick: %s", item));
+						Intent intent = new Intent(TopPageActivity.this,
+								SearchResultActivity.class);
+						intent.putExtra("category_id", position);
+						startActivity(intent);
 					}
 
 				});
@@ -174,7 +183,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	private void showErrorMessage() {
 		inError = true;
 
-		Toast.makeText(this, "Error occurd\nSomething wrong...",
+		Toast.makeText(this, "Error occurred\nSomething wrong...",
 				Toast.LENGTH_SHORT).show();
 	}
 }
