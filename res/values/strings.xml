@@ -16,7 +16,7 @@
     <string name="register_password_invalid">パスワードが一致していません</string>
     <string name="register_name_length_invalid">usernameは4文字以上32文字以内にしてください</string>
     <string name="register_password_too_short">パスワードは4文字以上にしてください</string>
-        
+
     <!-- TopPageActivity -->
     <string name="title_activity_top_page">TopPageActivity</string>
     <string name="activity_top_page_text">TopPageActivity</string>
@@ -24,6 +24,15 @@
     <!-- PostActivity -->
     <string name="title_activity_post">PostActivity</string>
     <string name="activity_post_text">PostActivity</string>
+    <string name="category_text">カテゴリ</string>
+    <string name="post_category_spinner_prompt">カテゴリを選択</string>
+    <string name="post_ok">投稿する</string>
+
+    <!-- PostBodyActivity -->
+    <string name="title_activity_post_body">PostBodyActivity</string>
+    <string name="post_body_title">質問詳細</string>
+    <string name="post_body_ok">OK</string>
+    <string name="post_body_placeholder">本文を入力して下さい</string>
 
     <!-- UserPageActivity -->
     <string name="title_activity_user_page">UserPageActivity</string>
@@ -33,15 +42,14 @@
 
     <!-- QuestionDetailActivity -->
     <string name="title_activity_question_detail">QuestionDetailActivity</string>
-    
 
     <!-- SearchResultActivity -->
-    <string name="title_activity_search_result">SearchResultActivity</string><string name="activity_question_detail_text">QuestionDetailActivity</string>
+    <string name="title_activity_search_result">SearchResultActivity</string>
+    <string name="activity_question_detail_text">QuestionDetailActivity</string>
     <string name="activity_search_result_text">SearchResultActivity</string>
     <string name="drawer_open">open!</string>
     <string name="drawer_close">close!</string>
     <string name="search_text">検索</string>
     <string name="search_hint">検索語を入力</string>
-    <string name="category_text">カテゴリ</string>
 
 </resources>

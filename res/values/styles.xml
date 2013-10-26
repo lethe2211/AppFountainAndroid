@@ -17,4 +17,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="OkButton">
+        <item name="android:background">@drawable/ok_button_background</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">42dip</item>
+        <item name="android:layout_margin">2dip</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 </resources>
