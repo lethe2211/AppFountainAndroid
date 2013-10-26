@@ -28,11 +28,12 @@ import com.appfountain.model.UserContainer;
 public class Common {
 	private static final String TAG = Common.class.getSimpleName();
 
+	private static final String USER_ID = "user_id";
 	private static final String USER_NAME = "user_name";
 	private static final String USER_PASSWORD = "user_password";
 	private static final String USER_RK = "user_rk";
 
-	private static User _user = null;
+	private static UserContainer _user = null;
 	private static String _baseApiUrl = null;
 	private static String _postHeader = null;
 	private static ProgressDialogFragment progressDialog;
@@ -186,54 +187,48 @@ public class Common {
 	 * Preferenceへの保存
 	 * 
 	 * @param context
+	 * @param id 
 	 * @param name
 	 * @param password
 	 * @param rk
 	 */
-	public static void registerUser(Context context, String name,
+	public static UserContainer setUserContainer(Context context, int id, String name,
 			String password, String rk) {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Editor editor = pref.edit();
+		editor.putInt(USER_ID, id);
 		editor.putString(USER_NAME, name);
 		editor.putString(USER_PASSWORD, md5Hex(password));
 		editor.putString(USER_RK, rk);
 		editor.commit();
+		
+		_user = new UserContainer(id, name, password, rk);
+		return _user;
 	}
 
 	/**
-	 * Preferenceから取得（name及びpasswordのみ）
+	 * Preferenceから取得
 	 * 
 	 * @param context
 	 * @return
 	 */
-	public static UserContainer fetchUser(Context context) {
+	public static UserContainer getUserContainer(Context context) {
+		// キャッシュがあればそれを返す
+		if (_user != null)
+			return _user; 
+		
+		// 無ければSharedPreferencesから取得
 		UserContainer info = null;
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(context);
+		int id = pref.getInt(USER_ID, 0);
 		String name = pref.getString(USER_NAME, null);
 		String password = pref.getString(USER_PASSWORD, null);
 		String rk = pref.getString(USER_RK, null);
 		if (name != null && password != null && rk != null)
-			info = new UserContainer(name, password, rk);
-		return info;
-	}
-
-	/**
-	 * キャッシュへの保存
-	 * 
-	 * @param user
-	 */
-	public static void setUser(User user) {
-		_user = user;
-	}
-
-	/**
-	 * キャッシュからユーザ情報を取得
-	 * 
-	 * @return
-	 */
-	public static User getUser() {
+			info = new UserContainer(id, name, password, rk);
+		_user = info;
 		return _user;
 	}
 

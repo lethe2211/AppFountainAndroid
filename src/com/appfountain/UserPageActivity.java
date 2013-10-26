@@ -1,8 +1,5 @@
 package com.appfountain;
 
-import com.appfountain.model.User;
-import com.appfountain.util.Common;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +10,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+
+import com.appfountain.model.UserContainer;
+import com.appfountain.util.Common;
 
 /*
  * ユーザページ（ログインしたユーザについての情報ページ）
@@ -29,7 +29,7 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_page);
 
-		User user = Common.getUser();
+		UserContainer user = Common.getUserContainer(this);
 		if (user == null)
 			finish();
 
