@@ -20,8 +20,10 @@ public class User {
 	private Date _created = null;
 	private int up;
 	private int down;
-	private int usefulCount;
-	private int invalidCount;
+	private int useful_count;
+	private int invalid_count;
+	private int question_count;
+	private int comment_count;
 
 	public User(int id, String name, String rk, String created, int up,
 			int down, int usefulCount, int invalidCount) {
@@ -82,18 +84,26 @@ public class User {
 	}
 
 	public int getUsefulCount() {
-		return usefulCount;
+		return useful_count;
 	}
 
 	public void setUsefulCount(int usefulCount) {
-		this.usefulCount = usefulCount;
+		this.useful_count = usefulCount;
 	}
 
 	public int getInvalidCount() {
-		return invalidCount;
+		return invalid_count;
 	}
 
 	public void setInvalidCount(int invalidCount) {
-		this.invalidCount = invalidCount;
+		this.invalid_count = invalidCount;
+	}
+
+	public int getQuestionCount() {
+		return question_count;
+	}
+
+	public int getCommentCount() {
+		return comment_count;
 	}
 }
