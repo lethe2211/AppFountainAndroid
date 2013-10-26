@@ -20,6 +20,7 @@
     <!-- TopPageActivity -->
     <string name="title_activity_top_page">TopPageActivity</string>
     <string name="activity_top_page_text">TopPageActivity</string>
+    <string name="top_page_move_post_question">質問投稿</string>
 
     <!-- PostActivity -->
     <string name="title_activity_post">PostActivity</string>
