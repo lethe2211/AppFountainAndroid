@@ -23,6 +23,8 @@
                 android:id="@+id/question_detail_question_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/question_detail_question_created"
+                android:layout_toLeftOf="@+id/question_detail_question_category"
                 android:text="question_title"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
