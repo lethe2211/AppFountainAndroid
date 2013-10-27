@@ -1,5 +1,6 @@
 package com.appfountain.model;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +13,10 @@ import com.appfountain.util.Common;
  * "id":1,"user_id":1,"title":"\u305f\u3044\u308d\u3064","updated":
  * "2013-10-04T17:29:43"}
  */
-public class Question {
+// 画面遷移時の値渡しに使うため，Serialziableを実装
+public class Question implements Serializable{
+	private static final long serialVersionUID = -1472475592153424625L;
+
 	private final int id;
 	private final int category_id;
 	private Category _category = null;
