@@ -1,6 +1,10 @@
 package com.appfountain.model;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable{
+	private static final long serialVersionUID = 4647914187937336355L;
+	
 	private final int id;
 	private final String idName;
 	private final String name;
