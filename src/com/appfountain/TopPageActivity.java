@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.R.string;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -45,6 +44,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	private final String url = Common.getApiBaseUrl(this) + "question";
 
 	private ActionBarActivity self = this;
+	private RequestQueue queue = null;
 	private ListView questionListView;
 	private boolean inError = false;
 	private List<Question> questions = new ArrayList<Question>();
@@ -68,12 +68,12 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		questionListView.setOnScrollListener(this);
 		questionListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				ListView listView = (ListView) parent;
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				// クリックされた質問を取得し，次の画面へ渡す
-				Question question = (Question) listView.getItemAtPosition(position);
-				Intent intent = new Intent(TopPageActivity.this, QuestionDetailActivity.class);
+				Question question = questions.get(position);
+				Intent intent = new Intent(TopPageActivity.this,
+						QuestionDetailActivity.class);
 				intent.putExtra(QuestionDetailActivity.EXTRA_QUESTION, question);
 				startActivity(intent);
 			}
@@ -130,7 +130,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 						String item = (String) listView
 								.getItemAtPosition(position); // 押されたリスト要素の文字列
 						Log.d("click", String.format("onItemClick: %s", item));
-						
+
 						// 画面遷移
 						Intent intent = new Intent(TopPageActivity.this,
 								SearchResultActivity.class);
@@ -184,7 +184,8 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 	@Override
 	protected void loadPage() {
-		RequestQueue queue = Volley.newRequestQueue(this);
+		if (queue == null)
+			queue = Volley.newRequestQueue(this);
 
 		int next = questions.size();
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
