@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +66,18 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 				R.layout.list_item_question, questions);
 		questionListView.setAdapter(questionListAdapter);
 		questionListView.setOnScrollListener(this);
+		questionListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				ListView listView = (ListView) parent;
+				// クリックされた質問を取得し，次の画面へ渡す
+				Question question = (Question) listView.getItemAtPosition(position);
+				Intent intent = new Intent(TopPageActivity.this, QuestionDetailActivity.class);
+				intent.putExtra(QuestionDetailActivity.EXTRA_QUESTION, question);
+				startActivity(intent);
+			}
+		});
 
 		// ActionBar中のアイコンのタップを有効にする
 		ActionBar actionBar = getSupportActionBar();
