@@ -20,7 +20,7 @@ public class Question implements Serializable{
 	private final int id;
 	private final int category_id;
 	private Category _category = null;
-	private final int userId;
+	private final int user_id;
 	private final String title;
 	private final String body;
 	private final String created;
@@ -33,7 +33,7 @@ public class Question implements Serializable{
 			String body, String created, String updated, Boolean valid) {
 		this.id = id;
 		this.category_id = categoryId;
-		this.userId = userId;
+		this.user_id = userId;
 		this.title = title;
 		this.body = body;
 		this.created = created;
@@ -57,7 +57,7 @@ public class Question implements Serializable{
 	}
 
 	public int getUserId() {
-		return userId;
+		return user_id;
 	}
 
 	public String getTitle() {

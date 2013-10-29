@@ -3,6 +3,7 @@ package com.appfountain.component;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appfountain.R;
+import com.appfountain.UserPageActivity;
 import com.appfountain.model.Comment;
 
 public class CommentListAdapter extends ArrayAdapter<Comment> {
@@ -20,11 +22,13 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 
 	private List<Comment> comments;
 	private int resource;
+	private Context context;
 
 	public CommentListAdapter(Context context, int resource,
 			List<Comment> comments) {
 		super(context, resource);
 
+		this.context = context;
 		this.comments = comments;
 		this.resource = resource;
 	}
@@ -32,7 +36,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
-		CommentItemHolder holder = null;
+		final CommentItemHolder holder;
 
 		if (view == null) {
 			LayoutInflater inflater = (LayoutInflater) this.getContext()
@@ -54,37 +58,42 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 			holder.usefulButton = (LinearLayout) view
 					.findViewById(R.id.list_item_comment_button_star);
 
-			holder.personButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					Log.d(TAG, "person button clicked");
-				}
-			});
-
-			holder.replyButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					Log.d(TAG, "reply button clicked");
-				}
-			});
-
-			holder.usefulButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					Log.d(TAG, "useful button clicked");
-				}
-			});
-
 			view.setTag(holder);
 		} else {
 			holder = (CommentItemHolder) view.getTag();
 		}
 
-		Comment c = comments.get(position);
+		final Comment c = comments.get(position);
 		holder.userName.setText(c.getUserName());
 		holder.created.setText(c.getCreatedString());
 		holder.body.setText(c.getBody());
 		holder.usefulCount.setText("" + c.getUseful());
+
+		holder.personButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// コメントしたユーザ情報表示
+				Intent intent = new Intent(context, UserPageActivity.class);
+				intent.putExtra(Intent.EXTRA_UID, c.getUserId());
+				context.startActivity(intent);
+			}
+		});
+
+		holder.replyButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO implement this
+				Log.d(TAG, "reply button clicked");
+			}
+		});
+
+		holder.usefulButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO implement this
+				Log.d(TAG, "useful button clicked");
+			}
+		});
 
 		return view;
 	}
