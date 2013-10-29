@@ -27,13 +27,6 @@
         android:layout_margin="5dp"
         android:text="RegisterActivity" />
 
-    <Button
-        android:id="@+id/move_to_post_activity_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="PostActivity" />
-
     <!--
          <Button
         android:id="@+id/move_to_post_body_activity_button"
@@ -42,13 +35,6 @@
         android:layout_margin="5dp"
         android:text="PostBodyActivity" />
     -->
-
-    <Button
-        android:id="@+id/move_to_question_detail_activity_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="QuestionDetailActivity" />
 
     <Button
         android:id="@+id/move_to_user_page_activity_button"

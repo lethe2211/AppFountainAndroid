@@ -189,7 +189,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 		int next = questions.size();
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
-				Method.GET, url + "?count=5&next=" + next,
+				Method.GET, url + "?count=20&next=" + next,
 				QuestionsSource.class, null, null,
 				new Listener<QuestionsSource>() {
 					@Override

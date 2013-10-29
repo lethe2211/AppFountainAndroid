@@ -29,12 +29,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 		findViewById(R.id.move_to_login_activity_button).setOnClickListener(
 				this);
-		findViewById(R.id.move_to_post_activity_button)
-				.setOnClickListener(this);
-		// findViewById(R.id.move_to_post_body_activity_button)
-		// .setOnClickListener(this);
-		findViewById(R.id.move_to_question_detail_activity_button)
-				.setOnClickListener(this);
 		findViewById(R.id.move_to_top_activity_button).setOnClickListener(this);
 		findViewById(R.id.move_to_search_result_activity_button)
 				.setOnClickListener(this);
@@ -50,15 +44,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.move_to_login_activity_button:
 			intent = new Intent(MainActivity.this, LoginActivity.class);
-			break;
-		case R.id.move_to_post_activity_button:
-			intent = new Intent(MainActivity.this, PostActivity.class);
-			break;
-		// case R.id.move_to_post_body_activity_button:
-		// intent = new Intent(MainActivity.this, PostBodyActivity.class);
-		// break;
-		case R.id.move_to_question_detail_activity_button:
-			intent = new Intent(MainActivity.this, QuestionDetailActivity.class);
 			break;
 		case R.id.move_to_search_result_activity_button:
 			intent = new Intent(MainActivity.this, SearchResultActivity.class);

@@ -20,10 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.component.CommentListAdapter;
 import com.appfountain.component.EndlessScrollActionBarActivity;
-import com.appfountain.component.QuestionListAdapter;
 import com.appfountain.external.CommentsSource;
 import com.appfountain.external.GsonRequest;
-import com.appfountain.external.QuestionsSource;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.Comment;
 import com.appfountain.model.Question;
@@ -37,7 +35,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private static final String TAG = QuestionDetailActivity.class
 			.getSimpleName();
 	protected static final String EXTRA_QUESTION = "question_detail_extra_question";
-	private static final int DEFAULT_COMMENT_GET_COUNT = 10;
+	private static final int DEFAULT_COMMENT_GET_COUNT = 20;
 
 	private ActionBarActivity self = this;
 	private RequestQueue queue = null;
@@ -88,7 +86,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		// コメント情報表用View
 		commentList = (ListView) findViewById(R.id.question_detail_comment_list);
 		// TODO Comment表示用の列作る
-		commentListAdapter = new CommentListAdapter(this, R.layout.list_item_comment, comments);
+		commentListAdapter = new CommentListAdapter(this,
+				R.layout.list_item_comment, comments);
 		commentList.setAdapter(commentListAdapter);
 		commentList.setOnScrollListener(this);
 	}

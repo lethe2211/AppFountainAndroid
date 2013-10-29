@@ -79,7 +79,7 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 
 		int next = questions.size();
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
-				Method.GET, getUrl(userContainer.getId()) + "?count=5&next="
+				Method.GET, getUrl(userContainer.getId()) + "?count=20&next="
 						+ next, QuestionsSource.class, null, null,
 				new Listener<QuestionsSource>() {
 					@Override
