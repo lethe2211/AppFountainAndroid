@@ -1,5 +1,6 @@
 package com.appfountain;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,7 +18,6 @@ import com.android.volley.toolbox.Volley;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.User;
-import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
 /*
@@ -27,7 +27,7 @@ public class UserInfoFragment extends Fragment {
 	private static final String TAG = UserInfoFragment.class.getSimpleName();
 
 	private Fragment self = this;
-	private UserContainer userContainer = null;
+	private int userId = -1;
 	private User user = null;
 
 	private TextView name;
@@ -42,8 +42,8 @@ public class UserInfoFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		userContainer = Common.getUserContainer(this.getActivity());
-		if (userContainer == null)
+		userId = getArguments().getInt(Intent.EXTRA_UID);
+		if (userId < 0)
 			this.getActivity().finish();
 	}
 
@@ -72,17 +72,20 @@ public class UserInfoFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 
+		if (userId < 0)
+			this.getActivity().finish();
+
 		if (user == null)
-			loadUserInfo();
+			loadUserInfo(userId);
 		else
 			showUserInfo(user);
 	}
 
-	private void loadUserInfo() {
+	private void loadUserInfo(int userId) {
 		RequestQueue queue = Volley.newRequestQueue(this.getActivity());
 
 		GsonRequest<UserSource> req = new GsonRequest<UserSource>(Method.GET,
-				getUrl(userContainer.getId()), UserSource.class, null, null,
+				getUrl(userId), UserSource.class, null, null,
 				new Listener<UserSource>() {
 					@Override
 					public void onResponse(UserSource response) {

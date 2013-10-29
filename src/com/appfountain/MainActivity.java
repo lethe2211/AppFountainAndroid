@@ -27,35 +27,20 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 					.show();
 		}
 
-		findViewById(R.id.move_to_login_activity_button).setOnClickListener(
-				this);
 		findViewById(R.id.move_to_top_activity_button).setOnClickListener(this);
 		findViewById(R.id.move_to_search_result_activity_button)
 				.setOnClickListener(this);
-		findViewById(R.id.move_to_user_page_activity_button)
-				.setOnClickListener(this);
-		findViewById(R.id.move_to_register_activity_button).setOnClickListener(
-				this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.move_to_login_activity_button:
-			intent = new Intent(MainActivity.this, LoginActivity.class);
-			break;
 		case R.id.move_to_search_result_activity_button:
 			intent = new Intent(MainActivity.this, SearchResultActivity.class);
 			break;
 		case R.id.move_to_top_activity_button:
 			intent = new Intent(MainActivity.this, TopPageActivity.class);
-			break;
-		case R.id.move_to_user_page_activity_button:
-			intent = new Intent(MainActivity.this, UserPageActivity.class);
-			break;
-		case R.id.move_to_register_activity_button:
-			intent = new Intent(MainActivity.this, RegisterActivity.class);
 			break;
 		default:
 			new IllegalArgumentException();

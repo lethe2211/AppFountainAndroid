@@ -14,9 +14,9 @@ import java.util.Locale;
  */
 public class Comment {
 	private final int id;
-	private final int questionId;
-	private final int userId;
-	private final String userName;
+	private final int question_id;
+	private final int user_id;
+	private final String user_name;
 	private final String body;
 	private final String created;
 	private Date _created = null;
@@ -30,9 +30,9 @@ public class Comment {
 			String body, String created, String updated, int up, int down,
 			int useful) {
 		this.id = id;
-		this.questionId = questionId;
-		this.userId = userId;
-		this.userName = userName;
+		this.question_id = questionId;
+		this.user_id = userId;
+		this.user_name = userName;
 		this.body = body;
 		this.created = created;
 		this.updated = updated;
@@ -46,15 +46,15 @@ public class Comment {
 	}
 
 	public int getQuestionId() {
-		return questionId;
+		return question_id;
 	}
 
 	public int getUserId() {
-		return userId;
+		return user_id;
 	}
 
 	public String getUserName() {
-		return userName;
+		return user_name;
 	}
 
 	public String getBody() {

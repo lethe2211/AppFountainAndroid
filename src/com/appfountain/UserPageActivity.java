@@ -1,5 +1,6 @@
 package com.appfountain;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +30,10 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_page);
 
+		int userId = getIntent().getIntExtra(Intent.EXTRA_UID, -1);
+		if (userId < 0)
+			finish();
+
 		UserContainer user = Common.getUserContainer(this);
 		if (user == null)
 			finish();
@@ -36,7 +41,8 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		pagerAdapter = new UserPagePagerAdapter(getSupportFragmentManager());
+		pagerAdapter = new UserPagePagerAdapter(getSupportFragmentManager(),
+				userId);
 
 		viewPager = (ViewPager) findViewById(R.id.user_page_view_pager);
 		viewPager.setAdapter(pagerAdapter);
@@ -73,23 +79,32 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 	}
 
 	public class UserPagePagerAdapter extends FragmentPagerAdapter {
+		private final Bundle bundle;
 
-		public UserPagePagerAdapter(FragmentManager fm) {
+		public UserPagePagerAdapter(FragmentManager fm, int userId) {
 			super(fm);
+			bundle = new Bundle();
+			bundle.putInt(Intent.EXTRA_UID, userId);
 		}
 
 		@Override
 		public Fragment getItem(int position) {
 			// position は追加されたタブ順に左から指定される
+			Fragment fragment = null;
 			switch (position) {
 			case 0:
-				return new UserInfoFragment();
+				fragment = new UserInfoFragment();
+				break;
 			case 1:
-				return new UserQuestionFragment();
+				fragment = new UserQuestionFragment();
+				break;
 			case 2:
-				return new UserAnswerFragment();
+				fragment = new UserAnswerFragment();
+				break;
 			}
-			return null;
+			if (fragment != null)
+				fragment.setArguments(bundle);
+			return fragment;
 		}
 
 		@Override

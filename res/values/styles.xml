@@ -19,9 +19,16 @@
 
     <style name="OkButton">
         <item name="android:background">@drawable/ok_button_background</item>
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">42dip</item>
         <item name="android:layout_margin">2dip</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CommentButton">
+        <item name="android:background">@drawable/ok_button_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">16dp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 

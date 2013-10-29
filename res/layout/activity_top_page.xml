@@ -51,9 +51,9 @@
                 android:id="@+id/search_text_box"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="3" 
-                android:inputType="none" 
-                android:hint="@string/search_hint" />
+                android:layout_weight="3"
+                android:hint="@string/search_hint"
+                android:inputType="none" />
 
             <Button
                 android:id="@+id/search_exec_btn"
@@ -62,19 +62,80 @@
                 android:layout_weight="1"
                 android:text="@string/search_text" />
         </LinearLayout>
+        <!-- 区切り線 -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#FFF" />
+
+        <TextView
+            android:id="@+id/left_drawer_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dddddd"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ユーザ情報"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/left_drawer_user_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dddddd"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ログアウト"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <!-- 区切り線 -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#FFF" />
+
+        <TextView
+            android:id="@+id/left_drawer_user_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dddddd"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ログイン"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/left_drawer_user_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dddddd"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ユーザ登録"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!-- 区切り -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp" >
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/category_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="@string/category_text" />
 
-        
         <ListView
             android:id="@+id/activity_top_page_category_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" 
-            android:layout_gravity="start" />
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:divider="@null" />
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

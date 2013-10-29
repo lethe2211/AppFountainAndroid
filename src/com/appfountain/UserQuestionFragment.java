@@ -3,6 +3,7 @@ package com.appfountain;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,7 +23,6 @@ import com.appfountain.component.QuestionListAdapter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionsSource;
 import com.appfountain.model.Question;
-import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
 /*
@@ -32,7 +32,7 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 	private static final String TAG = UserQuestionFragment.class
 			.getSimpleName();
 
-	private UserContainer userContainer = null;
+	private int userId = -1;
 	private Fragment self = this;
 	private ListView questionListView;
 	private boolean inError = false;
@@ -43,8 +43,8 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		userContainer = Common.getUserContainer(this.getActivity());
-		if (userContainer == null)
+		userId = getArguments().getInt(Intent.EXTRA_UID);
+		if (userId < 0)
 			this.getActivity().finish();
 	}
 
@@ -68,6 +68,9 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 	public void onResume() {
 		super.onResume();
 
+		if (userId < 0)
+			this.getActivity().finish();
+
 		if (hasNext() && !inError) {
 			loadPage();
 		}
@@ -79,8 +82,8 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 
 		int next = questions.size();
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
-				Method.GET, getUrl(userContainer.getId()) + "?count=20&next="
-						+ next, QuestionsSource.class, null, null,
+				Method.GET, getUrl(userId) + "?count=20&next=" + next,
+				QuestionsSource.class, null, null,
 				new Listener<QuestionsSource>() {
 					@Override
 					public void onResponse(QuestionsSource response) {

@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -140,6 +141,59 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 				});
 
+		setUserInfoButton();
+	}
+
+	// drawer内のユーザ情報view初期化
+	private void setUserInfoButton() {
+		final TextView userInfoButton = (TextView) findViewById(R.id.left_drawer_user_info);
+		final TextView userLoginButton = (TextView) findViewById(R.id.left_drawer_user_login);
+		final TextView userRegisterButton = (TextView) findViewById(R.id.left_drawer_user_register);
+		final TextView userLogoutButton = (TextView) findViewById(R.id.left_drawer_user_logout);
+		if (user == null) {
+			// ユーザログインしてない場合
+			userInfoButton.setVisibility(View.GONE);
+			userLogoutButton.setVisibility(View.GONE);
+			userLoginButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(TopPageActivity.this,
+							LoginActivity.class);
+					startActivity(intent);
+				}
+			});
+			userRegisterButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(TopPageActivity.this,
+							RegisterActivity.class);
+					startActivity(intent);
+				}
+			});
+		} else {
+			// ユーザログインしてる場合
+			userLoginButton.setVisibility(View.GONE);
+			userRegisterButton.setVisibility(View.GONE);
+			userInfoButton.setText("ユーザページ: " + user.getName());
+			userInfoButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(TopPageActivity.this,
+							UserPageActivity.class);
+					intent.putExtra(Intent.EXTRA_UID, user.getId());
+					startActivity(intent);
+				}
+			});
+			userLogoutButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Common.logout(TopPageActivity.this);
+					Intent intent = new Intent(TopPageActivity.this, MainActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+				}
+			});
+		}
 	}
 
 	@Override
