@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,8 @@ import com.appfountain.model.Comment;
 
 public class CommentListAdapter extends ArrayAdapter<Comment> {
 	private static final String TAG = CommentListAdapter.class.getSimpleName();
+	private static final int UNUSEFUL = 0;
+	private static final int USEFUL = 1;
 
 	private List<Comment> comments;
 	private int resource;
@@ -57,6 +60,9 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 					.findViewById(R.id.list_item_comment_button_reply);
 			holder.usefulButton = (LinearLayout) view
 					.findViewById(R.id.list_item_comment_button_star);
+			holder.usefulImage = (ImageView) view
+					.findViewById(R.id.list_item_comment_button_useful_image);
+			holder.usefulImage.setTag(UNUSEFUL);
 
 			view.setTag(holder);
 		} else {
@@ -90,8 +96,25 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		holder.usefulButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO implement this
+				// TODO implement this 画像の変更, 値の増減 + 通信
 				Log.d(TAG, "useful button clicked");
+
+				// 画像の変更, 値の増減
+				if ((Integer) holder.usefulImage.getTag() == UNUSEFUL) {
+					holder.usefulImage
+							.setImageResource(R.drawable.comment_star);
+					holder.usefulImage.setTag(USEFUL);
+					holder.usefulCount.setText(Integer
+							.parseInt(holder.usefulCount.getText().toString())
+							+ 1 + "");
+				} else {
+					holder.usefulImage
+							.setImageResource(R.drawable.comment_star_null);
+					holder.usefulImage.setTag(UNUSEFUL);
+					holder.usefulCount.setText(Integer
+							.parseInt(holder.usefulCount.getText().toString())
+							- 1 + "");
+				}
 			}
 		});
 
@@ -111,5 +134,6 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		LinearLayout personButton;
 		LinearLayout replyButton;
 		LinearLayout usefulButton;
+		ImageView usefulImage;
 	}
 }
