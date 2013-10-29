@@ -187,13 +187,13 @@ public class Common {
 	 * Preferenceへの保存
 	 * 
 	 * @param context
-	 * @param id 
+	 * @param id
 	 * @param name
 	 * @param password
 	 * @param rk
 	 */
-	public static UserContainer setUserContainer(Context context, int id, String name,
-			String password, String rk) {
+	public static UserContainer setUserContainer(Context context, int id,
+			String name, String password, String rk) {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Editor editor = pref.edit();
@@ -202,7 +202,7 @@ public class Common {
 		editor.putString(USER_PASSWORD, md5Hex(password));
 		editor.putString(USER_RK, rk);
 		editor.commit();
-		
+
 		_user = new UserContainer(id, name, password, rk);
 		return _user;
 	}
@@ -216,8 +216,8 @@ public class Common {
 	public static UserContainer getUserContainer(Context context) {
 		// キャッシュがあればそれを返す
 		if (_user != null)
-			return _user; 
-		
+			return _user;
+
 		// 無ければSharedPreferencesから取得
 		UserContainer info = null;
 		SharedPreferences pref = PreferenceManager
@@ -230,6 +230,21 @@ public class Common {
 			info = new UserContainer(id, name, password, rk);
 		_user = info;
 		return _user;
+	}
+
+	/**
+	 * ユーザ情報を削除する
+	 */
+	public static void logout(Context context) {
+		SharedPreferences pref = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		Editor editor = pref.edit();
+		editor.remove(USER_ID);
+		editor.remove(USER_NAME);
+		editor.remove(USER_PASSWORD);
+		editor.remove(USER_RK);
+		editor.commit();
+		_user = null;
 	}
 
 	/**
