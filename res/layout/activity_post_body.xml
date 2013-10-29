@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/root"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#55eeeeee"
         android:orientation="vertical" >
 
@@ -20,15 +20,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_above="@+id/post_body_button_layout"
             android:layout_below="@+id/post_body_title"
             android:fillViewport="true" >
 
             <EditText
                 android:id="@+id/post_body_body_text"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:hint="@string/post_body_placeholder" />
@@ -36,14 +36,14 @@
 
         <LinearLayout
             android:id="@+id/post_body_button_layout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/post_body_text_count"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dip"
                 android:layout_marginRight="8dip"
@@ -52,7 +52,7 @@
                 android:text="0 words" />
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="53dip"
                 android:background="@drawable/buttons_back"
                 android:gravity="center"
@@ -63,7 +63,7 @@
                 <Button
                     android:id="@+id/post_body_ok_button"
                     style="@style/OkButton"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:onClick="onOkClick"
                     android:text="@string/post_body_ok" />
             </LinearLayout>
