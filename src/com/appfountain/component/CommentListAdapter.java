@@ -3,10 +3,13 @@ package com.appfountain.component;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appfountain.R;
@@ -44,6 +47,33 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 					.findViewById(R.id.list_item_comment_body);
 			holder.usefulCount = (TextView) view
 					.findViewById(R.id.list_item_comment_useful_count);
+			holder.personButton = (LinearLayout) view
+					.findViewById(R.id.list_item_comment_button_person);
+			holder.replyButton = (LinearLayout) view
+					.findViewById(R.id.list_item_comment_button_reply);
+			holder.usefulButton = (LinearLayout) view
+					.findViewById(R.id.list_item_comment_button_star);
+
+			holder.personButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Log.d(TAG, "person button clicked");
+				}
+			});
+
+			holder.replyButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Log.d(TAG, "reply button clicked");
+				}
+			});
+
+			holder.usefulButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Log.d(TAG, "useful button clicked");
+				}
+			});
 
 			view.setTag(holder);
 		} else {
@@ -69,5 +99,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		TextView created;
 		TextView body;
 		TextView usefulCount;
+		LinearLayout personButton;
+		LinearLayout replyButton;
+		LinearLayout usefulButton;
 	}
 }
