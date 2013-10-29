@@ -19,7 +19,6 @@ import android.support.v7.app.ActionBarActivity;
 
 import com.appfountain.R;
 import com.appfountain.model.Category;
-import com.appfountain.model.User;
 import com.appfountain.model.UserContainer;
 
 /**
