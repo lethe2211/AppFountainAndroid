@@ -170,6 +170,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userLoginButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
+					
+					// NavigationDrawerを閉じる
+					drawerLayout.closeDrawers();
+					
 					Intent intent = new Intent(TopPageActivity.this,
 							LoginActivity.class);
 					startActivity(intent);
@@ -178,6 +182,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userRegisterButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
+					
+					// NavigationDrawerを閉じる
+					drawerLayout.closeDrawers();
+					
 					Intent intent = new Intent(TopPageActivity.this,
 							RegisterActivity.class);
 					startActivity(intent);
@@ -191,6 +199,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userInfoButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
+					
+					// NavigationDrawerを閉じる
+					drawerLayout.closeDrawers();
+					
 					Intent intent = new Intent(TopPageActivity.this,
 							UserPageActivity.class);
 					intent.putExtra(Intent.EXTRA_UID, user.getId());
@@ -200,6 +212,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userLogoutButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
+					
+					// NavigationDrawerを閉じる
+					drawerLayout.closeDrawers();
+					
 					Common.logout(TopPageActivity.this);
 					Intent intent = new Intent(TopPageActivity.this,
 							MainActivity.class);
@@ -228,10 +244,18 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		case R.id.top_page_move_post_question:
 			// ログイン済みなら質問投稿画面へ
 			if (user != null) {
+				
+				// NavigationDrawerを閉じる
+				drawerLayout.closeDrawers();
+				
 				Intent intent = new Intent(TopPageActivity.this,
 						PostActivity.class);
 				startActivity(intent);
 			} else {
+				
+				// NavigationDrawerを閉じる
+				drawerLayout.closeDrawers();
+				
 				// TODO ログイン画面へいい感じに(メッセージつけて)遷移
 				Toast.makeText(this, "ログインしてください", Toast.LENGTH_SHORT).show();
 			}

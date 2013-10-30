@@ -50,21 +50,21 @@ public class LoginActivity extends ActionBarActivity {
 
 		// Homeボタンを押せるようにする
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		initViews();
 
 		queue = Volley.newRequestQueue(this);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		// Homeボタンが押されたら戻る
 		case android.R.id.home:
 			Log.d("home", "clicked!");
 			finish();
 			break;
-		
+
 		}
 		return false;
 	}
