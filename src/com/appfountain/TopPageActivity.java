@@ -106,11 +106,16 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			public void onClick(View v) {
 				String query = searchEditText.getText().toString(); // 検索ボックスに入力されたクエリ
 				Log.d("search", query);
+				if (query.equals("")) return; // クエリが空文字列なら検索しない
+				
+				// NavigationDrawerを閉じる
+				drawerLayout.closeDrawers();
 				
 				// 画面遷移
 				Intent intent = new Intent(TopPageActivity.this,
 						SearchResultActivity.class);
-				// intent.putExtra("category_id", position + 1); // category_idを持ち越す
+				// intent.putExtra("category_id", position + 1); //
+				// category_idを持ち越す
 				intent.putExtra("query", query);
 				startActivity(intent);
 			}
@@ -137,6 +142,9 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 								.getItemAtPosition(position); // 押されたリスト要素の文字列
 						Log.d("click", String.format("onItemClick: %s", item));
 
+						// NavigationDrawerを閉じる
+						drawerLayout.closeDrawers();
+						
 						// 画面遷移
 						Intent intent = new Intent(TopPageActivity.this,
 								SearchResultActivity.class);
@@ -193,7 +201,8 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 				@Override
 				public void onClick(View arg0) {
 					Common.logout(TopPageActivity.this);
-					Intent intent = new Intent(TopPageActivity.this, MainActivity.class);
+					Intent intent = new Intent(TopPageActivity.this,
+							MainActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
 				}
