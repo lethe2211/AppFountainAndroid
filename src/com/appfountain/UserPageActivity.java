@@ -12,9 +12,6 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 
-import com.appfountain.model.UserContainer;
-import com.appfountain.util.Common;
-
 /*
  * ユーザページ（ログインしたユーザについての情報ページ）
  * ViewPagerとTABの双方に対応させている
@@ -32,10 +29,6 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 
 		int userId = getIntent().getIntExtra(Intent.EXTRA_UID, -1);
 		if (userId < 0)
-			finish();
-
-		UserContainer user = Common.getUserContainer(this);
-		if (user == null)
 			finish();
 
 		final ActionBar actionBar = getSupportActionBar();
