@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputFilter;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -46,9 +48,25 @@ public class LoginActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
+		// Homeボタンを押せるようにする
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		initViews();
 
 		queue = Volley.newRequestQueue(this);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		// Homeボタンが押されたら戻る
+		case android.R.id.home:
+			Log.d("home", "clicked!");
+			finish();
+			break;
+		
+		}
+		return false;
 	}
 
 	private void initViews() {

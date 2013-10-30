@@ -6,6 +6,8 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,12 +47,28 @@ public class PostActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
+		
+		// Homeボタンを押せるようにする
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		user = Common.getUserContainer(this);
 		if (user == null)
 			finish();
 
 		initViews();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		// Homeボタンが押されたら戻る
+		case android.R.id.home:
+			Log.d("home", "clicked!");
+			finish();
+			break;
+		
+		}
+		return false;
 	}
 
 	private void initViews() {

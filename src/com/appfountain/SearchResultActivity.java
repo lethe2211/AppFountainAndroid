@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -53,6 +54,9 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 		questionListView.setAdapter(questionListAdapter);
 		questionListView.setOnScrollListener(this);
 		
+		// Homeボタンを押せるようにする
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		intent = getIntent();
 		category_id = intent.getIntExtra("category_id", 0); // 0ならエラー TODO:エラー処理
 		Log.d("category_id", Integer.toString(category_id));
@@ -67,6 +71,19 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 		if (hasNext() && !inError) {
 			loadPage();
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		// Homeボタンが押されたら戻る
+		case android.R.id.home:
+			Log.d("home", "clicked!");
+			finish();
+			break;
+		
+		}
+		return false;
 	}
 	
 	@Override

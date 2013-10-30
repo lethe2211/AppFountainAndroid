@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.MenuItem;
 
 /*
  * ユーザページ（ログインしたユーザについての情報ページ）
@@ -27,6 +29,9 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_page);
 
+		// Homeボタンを押せるようにする
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		int userId = getIntent().getIntExtra(Intent.EXTRA_UID, -1);
 		if (userId < 0)
 			finish();
@@ -55,6 +60,19 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("回答一覧")
 				.setTabListener(this));
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		// Homeボタンが押されたら戻る
+		case android.R.id.home:
+			Log.d("home", "clicked!");
+			finish();
+			break;
+		
+		}
+		return false;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,9 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_detail);
 
+		// Homeボタンを押せるようにする
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		// 遷移前画面からQuestionを受け取る
 		Intent intent = getIntent();
 		question = (Question) intent.getSerializableExtra(EXTRA_QUESTION);
@@ -67,6 +71,19 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		queue = Volley.newRequestQueue(this);
 		loadQuestionUser(question.getUserId());
 		loadComments();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		// Homeボタンが押されたら戻る
+		case android.R.id.home:
+			Log.d("home", "clicked!");
+			finish();
+			break;
+		
+		}
+		return false;
 	}
 
 	private void initViews() {
