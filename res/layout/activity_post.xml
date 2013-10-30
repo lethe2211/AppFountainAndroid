@@ -87,8 +87,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/post_header"
-        android:layout_toRightOf="@+id/post_header"
         android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/post_header"
         android:entries="@array/Categories" />
+
+    <Button
+        android:id="@+id/post_app_spinner"
+        style="@android:style/Widget.Spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/scrollView1"
+        android:onClick="chooseApp"
+        android:text="参考アプリを選択" />
+
+    <ListView
+        android:id="@+id/post_app_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/post_ok_button"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/post_app_spinner" >
+    </ListView>
 
 </RelativeLayout>
