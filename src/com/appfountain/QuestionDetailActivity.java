@@ -26,6 +26,7 @@ import com.appfountain.external.UserSource;
 import com.appfountain.model.Comment;
 import com.appfountain.model.Question;
 import com.appfountain.model.User;
+import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
 /**
@@ -159,7 +160,12 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 
 	// コメント情報取得するAPIのURI
 	private String getCommentsUrl(int count, int next) {
-		return Common.getApiBaseUrl(this) + "question/" + question.getId()
-				+ "?count=" + count + "&next=" + next;
+		UserContainer uc = Common.getUserContainer(this);
+		String url = Common.getApiBaseUrl(this) + "question/"
+				+ question.getId() + "?count=" + count + "&next=" + next;
+		if (uc != null) {
+			url += "&user_id=" + uc.getId();
+		}
+		return url;
 	}
 }

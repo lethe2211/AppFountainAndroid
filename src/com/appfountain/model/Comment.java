@@ -24,11 +24,12 @@ public class Comment {
 	private Date _updated = null;
 	private final int up;
 	private final int down;
-	private final int useful;
+	private final Boolean useful;
+	private String evaluation;
 
 	public Comment(int id, int questionId, int userId, String userName,
 			String body, String created, String updated, int up, int down,
-			int useful) {
+			Boolean useful, String evaluation) {
 		this.id = id;
 		this.question_id = questionId;
 		this.user_id = userId;
@@ -39,6 +40,7 @@ public class Comment {
 		this.up = up;
 		this.down = down;
 		this.useful = useful;
+		this.evaluation = evaluation;
 	}
 
 	public int getId() {
@@ -111,7 +113,19 @@ public class Comment {
 		return down;
 	}
 
-	public int getUseful() {
+	public Boolean getUseful() {
 		return useful;
+	}
+
+	public Boolean isUpEvaluation() {
+		return evaluation != null && evaluation.equals("up");
+	}
+	
+	public void evaluate() {
+		if(isUpEvaluation()){
+			evaluation = "none";
+		}else {
+			evaluation = "up";
+		}
 	}
 }

@@ -29,11 +29,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/list_item_comment_user_name"
-                android:layout_toLeftOf="@+id/list_item_comment_useful_count"
+                android:layout_toLeftOf="@+id/list_item_comment_up_count"
                 android:text="TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText" />
 
             <TextView
-                android:id="@+id/list_item_comment_useful_count"
+                android:id="@+id/list_item_comment_up_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

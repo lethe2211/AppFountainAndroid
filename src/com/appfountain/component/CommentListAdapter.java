@@ -1,6 +1,8 @@
 package com.appfountain.component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,19 +15,29 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.Request.Method;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.Volley;
 import com.appfountain.R;
 import com.appfountain.UserPageActivity;
+import com.appfountain.external.GsonRequest;
+import com.appfountain.external.QuestionsSource;
 import com.appfountain.model.Comment;
+import com.appfountain.model.UserContainer;
+import com.appfountain.util.Common;
 
 public class CommentListAdapter extends ArrayAdapter<Comment> {
 	private static final String TAG = CommentListAdapter.class.getSimpleName();
-	private static final int UNUSEFUL = 0;
-	private static final int USEFUL = 1;
 
 	private List<Comment> comments;
 	private int resource;
 	private Context context;
+	private RequestQueue queue;
 
 	public CommentListAdapter(Context context, int resource,
 			List<Comment> comments) {
@@ -52,17 +64,16 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 					.findViewById(R.id.list_item_comment_created);
 			holder.body = (TextView) view
 					.findViewById(R.id.list_item_comment_body);
-			holder.usefulCount = (TextView) view
-					.findViewById(R.id.list_item_comment_useful_count);
+			holder.upCount = (TextView) view
+					.findViewById(R.id.list_item_comment_up_count);
 			holder.personButton = (LinearLayout) view
 					.findViewById(R.id.list_item_comment_button_person);
 			holder.replyButton = (LinearLayout) view
 					.findViewById(R.id.list_item_comment_button_reply);
-			holder.usefulButton = (LinearLayout) view
+			holder.upButton = (LinearLayout) view
 					.findViewById(R.id.list_item_comment_button_star);
-			holder.usefulImage = (ImageView) view
+			holder.upImage = (ImageView) view
 					.findViewById(R.id.list_item_comment_button_useful_image);
-			holder.usefulImage.setTag(UNUSEFUL);
 
 			view.setTag(holder);
 		} else {
@@ -73,7 +84,12 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		holder.userName.setText(c.getUserName());
 		holder.created.setText(c.getCreatedString());
 		holder.body.setText(c.getBody());
-		holder.usefulCount.setText("" + c.getUseful());
+		holder.upCount.setText("" + c.getUp());
+		if (c.isUpEvaluation()) {
+			holder.upImage.setImageResource(R.drawable.comment_star);
+		} else {
+			holder.upImage.setImageResource(R.drawable.comment_star_null);
+		}
 
 		holder.personButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -93,32 +109,75 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 			}
 		});
 
-		holder.usefulButton.setOnClickListener(new OnClickListener() {
+		holder.upButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO implement this 画像の変更, 値の増減 + 通信
-				Log.d(TAG, "useful button clicked");
-
-				// 画像の変更, 値の増減
-				if ((Integer) holder.usefulImage.getTag() == UNUSEFUL) {
-					holder.usefulImage
-							.setImageResource(R.drawable.comment_star);
-					holder.usefulImage.setTag(USEFUL);
-					holder.usefulCount.setText(Integer
-							.parseInt(holder.usefulCount.getText().toString())
-							+ 1 + "");
+				UserContainer user = Common.getUserContainer(context);
+				// ログイン済みの場合のみ変更可能
+				if (user == null) {
+					Toast.makeText(context, "ログインして下さい",
+							Toast.LENGTH_SHORT).show();
 				} else {
-					holder.usefulImage
-							.setImageResource(R.drawable.comment_star_null);
-					holder.usefulImage.setTag(UNUSEFUL);
-					holder.usefulCount.setText(Integer
-							.parseInt(holder.usefulCount.getText().toString())
-							- 1 + "");
+					// 画像の変更, 値の増減
+					if (c.isUpEvaluation()) {
+						holder.upImage
+								.setImageResource(R.drawable.comment_star_null);
+						holder.upCount.setText(Integer.parseInt(holder.upCount
+								.getText().toString()) - 1 + "");
+					} else {
+						holder.upImage
+								.setImageResource(R.drawable.comment_star);
+						holder.upCount.setText(Integer.parseInt(holder.upCount
+								.getText().toString()) + 1 + "");
+					}
+					commentEvaluate(c);
 				}
 			}
 		});
 
 		return view;
+	}
+
+	private void commentEvaluate(Comment c) {
+		// localの値の更新
+		c.evaluate();
+
+		// 変更のrequest投げる
+		if (queue == null)
+			queue = Volley.newRequestQueue(context);
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("value", c.isUpEvaluation() ? "up" : "none");
+
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(Common.getPostHeader(context),
+				Common.getUserContainer(context).getRk());
+
+		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
+				Method.POST, getCommentEvaluateURL(c), QuestionsSource.class,
+				params, headers, new Listener<QuestionsSource>() {
+					@Override
+					public void onResponse(QuestionsSource response) {
+						if (response.isSuccess()) {
+							// do nothing
+						} else {
+							Toast.makeText(context, response.getMessage(),
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+				}, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Toast.makeText(context, error.getMessage(),
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+		queue.add(req);
+	}
+
+	private String getCommentEvaluateURL(Comment c) {
+		return Common.getApiBaseUrl(context) + "comment/" + c.getId()
+				+ "/evaluate";
 	}
 
 	@Override
@@ -130,10 +189,10 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		TextView userName;
 		TextView created;
 		TextView body;
-		TextView usefulCount;
+		TextView upCount;
 		LinearLayout personButton;
 		LinearLayout replyButton;
-		LinearLayout usefulButton;
-		ImageView usefulImage;
+		LinearLayout upButton;
+		ImageView upImage;
 	}
 }
