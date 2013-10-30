@@ -1,6 +1,6 @@
 package com.appfountain.external;
 
-class BaseSource {
+public class BaseSource {
 	private Boolean status;
 	
 	// for failure case
