@@ -3,30 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/move_to_top_activity_button"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="TopActivity" />
-
-    <!--
-         <Button
-        android:id="@+id/move_to_post_body_activity_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="PostBodyActivity" />
-    -->
-
-    <Button
-        android:id="@+id/move_to_search_result_activity_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="SearchResultActivity" />
+        android:layout_height="match_parent"
+        android:src="@drawable/splash" />
 
 </LinearLayout>
