@@ -33,48 +33,47 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 	private static final String TAG = SearchResultActivity.class
 			.getSimpleName();
 	private final String url = Common.getApiBaseUrl(this) + "question";
-	
+
 	private ActionBarActivity self = this;
 	private ListView questionListView;
 	private boolean inError = false;
 	private List<Question> questions = new ArrayList<Question>();
 	private QuestionListAdapter questionListAdapter;
-	
+
 	private Intent intent; // 前の画面から受け取るインテント
 	private int category_id; // カテゴリ検索の際に取得したカテゴリID
 	private String query; // キーワード検索の際に取得したクエリ
-	
-	// カテゴリ検索を行うときはtrue，キーワード検索を行うときはfalse 
+
+	// カテゴリ検索を行うときはtrue，キーワード検索を行うときはfalse
 	// TODO:APIの仕様変更によってどちらも同じAPIから結果を表示するようにしたい
-	private boolean isCategorySearch = false; 
+	private boolean isCategorySearch = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_result);
-		
+
 		questionListView = (ListView) findViewById(R.id.activity_top_page_question_list);
 		questionListAdapter = new QuestionListAdapter(this,
 				R.layout.list_item_question, questions);
 		questionListView.setAdapter(questionListAdapter);
 		questionListView.setOnScrollListener(this);
-		
+
 		// Homeボタンを押せるようにする
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		intent = getIntent();
 		category_id = intent.getIntExtra("category_id", -1); // -1なら，TopPageからのリクエストにcategory_idは含まれていない(つまりキーワード検索)
 		Log.d("category_id", Integer.toString(category_id));
-		if(category_id == -1) {
+		if (category_id == -1) {
 			isCategorySearch = false;
 			query = intent.getStringExtra("query");
-			if(query != null) Log.d("query", query);
-		}
-		else {
+			if (query != null)
+				Log.d("query", query);
+		} else {
 			isCategorySearch = true;
 		}
-		
-		
+
 	}
 
 	@Override
@@ -85,20 +84,20 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 			loadPage();
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		// Homeボタンが押されたら戻る
 		case android.R.id.home:
 			Log.d("home", "clicked!");
 			finish();
 			break;
-		
+
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -106,24 +105,22 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 		return true;
 	}
 
-	
 	protected void loadPage() {
 		RequestQueue queue = Volley.newRequestQueue(this);
 
 		int next = questions.size();
-		
+
 		// FIXME:API変更までの暫定措置
 		// FIXME:キーワード検索Pagingがうまく行ってないかも
 		String requestUrl;
 		if (isCategorySearch) {
-			requestUrl = url + "?category_id=" + category_id + "&count=5&next=" + next;
-		}
-		else {
+			requestUrl = url + "?category_id=" + category_id + "&count=5&next="
+					+ next;
+		} else {
 			requestUrl = url + "/search?title=" + query;
 		}
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
-				Method.GET, requestUrl, 
-				QuestionsSource.class, null, null,
+				Method.GET, requestUrl, QuestionsSource.class, null, null,
 				new Listener<QuestionsSource>() {
 					@Override
 					public void onResponse(QuestionsSource response) {
@@ -145,7 +142,7 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 				});
 		queue.add(req);
 	}
-	
+
 	private void showErrorMessage() {
 		inError = true;
 
