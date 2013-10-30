@@ -51,21 +51,21 @@ public class RegisterActivity extends ActionBarActivity {
 
 		// Homeボタンを押せるようにする
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		initViews();
 
 		queue = Volley.newRequestQueue(this);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		// Homeボタンが押されたら戻る
 		case android.R.id.home:
 			Log.d("home", "clicked!");
 			finish();
 			break;
-		
+
 		}
 		return false;
 	}
@@ -121,8 +121,8 @@ public class RegisterActivity extends ActionBarActivity {
 						if (response.isSuccess()) {
 							// User情報を端末へ登録&キャッシュ
 							User user = response.getUser();
-							Common.setUserContainer(self, user.getId(), user.getName(), md5Password,
-									user.getRk());
+							Common.setUserContainer(self, user.getId(),
+									user.getName(), md5Password, user.getRk());
 
 							// TopPageへの遷移
 							Intent intent = new Intent(self,

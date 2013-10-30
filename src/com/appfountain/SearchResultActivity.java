@@ -42,6 +42,11 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 	
 	private Intent intent; // 前の画面から受け取るインテント
 	private int category_id; // カテゴリ検索の際に取得したカテゴリID
+	private String query; // キーワード検索の際に取得したクエリ
+	
+	// カテゴリ検索を行うときはtrue，キーワード検索を行うときはfalse 
+	// TODO:APIの仕様変更によってどちらも同じAPIから結果を表示するようにしたい
+	private boolean isCategorySearch = false; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +63,16 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		intent = getIntent();
-		category_id = intent.getIntExtra("category_id", 0); // 0ならエラー TODO:エラー処理
+		category_id = intent.getIntExtra("category_id", -1); // -1なら，TopPageからのリクエストにcategory_idは含まれていない(つまりキーワード検索)
 		Log.d("category_id", Integer.toString(category_id));
+		if(category_id == -1) {
+			isCategorySearch = false;
+			query = intent.getStringExtra("query");
+			if(query != null) Log.d("query", query);
+		}
+		else {
+			isCategorySearch = true;
+		}
 		
 		
 	}
@@ -93,12 +106,23 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 		return true;
 	}
 
+	
 	protected void loadPage() {
 		RequestQueue queue = Volley.newRequestQueue(this);
 
 		int next = questions.size();
+		
+		// FIXME:API変更までの暫定措置
+		// FIXME:キーワード検索Pagingがうまく行ってないかも
+		String requestUrl;
+		if (isCategorySearch) {
+			requestUrl = url + "?category_id=" + category_id + "&count=5&next=" + next;
+		}
+		else {
+			requestUrl = url + "/search?title=" + query;
+		}
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
-				Method.GET, url + "?category_id=" + category_id + "&count=5&next=" + next, // TODO:APIの仕様がよくわかってないので直す
+				Method.GET, requestUrl, 
 				QuestionsSource.class, null, null,
 				new Listener<QuestionsSource>() {
 					@Override
