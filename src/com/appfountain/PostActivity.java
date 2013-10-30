@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.appfountain.component.AppAdapter;
 import com.appfountain.component.AppChooseDialog;
 import com.appfountain.component.AppChooseListener;
 import com.appfountain.external.GsonRequest;
@@ -46,9 +49,9 @@ public class PostActivity extends ActionBarActivity implements
 	private EditText titleEditText;
 	private EditText bodyEditText;
 	private Spinner categorySpinner;
-	private Spinner appSpinner;
 	private ListView applicationList;
 	private List<App> applications = new ArrayList<App>(3);
+	private AppAdapter applicationAdapter;
 	private Button okButton;
 	private Boolean isPosting = false;
 
@@ -70,6 +73,10 @@ public class PostActivity extends ActionBarActivity implements
 		categorySpinner = (Spinner) findViewById(R.id.post_category_spinner);
 		okButton = (Button) findViewById(R.id.post_ok_button);
 		applicationList = (ListView) findViewById(R.id.post_app_list);
+
+		applicationAdapter = new AppAdapter(this, R.layout.list_item_app,
+				applications);
+		applicationList.setAdapter(applicationAdapter);
 	}
 
 	// アプリ選択ボタン押下時
@@ -174,7 +181,9 @@ public class PostActivity extends ActionBarActivity implements
 
 	@Override
 	public void onChoosed(App app) {
-		// TODO Auto-generated method stub
-		Log.d(TAG, app.getName());
+		if (!applications.contains(app)) {
+			applications.add(app);
+			applicationAdapter.notifyDataSetChanged();
+		}
 	}
 }

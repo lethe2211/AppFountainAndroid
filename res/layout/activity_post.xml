@@ -93,12 +93,13 @@
 
     <Button
         android:id="@+id/post_app_spinner"
+        style="@android:style/Widget.Spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/scrollView1"
-        style="?android:attr/spinnerItemStyle"
-        android:onClick="chooseApp" />
+        android:onClick="chooseApp"
+        android:text="参考アプリを選択" />
 
     <ListView
         android:id="@+id/post_app_list"

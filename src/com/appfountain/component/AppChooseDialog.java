@@ -1,6 +1,8 @@
 package com.appfountain.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -76,6 +78,12 @@ public class AppChooseDialog extends DialogFragment {
 			} catch (NameNotFoundException e) {
 			}
 		}
+		Collections.sort(apps, new Comparator<App>() {
+			@Override
+			public int compare(App lhs, App rhs) {
+				return lhs.getName().compareTo(rhs.getName());
+			}
+		});
 		return apps;
 	}
 }
