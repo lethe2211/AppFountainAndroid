@@ -86,7 +86,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 
 		// コメント情報表用View
 		commentList = (ListView) findViewById(R.id.question_detail_comment_list);
-		// TODO Comment表示用の列作る
 		commentListAdapter = new CommentListAdapter(this,
 				R.layout.list_item_comment, comments);
 		commentList.setAdapter(commentListAdapter);

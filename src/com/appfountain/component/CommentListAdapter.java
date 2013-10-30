@@ -104,7 +104,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		holder.replyButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO implement this
+				// TODO 返信付きコメント画面への遷移
 				Log.d(TAG, "reply button clicked");
 			}
 		});
