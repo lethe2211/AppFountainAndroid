@@ -69,7 +69,8 @@ public class AppChooseDialog extends DialogFragment {
 		List<ApplicationInfo> applicationInfo = pm
 				.getInstalledApplications(PackageManager.GET_META_DATA);
 		for (ApplicationInfo info : applicationInfo) {
-			if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM)
+			if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM
+					|| info.packageName.startsWith("com.example"))
 				continue;
 			try {
 				apps.add(new App(info.loadLabel(pm).toString(),
