@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -73,10 +74,11 @@ public class AppChooseDialog extends DialogFragment {
 					|| info.packageName.startsWith("com.example"))
 				continue;
 			try {
-				apps.add(new App(info.loadLabel(pm).toString(),
+				apps.add(new App(0, info.loadLabel(pm).toString(),
 						info.packageName, pm
 								.getApplicationIcon(info.packageName)));
 			} catch (NameNotFoundException e) {
+				Log.w(TAG, "getinstalled app cannot get something...", e);
 			}
 		}
 		Collections.sort(apps, new Comparator<App>() {

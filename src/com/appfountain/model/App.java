@@ -3,13 +3,15 @@ package com.appfountain.model;
 import android.graphics.drawable.Drawable;
 
 public class App {
+	private final int id;
 	private final String name;
-	private final String packageName;
+	private final String package_name;
 	private final Drawable icon;
 
-	public App(String name, String packageName, Drawable icon) {
+	public App(int id,String name, String packageName, Drawable icon) {
+		this.id = id;
 		this.name = name;
-		this.packageName = packageName;
+		this.package_name = packageName;
 		this.icon = icon;
 	}
 
@@ -18,7 +20,7 @@ public class App {
 	}
 
 	public String getPackageName() {
-		return packageName;
+		return package_name;
 	}
 
 	public Drawable getIcon() {

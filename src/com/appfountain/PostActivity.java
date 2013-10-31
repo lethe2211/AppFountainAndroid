@@ -11,10 +11,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,6 +26,8 @@ import com.android.volley.toolbox.Volley;
 import com.appfountain.component.AppAdapter;
 import com.appfountain.component.AppChooseDialog;
 import com.appfountain.component.AppChooseListener;
+import com.appfountain.external.BaseSource;
+import com.appfountain.external.DrawableUploadRequest;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionSource;
 import com.appfountain.model.App;
@@ -55,6 +55,7 @@ public class PostActivity extends ActionBarActivity implements
 	private AppAdapter applicationAdapter;
 	private Button okButton;
 	private Boolean isPosting = false;
+	private RequestQueue queue = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class PostActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		// Homeボタンが押されたら戻る
 		case android.R.id.home:
 			Log.d("home", "clicked!");
@@ -139,12 +140,19 @@ public class PostActivity extends ActionBarActivity implements
 	}
 
 	private void postQuestion(String title, String body, int categoryId) {
-		RequestQueue queue = Volley.newRequestQueue(this);
+		if (queue == null)
+			queue = Volley.newRequestQueue(this);
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("title", title);
 		params.put("body", body);
 		params.put("category_id", "" + categoryId);
+		// TODO 鯖側0始まりになおす
+		for (int i = 0; i < applications.size(); ++i) {
+			App app = applications.get(i);
+			params.put("appname" + (i + 1), app.getName());
+			params.put("apppackage" + (i + 1), app.getPackageName());
+		}
 
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put(Common.getPostHeader(this), user.getRk()); // POST時はrkをヘッダに付与
@@ -154,14 +162,19 @@ public class PostActivity extends ActionBarActivity implements
 				new Listener<QuestionSource>() {
 					@Override
 					public void onResponse(QuestionSource response) {
-						Common.closeProgressBar();
 						if (response.isSuccess()) {
-							// TopPageへの遷移
-							Intent intent = new Intent(self,
-									TopPageActivity.class);
-							startActivity(intent);
-							self.finish();
+							// 鯖にiconがupされてないアプリがあればそれをuploadしてもらう
+							List<App> lackImageApps = response
+									.getApplications();
+							if (lackImageApps != null
+									&& lackImageApps.size() > 0) {
+								postIcons(lackImageApps);
+							} else {
+								Common.closeProgressBar();
+								finish();
+							}
 						} else {
+							Common.closeProgressBar();
 							Toast.makeText(self, response.getMessage(),
 									Toast.LENGTH_SHORT).show();
 							okButton.setClickable(true);
@@ -183,6 +196,57 @@ public class PostActivity extends ActionBarActivity implements
 		Common.initializeProgressBar(this, "投稿中...");
 	}
 
+	private int index = 0;
+
+	private void postIcons(List<App> lackImageApps) {
+		if (queue == null)
+			queue = Volley.newRequestQueue(this);
+
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(Common.getPostHeader(this), user.getRk()); // POST時はrkをヘッダに付与
+
+		final int count = lackImageApps.size();
+		index = 0;
+		// 鯖からの返却値であるlackImageAppsにはDrawableは含まれていない
+		// lackImageAppsの情報を基に，localからDrawableのあるAppを取得してuploadする
+		for (App app : lackImageApps) {
+			App uploadApp = null;
+			for (App localApp : applications) {
+				if (localApp.getPackageName().equals(app.getPackageName())) {
+					uploadApp = localApp;
+					break;
+				}
+			}
+			DrawableUploadRequest<BaseSource> req = new DrawableUploadRequest<BaseSource>(
+					getUploadAPIUrl(uploadApp.getPackageName()),
+					BaseSource.class, uploadApp.getIcon(), headers,
+					new Listener<BaseSource>() {
+						@Override
+						public void onResponse(BaseSource response) {
+							index++;
+							if (count >= index) {
+								Common.closeProgressBar();
+								finish();
+							}
+						}
+					}, new ErrorListener() {
+						@Override
+						public void onErrorResponse(VolleyError error) {
+							Common.closeProgressBar();
+							Toast.makeText(self, error.getMessage(),
+									Toast.LENGTH_SHORT).show();
+							okButton.setClickable(false);
+							isPosting = false;
+						}
+					});
+			queue.add(req);
+		}
+	}
+
+	private String getUploadAPIUrl(String packageName) {
+		return Common.getApiBaseUrl(this) + "icon/" + packageName;
+	}
+
 	private boolean isValidInfo(String title, int categoryId) {
 		if (title.length() < 4) {
 			Toast.makeText(this, "タイトルが短すぎます", Toast.LENGTH_SHORT).show();
@@ -198,9 +262,18 @@ public class PostActivity extends ActionBarActivity implements
 
 	@Override
 	public void onChoosed(App app) {
-		if (!applications.contains(app)) {
+		if (!containApps(applications, app)) {
 			applications.add(app);
 			applicationAdapter.notifyDataSetChanged();
 		}
+	}
+
+	private boolean containApps(List<App> applications, App app) {
+		String packageName = app.getPackageName();
+		for (App ap : applications) {
+			if (ap.getPackageName().equals(packageName))
+				return true;
+		}
+		return false;
 	}
 }
