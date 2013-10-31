@@ -61,15 +61,24 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/question_detail_question_body" >
-
-                <TextView
-                    android:id="@+id/question_detail_quesion_user_name_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:text="ユーザ名: aaaaa" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/question_detail_quesion_user_name_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/question_detail_question_title"
+                android:layout_toRightOf="@+id/question_detail_question_created"
+                android:text="ユーザ名: aaaaa" />
+
+            <ListView
+                android:id="@+id/question_detail_question_apps"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignLeft="@+id/question_detail_question_body"
+                android:layout_alignTop="@+id/relativeLayout1" >
+            </ListView>
+
         </RelativeLayout>
     </LinearLayout>
 

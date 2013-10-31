@@ -1,5 +1,8 @@
 package com.appfountain.external;
 
+import java.util.List;
+import com.appfountain.model.App;
+
 import com.appfountain.model.Question;
 
 /**
@@ -10,8 +13,13 @@ import com.appfountain.model.Question;
  */
 public class QuestionSource extends BaseSource {
 	private Question question;
+	private List<App> applications;
 
 	public Question getQuestion() {
 		return question;
+	}
+
+	public List<App> getApplications() {
+		return applications;
 	}
 }

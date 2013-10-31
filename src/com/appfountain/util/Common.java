@@ -26,6 +26,7 @@ import com.appfountain.model.UserContainer;
  */
 public class Common {
 	private static final String TAG = Common.class.getSimpleName();
+	private static final int DEBUG = 0;
 
 	private static final String USER_ID = "user_id";
 	private static final String USER_NAME = "user_name";
@@ -147,7 +148,11 @@ public class Common {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			_baseApiUrl = props.getProperty("baseapiurl");
+			if (DEBUG == 1) {
+				_baseApiUrl = props.getProperty("debugapiurl");
+			} else {
+				_baseApiUrl = props.getProperty("baseapiurl");
+			}
 		}
 		return _baseApiUrl;
 	}

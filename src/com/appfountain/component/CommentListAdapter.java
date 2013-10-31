@@ -25,6 +25,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.R;
 import com.appfountain.UserPageActivity;
+import com.appfountain.external.BaseSource;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionsSource;
 import com.appfountain.model.Comment;
@@ -115,8 +116,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 				UserContainer user = Common.getUserContainer(context);
 				// ログイン済みの場合のみ変更可能
 				if (user == null) {
-					Toast.makeText(context, "ログインして下さい",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "ログインして下さい", Toast.LENGTH_SHORT)
+							.show();
 				} else {
 					// 画像の変更, 値の増減
 					if (c.isUpEvaluation()) {
@@ -153,11 +154,11 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		headers.put(Common.getPostHeader(context),
 				Common.getUserContainer(context).getRk());
 
-		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
-				Method.POST, getCommentEvaluateURL(c), QuestionsSource.class,
-				params, headers, new Listener<QuestionsSource>() {
+		GsonRequest<BaseSource> req = new GsonRequest<BaseSource>(Method.POST,
+				getCommentEvaluateURL(c), BaseSource.class, params, headers,
+				new Listener<BaseSource>() {
 					@Override
-					public void onResponse(QuestionsSource response) {
+					public void onResponse(BaseSource response) {
 						if (response.isSuccess()) {
 							// do nothing
 						} else {
