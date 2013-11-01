@@ -16,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 import com.appfountain.R;
 import com.appfountain.model.Category;
@@ -35,6 +36,7 @@ public class Common {
 
 	private static UserContainer _user = null;
 	private static String _baseApiUrl = null;
+	private static String _baseIconUrl = null;
 	private static String _postHeader = null;
 	private static ProgressDialogFragment progressDialog;
 
@@ -140,21 +142,40 @@ public class Common {
 	 */
 	public static String getApiBaseUrl(Context context) {
 		if (_baseApiUrl == null) {
-			Properties props = new Properties();
-			InputStream inputStream = context.getClass().getClassLoader()
-					.getResourceAsStream("config.properties");
-			try {
-				props.load(inputStream);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (DEBUG == 1) {
-				_baseApiUrl = props.getProperty("debugapiurl");
-			} else {
-				_baseApiUrl = props.getProperty("baseapiurl");
-			}
+			loadConfig(context);
 		}
 		return _baseApiUrl;
+	}
+
+	/**
+	 * icon取得用のbase urlの取得
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getIconBaseUrl(Context context) {
+		if (_baseIconUrl == null) {
+			loadConfig(context);
+		}
+		return _baseIconUrl;
+	}
+
+	private static void loadConfig(Context context) {
+		Properties props = new Properties();
+		InputStream inputStream = context.getClass().getClassLoader()
+				.getResourceAsStream("config.properties");
+		try {
+			props.load(inputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (DEBUG == 1) {
+			_baseApiUrl = props.getProperty("debugapiurl");
+			_baseIconUrl = props.getProperty("debugiconurl");
+		} else {
+			_baseApiUrl = props.getProperty("baseapiurl");
+			_baseIconUrl = props.getProperty("baseiconurl");
+		}
 	}
 
 	/**

@@ -50,7 +50,7 @@ public class AppChooseDialog extends DialogFragment {
 		ListView appView = (ListView) view
 				.findViewById(R.id.dialog_choose_app_list);
 		appView.setAdapter(new AppAdapter(this.getActivity(),
-				R.layout.list_item_app, applications));
+				R.layout.list_item_choose_app, applications));
 		appView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
