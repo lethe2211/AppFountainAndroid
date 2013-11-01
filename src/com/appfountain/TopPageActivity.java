@@ -42,6 +42,7 @@ import com.appfountain.util.Common;
  */
 public class TopPageActivity extends EndlessScrollActionBarActivity {
 	private static final String TAG = TopPageActivity.class.getSimpleName();
+	private static final int QUESTION_POST = 1;
 	private final String url = Common.getApiBaseUrl(this) + "question";
 
 	private ActionBarActivity self = this;
@@ -106,11 +107,12 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			public void onClick(View v) {
 				String query = searchEditText.getText().toString(); // 検索ボックスに入力されたクエリ
 				Log.d("search", query);
-				if (query.equals("")) return; // クエリが空文字列なら検索しない
-				
+				if (query.equals(""))
+					return; // クエリが空文字列なら検索しない
+
 				// NavigationDrawerを閉じる
 				drawerLayout.closeDrawers();
-				
+
 				// 画面遷移
 				Intent intent = new Intent(TopPageActivity.this,
 						SearchResultActivity.class);
@@ -144,7 +146,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 						// NavigationDrawerを閉じる
 						drawerLayout.closeDrawers();
-						
+
 						// 画面遷移
 						Intent intent = new Intent(TopPageActivity.this,
 								SearchResultActivity.class);
@@ -170,10 +172,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userLoginButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					
+
 					// NavigationDrawerを閉じる
 					drawerLayout.closeDrawers();
-					
+
 					Intent intent = new Intent(TopPageActivity.this,
 							LoginActivity.class);
 					startActivity(intent);
@@ -182,10 +184,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userRegisterButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					
+
 					// NavigationDrawerを閉じる
 					drawerLayout.closeDrawers();
-					
+
 					Intent intent = new Intent(TopPageActivity.this,
 							RegisterActivity.class);
 					startActivity(intent);
@@ -199,10 +201,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userInfoButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					
+
 					// NavigationDrawerを閉じる
 					drawerLayout.closeDrawers();
-					
+
 					Intent intent = new Intent(TopPageActivity.this,
 							UserPageActivity.class);
 					intent.putExtra(Intent.EXTRA_UID, user.getId());
@@ -212,10 +214,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			userLogoutButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					
+
 					// NavigationDrawerを閉じる
 					drawerLayout.closeDrawers();
-					
+
 					Common.logout(TopPageActivity.this);
 					Intent intent = new Intent(TopPageActivity.this,
 							MainActivity.class);
@@ -244,18 +246,18 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		case R.id.top_page_move_post_question:
 			// ログイン済みなら質問投稿画面へ
 			if (user != null) {
-				
+
 				// NavigationDrawerを閉じる
 				drawerLayout.closeDrawers();
-				
+
 				Intent intent = new Intent(TopPageActivity.this,
 						PostActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, QUESTION_POST);
 			} else {
-				
+
 				// NavigationDrawerを閉じる
 				drawerLayout.closeDrawers();
-				
+
 				// TODO ログイン画面へいい感じに(メッセージつけて)遷移
 				Toast.makeText(this, "ログインしてください", Toast.LENGTH_SHORT).show();
 			}
@@ -271,6 +273,22 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 		if (hasNext() && !inError) {
 			loadPage();
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch (requestCode) {
+		case QUESTION_POST:
+			// 質問投稿後は再読み込みさせる
+			if (resultCode == RESULT_OK) {
+				questions.clear();
+				inError = false;
+				loadPage();
+			}
+			break;
 		}
 	}
 

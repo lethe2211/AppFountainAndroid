@@ -92,8 +92,8 @@ public class PostActivity extends ActionBarActivity implements
 		okButton = (Button) findViewById(R.id.post_ok_button);
 		applicationList = (ListView) findViewById(R.id.post_app_list);
 
-		applicationAdapter = new AppAdapter(this, R.layout.list_item_choose_app,
-				applications);
+		applicationAdapter = new AppAdapter(this,
+				R.layout.list_item_choose_app, applications);
 		applicationList.setAdapter(applicationAdapter);
 	}
 
@@ -171,6 +171,7 @@ public class PostActivity extends ActionBarActivity implements
 								postIcons(lackImageApps);
 							} else {
 								Common.closeProgressBar();
+								setResult(RESULT_OK);
 								finish();
 							}
 						} else {
@@ -226,6 +227,7 @@ public class PostActivity extends ActionBarActivity implements
 							index++;
 							if (count >= index) {
 								Common.closeProgressBar();
+								setResult(RESULT_OK);
 								finish();
 							}
 						}
