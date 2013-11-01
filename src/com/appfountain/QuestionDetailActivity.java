@@ -3,6 +3,8 @@ package com.appfountain;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -18,12 +20,17 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.component.CommentListAdapter;
 import com.appfountain.component.EndlessScrollActionBarActivity;
+import com.appfountain.component.QuestionAppAdapter;
+import com.appfountain.external.AppsSource;
+import com.appfountain.external.BitmapLruCache;
 import com.appfountain.external.CommentsSource;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.UserSource;
+import com.appfountain.model.App;
 import com.appfountain.model.Comment;
 import com.appfountain.model.Question;
 import com.appfountain.model.User;
@@ -42,6 +49,10 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private ActionBarActivity self = this;
 	private RequestQueue queue = null;
 	private Question question = null;
+	// 質問に付与されたアプリ情報
+	private ListView appList;
+	private List<App> apps = new ArrayList<App>();
+	private QuestionAppAdapter appAdapter;
 	// 質問者のユーザ情報
 	private TextView questionUserName;
 	// コメント一覧
@@ -56,7 +67,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 
 		// Homeボタンを押せるようにする
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		// 遷移前画面からQuestionを受け取る
 		Intent intent = getIntent();
 		question = (Question) intent.getSerializableExtra(EXTRA_QUESTION);
@@ -65,23 +76,24 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		Log.d(TAG, "get question => id: " + question.getId() + ", title: "
 				+ question.getTitle(10));
 
+		queue = Volley.newRequestQueue(this);
 		initViews();
 
 		// 通信処理
-		queue = Volley.newRequestQueue(this);
+		loadQuestionRelation(question);
 		loadQuestionUser(question.getUserId());
 		loadComments();
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		// Homeボタンが押されたら戻る
 		case android.R.id.home:
 			Log.d("home", "clicked!");
 			finish();
 			break;
-		
+
 		}
 		return false;
 	}
@@ -98,6 +110,16 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		questionCategory.setImageResource(question.getCategory()
 				.getDrawableId());
 
+		// 関連app情報
+		appList = (ListView) findViewById(R.id.question_detail_question_apps);
+		// Use 1/16th of the available memory for this memory cache.
+		int memClass = ((ActivityManager) this
+				.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+		int cacheSize = 1024 * 1024 * memClass / 16;
+		appAdapter = new QuestionAppAdapter(this,
+				R.layout.list_item_question_app, apps, new ImageLoader(queue,
+						new BitmapLruCache(cacheSize)));
+		appList.setAdapter(appAdapter);
 		// 質問者の情報表示用View
 		questionUserName = (TextView) findViewById(R.id.question_detail_quesion_user_name_value);
 
@@ -107,6 +129,38 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				R.layout.list_item_comment, comments);
 		commentList.setAdapter(commentListAdapter);
 		commentList.setOnScrollListener(this);
+	}
+
+	// 質問者のユーザ情報表示
+	private void loadQuestionRelation(Question q) {
+		GsonRequest<AppsSource> req = new GsonRequest<AppsSource>(Method.GET,
+				getQuestionRelationUrl(q.getId()), AppsSource.class, null,
+				null, new Listener<AppsSource>() {
+					@Override
+					public void onResponse(AppsSource response) {
+						if (response.isSuccess() && questionUserName != null) {
+							List<App> applications = response.getApplications();
+							if (applications != null && !applications.isEmpty()) {
+								apps.addAll(applications);
+								appAdapter.notifyDataSetChanged();
+							}
+						} else {
+							Toast.makeText(self, response.getMessage(),
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+				}, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Toast.makeText(self, error.getMessage(),
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+		queue.add(req);
+	}
+
+	private String getQuestionRelationUrl(int id) {
+		return Common.getApiBaseUrl(this) + "question/" + id + "/apps";
 	}
 
 	// 質問者のユーザ情報表示

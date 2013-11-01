@@ -92,7 +92,7 @@ public class PostActivity extends ActionBarActivity implements
 		okButton = (Button) findViewById(R.id.post_ok_button);
 		applicationList = (ListView) findViewById(R.id.post_app_list);
 
-		applicationAdapter = new AppAdapter(this, R.layout.list_item_app,
+		applicationAdapter = new AppAdapter(this, R.layout.list_item_choose_app,
 				applications);
 		applicationList.setAdapter(applicationAdapter);
 	}
