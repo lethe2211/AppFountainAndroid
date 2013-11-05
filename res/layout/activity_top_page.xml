@@ -8,27 +8,12 @@
 
     <!-- 通常時に表示されるビュー -->
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/activity_top_page_question_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_top_page_text" />
-
-        <ListView
-            android:id="@+id/activity_top_page_question_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </ListView>
-    </LinearLayout>
+        android:divider="@drawable/top_page_list_view_divider" >
+    </ListView>
 
     <!-- NavigationDrawer表示時に表示されるビュー -->
 
@@ -62,7 +47,6 @@
                 android:layout_weight="1"
                 android:text="@string/search_text" />
         </LinearLayout>
-        <!-- 区切り線 -->
 
         <View
             android:layout_width="match_parent"
@@ -88,7 +72,7 @@
             android:padding="10dp"
             android:text="ログアウト"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        <!-- 区切り線 -->
+        区切り線
 
         <View
             android:layout_width="match_parent"
@@ -114,8 +98,7 @@
             android:padding="10dp"
             android:text="ユーザ登録"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <!-- 区切り -->
+        区切り
 
         <RelativeLayout
             android:layout_width="match_parent"

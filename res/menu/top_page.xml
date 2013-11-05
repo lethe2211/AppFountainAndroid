@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/top_page_move_post_question"
-        android:icon="@drawable/top_page_post_icon"
-        android:title=""
+        android:icon="@drawable/top_page_post_icon_state"
+        android:title="質問を投稿する"
         support:showAsAction="ifRoom"/>
 
 </menu>
