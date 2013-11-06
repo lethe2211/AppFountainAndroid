@@ -118,22 +118,15 @@ public class RegisterActivity extends ActionBarActivity {
 					@Override
 					public void onResponse(UserSource response) {
 						Common.closeProgressBar();
-						if (response.isSuccess()) {
-							// User情報を端末へ登録&キャッシュ
-							User user = response.getUser();
-							Common.setUserContainer(self, user.getId(),
-									user.getName(), md5Password, user.getRk());
+						// User情報を端末へ登録&キャッシュ
+						User user = response.getUser();
+						Common.setUserContainer(self, user.getId(),
+								user.getName(), md5Password, user.getRk());
 
-							// TopPageへの遷移
-							Intent intent = new Intent(self,
-									TopPageActivity.class);
-							startActivity(intent);
-							self.finish(); // いらない画面は終了させる
-						} else {
-							Toast.makeText(self, response.getMessage(),
-									Toast.LENGTH_SHORT).show();
-							clearRegisterInfo();
-						}
+						// TopPageへの遷移
+						Intent intent = new Intent(self, TopPageActivity.class);
+						startActivity(intent);
+						self.finish(); // いらない画面は終了させる
 					}
 				}, new ErrorListener() {
 					@Override

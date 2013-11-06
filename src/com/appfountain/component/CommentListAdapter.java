@@ -159,12 +159,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 				new Listener<BaseSource>() {
 					@Override
 					public void onResponse(BaseSource response) {
-						if (response.isSuccess()) {
-							// do nothing
-						} else {
-							Toast.makeText(context, response.getMessage(),
-									Toast.LENGTH_SHORT).show();
-						}
+						// do nothing
 					}
 				}, new ErrorListener() {
 					@Override

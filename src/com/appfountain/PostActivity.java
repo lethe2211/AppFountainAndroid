@@ -162,24 +162,14 @@ public class PostActivity extends ActionBarActivity implements
 				new Listener<QuestionSource>() {
 					@Override
 					public void onResponse(QuestionSource response) {
-						if (response.isSuccess()) {
-							// 鯖にiconがupされてないアプリがあればそれをuploadしてもらう
-							List<App> lackImageApps = response
-									.getApplications();
-							if (lackImageApps != null
-									&& lackImageApps.size() > 0) {
-								postIcons(lackImageApps);
-							} else {
-								Common.closeProgressBar();
-								setResult(RESULT_OK);
-								finish();
-							}
+						// 鯖にiconがupされてないアプリがあればそれをuploadしてもらう
+						List<App> lackImageApps = response.getApplications();
+						if (lackImageApps != null && lackImageApps.size() > 0) {
+							postIcons(lackImageApps);
 						} else {
 							Common.closeProgressBar();
-							Toast.makeText(self, response.getMessage(),
-									Toast.LENGTH_SHORT).show();
-							okButton.setClickable(true);
-							isPosting = false;
+							setResult(RESULT_OK);
+							finish();
 						}
 					}
 				}, new ErrorListener() {
