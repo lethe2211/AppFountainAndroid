@@ -86,14 +86,8 @@ public class UserInfoFragment extends Fragment {
 				new Listener<UserSource>() {
 					@Override
 					public void onResponse(UserSource response) {
-						if (response.isSuccess()) {
-							user = response.getUser();
-							showUserInfo(user);
-						} else {
-							Toast.makeText(self.getActivity(),
-									response.getMessage(), Toast.LENGTH_SHORT)
-									.show();
-						}
+						user = response.getUser();
+						showUserInfo(user);
 					}
 				}, new ErrorListener() {
 					@Override

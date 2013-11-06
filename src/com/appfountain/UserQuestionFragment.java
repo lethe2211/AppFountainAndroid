@@ -87,16 +87,10 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 				new Listener<QuestionsSource>() {
 					@Override
 					public void onResponse(QuestionsSource response) {
-						if (response.isSuccess()) {
-							if (response.getQuestions().isEmpty())
-								finishLoading();
-							questions.addAll(response.getQuestions());
-							questionListAdapter.notifyDataSetChanged();
-						} else {
-							Toast.makeText(self.getActivity(),
-									response.getMessage(), Toast.LENGTH_SHORT)
-									.show();
-						}
+						if (response.getQuestions().isEmpty())
+							finishLoading();
+						questions.addAll(response.getQuestions());
+						questionListAdapter.notifyDataSetChanged();
 					}
 				}, new ErrorListener() {
 					@Override

@@ -138,15 +138,10 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				null, new Listener<AppsSource>() {
 					@Override
 					public void onResponse(AppsSource response) {
-						if (response.isSuccess() && questionUserName != null) {
-							List<App> applications = response.getApplications();
-							if (applications != null && !applications.isEmpty()) {
-								apps.addAll(applications);
-								appAdapter.notifyDataSetChanged();
-							}
-						} else {
-							Toast.makeText(self, response.getMessage(),
-									Toast.LENGTH_SHORT).show();
+						List<App> applications = response.getApplications();
+						if (applications != null && !applications.isEmpty()) {
+							apps.addAll(applications);
+							appAdapter.notifyDataSetChanged();
 						}
 					}
 				}, new ErrorListener() {
@@ -170,13 +165,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				new Listener<UserSource>() {
 					@Override
 					public void onResponse(UserSource response) {
-						if (response.isSuccess() && questionUserName != null) {
-							User questionUser = response.getUser();
-							questionUserName.setText(questionUser.getName());
-						} else {
-							Toast.makeText(self, response.getMessage(),
-									Toast.LENGTH_SHORT).show();
-						}
+						User questionUser = response.getUser();
+						questionUserName.setText(questionUser.getName());
 					}
 				}, new ErrorListener() {
 					@Override
@@ -202,21 +192,15 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				new Listener<CommentsSource>() {
 					@Override
 					public void onResponse(CommentsSource response) {
-						if (response.isSuccess()) {
-							if (response.getComments().isEmpty())
-								finishLoading();
-							comments.addAll(response.getComments());
-							commentListAdapter.notifyDataSetChanged();
-						} else {
-							Toast.makeText(self, response.getMessage(),
-									Toast.LENGTH_SHORT).show();
-						}
+						if (response.getComments().isEmpty())
+							finishLoading();
+						comments.addAll(response.getComments());
+						commentListAdapter.notifyDataSetChanged();
 					}
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Toast.makeText(self,
-								"Error occurred\nSomething wrong...",
+						Toast.makeText(self, error.getMessage(),
 								Toast.LENGTH_SHORT).show();
 					}
 				});
