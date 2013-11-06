@@ -144,9 +144,13 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		// コメント情報表用View
 		commentList = (ListView) findViewById(R.id.question_detail_comment_list);
 		commentListAdapter = new CommentListAdapter(this,
-				R.layout.list_item_comment, comments);
+				R.layout.list_item_comment, comments, question, isQuestionAuthor(Common.getUserContainer(this), question.getUserId()));
 		commentList.setAdapter(commentListAdapter);
 		commentList.setOnScrollListener(this);
+	}
+
+	private Boolean isQuestionAuthor(UserContainer userContainer, int userId) {
+		return userContainer != null && userContainer.getId() == userId;
 	}
 
 	// 質問者のユーザ情報表示

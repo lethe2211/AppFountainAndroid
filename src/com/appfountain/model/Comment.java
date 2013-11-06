@@ -24,7 +24,7 @@ public class Comment {
 	private Date _updated = null;
 	private final int up;
 	private final int down;
-	private final Boolean useful;
+	private Boolean useful;
 	private String evaluation;
 
 	public Comment(int id, int questionId, int userId, String userName,
@@ -113,19 +113,23 @@ public class Comment {
 		return down;
 	}
 
-	public Boolean getUseful() {
+	public Boolean isUseful() {
 		return useful;
 	}
 
 	public Boolean isUpEvaluation() {
 		return evaluation != null && evaluation.equals("up");
 	}
-	
+
 	public void evaluate() {
-		if(isUpEvaluation()){
+		if (isUpEvaluation()) {
 			evaluation = "none";
-		}else {
+		} else {
 			evaluation = "up";
 		}
+	}
+
+	public void usefulEvaluate() {
+		this.useful = !useful;
 	}
 }
