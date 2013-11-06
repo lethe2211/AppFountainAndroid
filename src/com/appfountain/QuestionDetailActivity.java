@@ -1,5 +1,6 @@
 package com.appfountain;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,8 +148,13 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Toast.makeText(self, error.getMessage(),
-								Toast.LENGTH_SHORT).show();
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(self, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
 					}
 				});
 		queue.add(req);
@@ -200,8 +206,13 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Toast.makeText(self, error.getMessage(),
-								Toast.LENGTH_SHORT).show();
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(self, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
 					}
 				});
 		queue.add(req);

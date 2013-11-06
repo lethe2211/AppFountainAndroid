@@ -1,5 +1,7 @@
 package com.appfountain;
 
+import java.io.UnsupportedEncodingException;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -92,8 +94,13 @@ public class UserInfoFragment extends Fragment {
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Toast.makeText(self.getActivity(), error.getMessage(),
-								Toast.LENGTH_SHORT).show();
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(self.getActivity(), responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
 					}
 				});
 		queue.add(req);

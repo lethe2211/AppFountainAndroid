@@ -1,5 +1,6 @@
 package com.appfountain;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,17 +133,16 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						showErrorMessage();
+						inError = true;
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(self, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
 					}
 				});
 		queue.add(req);
 	}
-
-	private void showErrorMessage() {
-		inError = true;
-
-		Toast.makeText(this, "Error occurred\nSomething wrong...",
-				Toast.LENGTH_SHORT).show();
-	}
-
 }
