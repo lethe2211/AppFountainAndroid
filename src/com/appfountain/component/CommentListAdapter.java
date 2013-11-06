@@ -119,19 +119,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 					Toast.makeText(context, "ログインして下さい", Toast.LENGTH_SHORT)
 							.show();
 				} else {
-					// 画像の変更, 値の増減
-					if (c.isUpEvaluation()) {
-						holder.upImage
-								.setImageResource(R.drawable.comment_star_null);
-						holder.upCount.setText(Integer.parseInt(holder.upCount
-								.getText().toString()) - 1 + "");
-					} else {
-						holder.upImage
-								.setImageResource(R.drawable.comment_star);
-						holder.upCount.setText(Integer.parseInt(holder.upCount
-								.getText().toString()) + 1 + "");
-					}
-					commentEvaluate(c);
+					commentEvaluate(c, holder);
 				}
 			}
 		});
@@ -139,7 +127,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		return view;
 	}
 
-	private void commentEvaluate(Comment c) {
+	private void commentEvaluate(final Comment c, final CommentItemHolder holder) {
 		// localの値の更新
 		c.evaluate();
 
@@ -159,7 +147,22 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 				params, headers, new Listener<SimpleSource>() {
 					@Override
 					public void onResponse(SimpleSource response) {
-						// do nothing
+						// 画像の変更, 値の増減
+						if (c.isUpEvaluation()) {
+							holder.upImage
+									.setImageResource(R.drawable.comment_star);
+							holder.upCount.setText(Integer
+									.parseInt(holder.upCount.getText()
+											.toString())
+									+ 1 + "");
+						} else {
+							holder.upImage
+									.setImageResource(R.drawable.comment_star_null);
+							holder.upCount.setText(Integer
+									.parseInt(holder.upCount.getText()
+											.toString())
+									- 1 + "");
+						}
 					}
 				}, new ErrorListener() {
 					@Override
