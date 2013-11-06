@@ -27,10 +27,10 @@ import com.android.volley.toolbox.Volley;
 import com.appfountain.component.AppAdapter;
 import com.appfountain.component.AppChooseDialog;
 import com.appfountain.component.AppChooseListener;
-import com.appfountain.external.BaseSource;
 import com.appfountain.external.DrawableUploadRequest;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionSource;
+import com.appfountain.external.SimpleSource;
 import com.appfountain.model.App;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
@@ -214,12 +214,12 @@ public class PostActivity extends ActionBarActivity implements
 					break;
 				}
 			}
-			DrawableUploadRequest<BaseSource> req = new DrawableUploadRequest<BaseSource>(
+			DrawableUploadRequest<SimpleSource> req = new DrawableUploadRequest<SimpleSource>(
 					getUploadAPIUrl(uploadApp.getPackageName()),
-					BaseSource.class, uploadApp.getIcon(), headers,
-					new Listener<BaseSource>() {
+					SimpleSource.class, uploadApp.getIcon(), headers,
+					new Listener<SimpleSource>() {
 						@Override
-						public void onResponse(BaseSource response) {
+						public void onResponse(SimpleSource response) {
 							index++;
 							if (count >= index) {
 								Common.closeProgressBar();

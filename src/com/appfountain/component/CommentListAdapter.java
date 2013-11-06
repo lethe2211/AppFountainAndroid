@@ -18,17 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
 import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.R;
 import com.appfountain.UserPageActivity;
-import com.appfountain.external.BaseSource;
 import com.appfountain.external.GsonRequest;
-import com.appfountain.external.QuestionsSource;
+import com.appfountain.external.SimpleSource;
 import com.appfountain.model.Comment;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
@@ -155,11 +154,11 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		headers.put(Common.getPostHeader(context),
 				Common.getUserContainer(context).getRk());
 
-		GsonRequest<BaseSource> req = new GsonRequest<BaseSource>(Method.POST,
-				getCommentEvaluateURL(c), BaseSource.class, params, headers,
-				new Listener<BaseSource>() {
+		GsonRequest<SimpleSource> req = new GsonRequest<SimpleSource>(
+				Method.POST, getCommentEvaluateURL(c), SimpleSource.class,
+				params, headers, new Listener<SimpleSource>() {
 					@Override
-					public void onResponse(BaseSource response) {
+					public void onResponse(SimpleSource response) {
 						// do nothing
 					}
 				}, new ErrorListener() {
