@@ -7,10 +7,14 @@ import java.util.List;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -121,6 +125,19 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				R.layout.list_item_question_app, apps, new ImageLoader(queue,
 						new BitmapLruCache(cacheSize)));
 		appList.setAdapter(appAdapter);
+		appList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				App selectedApp = apps.get(position);
+				String packageName = selectedApp.getPackageName();
+				try {
+				    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+packageName)));
+				} catch (android.content.ActivityNotFoundException anfe) {
+				    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id="+packageName)));
+				}				
+			}
+		});
 		// 質問者の情報表示用View
 		questionUserName = (TextView) findViewById(R.id.question_detail_quesion_user_name_value);
 
