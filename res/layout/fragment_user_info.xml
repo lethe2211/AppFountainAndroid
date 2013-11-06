@@ -177,27 +177,6 @@
                     android:layout_marginLeft="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/fragment_user_info_down_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="downられ数"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/fragment_user_info_down_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
