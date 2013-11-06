@@ -29,6 +29,7 @@ import com.appfountain.UserPageActivity;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.SimpleSource;
 import com.appfountain.model.Comment;
+import com.appfountain.model.Question;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
@@ -39,14 +40,18 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	private int resource;
 	private Context context;
 	private RequestQueue queue;
+	private Question question;
+	private Boolean isQuestionAuthor;
 
 	public CommentListAdapter(Context context, int resource,
-			List<Comment> comments) {
+			List<Comment> comments, Question question, Boolean isQuestionAuthor) {
 		super(context, resource);
 
 		this.context = context;
 		this.comments = comments;
 		this.resource = resource;
+		this.question = question;
+		this.isQuestionAuthor = isQuestionAuthor;
 	}
 
 	@Override
@@ -86,10 +91,20 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		holder.created.setText(c.getCreatedString());
 		holder.body.setText(c.getBody());
 		holder.upCount.setText("" + c.getUp());
-		if (c.isUpEvaluation()) {
-			holder.upImage.setImageResource(R.drawable.comment_star);
+		if (isQuestionAuthor) {
+			if (c.isUseful()) {
+				holder.upImage
+						.setImageResource(R.drawable.question_detail_comment_useful);
+			} else {
+				holder.upImage
+						.setImageResource(R.drawable.question_detail_comment_unuseful);
+			}
 		} else {
-			holder.upImage.setImageResource(R.drawable.comment_star_null);
+			if (c.isUpEvaluation()) {
+				holder.upImage.setImageResource(R.drawable.comment_star);
+			} else {
+				holder.upImage.setImageResource(R.drawable.comment_star_null);
+			}
 		}
 
 		holder.personButton.setOnClickListener(new OnClickListener() {
@@ -119,7 +134,11 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 					Toast.makeText(context, "ログインして下さい", Toast.LENGTH_SHORT)
 							.show();
 				} else {
-					commentEvaluate(c, holder);
+					if (isQuestionAuthor) {
+						usefulEvaluate(c, holder);
+					} else {
+						commentEvaluate(c, holder);
+					}
 				}
 			}
 		});
@@ -127,6 +146,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		return view;
 	}
 
+	// 投稿者以外の評価
 	private void commentEvaluate(final Comment c, final CommentItemHolder holder) {
 		// localの値の更新
 		c.evaluate();
@@ -182,6 +202,109 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	private String getCommentEvaluateURL(Comment c) {
 		return Common.getApiBaseUrl(context) + "comment/" + c.getId()
 				+ "/evaluate";
+	}
+
+	// 投稿者の評価
+	private void usefulEvaluate(final Comment c, final CommentItemHolder holder) {
+		// localの値の更新
+		c.usefulEvaluate();
+
+		// 変更のrequest投げる
+		if (queue == null)
+			queue = Volley.newRequestQueue(context);
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("useful", c.isUseful() ? "true" : "false");
+		params.put("question_id", "" + question.getId());
+		params.put("comment_author", c.getUserName());
+
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(Common.getPostHeader(context),
+				Common.getUserContainer(context).getRk());
+
+		GsonRequest<SimpleSource> req = new GsonRequest<SimpleSource>(
+				Method.POST, getUsefulEvaluateURL(c), SimpleSource.class,
+				params, headers, new Listener<SimpleSource>() {
+					@Override
+					public void onResponse(SimpleSource response) {
+						// 画像の変更, 値の増減
+						if (c.isUseful()) {
+							holder.upImage
+									.setImageResource(R.drawable.question_detail_comment_useful);
+						} else {
+							holder.upImage
+									.setImageResource(R.drawable.question_detail_comment_unuseful);
+						}
+					}
+				}, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(context, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
+					}
+				});
+		queue.add(req);
+
+		// Usefulの変化により質問が解決済み/未解決かを送信する
+		if (c.isUseful())
+			sendFinishQuestion(c, true);
+		else if (!finishQuestion(comments)) {
+			sendFinishQuestion(c, false);
+		}
+	}
+
+	private String getUsefulEvaluateURL(Comment c) {
+		return Common.getApiBaseUrl(context) + "comment/" + c.getId()
+				+ "/useful";
+	}
+
+	// Usefulなコメントが存在するか
+	private boolean finishQuestion(List<Comment> comments) {
+		for (Comment c : comments) {
+			if (c.isUseful())
+				return true;
+		}
+		return false;
+	}
+
+	// 質問が解決済み/未解決か送信
+	private void sendFinishQuestion(Comment c, boolean isFinished) {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(Common.getPostHeader(context),
+				Common.getUserContainer(context).getRk());
+
+		GsonRequest<SimpleSource> req = new GsonRequest<SimpleSource>(
+				Method.POST, getFinishQuestionURL(isFinished),
+				SimpleSource.class, null, headers,
+				new Listener<SimpleSource>() {
+					@Override
+					public void onResponse(SimpleSource response) {
+						// do nothing
+					}
+				}, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(context, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
+					}
+				});
+		queue.add(req);
+	}
+
+	private String getFinishQuestionURL(boolean isFinished) {
+		String url = Common.getApiBaseUrl(context) + "question/"
+				+ question.getId();
+		return isFinished ? url + "/finish" : url + "/unfinish";
 	}
 
 	@Override
