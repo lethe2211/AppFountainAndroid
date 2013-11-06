@@ -7,16 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -96,6 +99,24 @@ public class PostActivity extends ActionBarActivity implements
 		applicationAdapter = new AppAdapter(this,
 				R.layout.list_item_choose_app, applications);
 		applicationList.setAdapter(applicationAdapter);
+
+		applicationList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				App selectedApp = applications.get(position);
+				String packageName = selectedApp.getPackageName();
+				try {
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri
+							.parse("market://details?id=" + packageName)));
+				} catch (android.content.ActivityNotFoundException anfe) {
+					startActivity(new Intent(
+							Intent.ACTION_VIEW,
+							Uri.parse("http://play.google.com/store/apps/details?id="
+									+ packageName)));
+				}
+			}
+		});
 	}
 
 	// アプリ選択ボタン押下時
