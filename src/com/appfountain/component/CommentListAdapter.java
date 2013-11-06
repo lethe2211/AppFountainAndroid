@@ -1,5 +1,6 @@
 package com.appfountain.component;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,8 +165,13 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Toast.makeText(context, error.getMessage(),
-								Toast.LENGTH_SHORT).show();
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(context, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
 					}
 				});
 		queue.add(req);
