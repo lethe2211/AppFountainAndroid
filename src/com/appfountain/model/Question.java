@@ -14,7 +14,7 @@ import com.appfountain.util.Common;
  * "2013-10-04T17:29:43"}
  */
 // 画面遷移時の値渡しに使うため，Serialziableを実装
-public class Question implements Serializable{
+public class Question implements Serializable {
 	private static final long serialVersionUID = -1472475592153424625L;
 
 	private final int id;
@@ -23,22 +23,22 @@ public class Question implements Serializable{
 	private final int user_id;
 	private final String title;
 	private final String body;
+	private final Boolean finished;
 	private final String created;
 	private Date _created = null;
 	private final String updated;
 	private Date _updated = null;
-	private final Boolean valid;
 
 	public Question(int id, int categoryId, int userId, String title,
-			String body, String created, String updated, Boolean valid) {
+			String body, Boolean finished, String created, String updated) {
 		this.id = id;
 		this.category_id = categoryId;
 		this.user_id = userId;
 		this.title = title;
 		this.body = body;
+		this.finished = finished;
 		this.created = created;
 		this.updated = updated;
-		this.valid = valid;
 	}
 
 	public int getId() {
@@ -80,6 +80,10 @@ public class Question implements Serializable{
 		return body;
 	}
 
+	public Boolean isFinished() {
+		return finished;
+	}
+
 	public String getCreatedString() {
 		return created;
 	}
@@ -114,9 +118,5 @@ public class Question implements Serializable{
 			}
 		}
 		return _updated;
-	}
-
-	public Boolean getValid() {
-		return valid;
 	}
 }
