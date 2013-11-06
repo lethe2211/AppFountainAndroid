@@ -36,7 +36,6 @@ public class UserInfoFragment extends Fragment {
 	private TextView totalCommentCount;
 	private TextView usefulCount;
 	private TextView upCount;
-	private TextView downCount;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,6 @@ public class UserInfoFragment extends Fragment {
 		usefulCount = (TextView) v
 				.findViewById(R.id.fragment_user_info_useful_comment_value);
 		upCount = (TextView) v.findViewById(R.id.fragment_user_info_up_value);
-		downCount = (TextView) v
-				.findViewById(R.id.fragment_user_info_down_value);
 		return v;
 	}
 
@@ -119,6 +116,5 @@ public class UserInfoFragment extends Fragment {
 		totalCommentCount.setText(user.getCommentCount() + " 件");
 		usefulCount.setText(user.getUsefulCount() + " 回");
 		upCount.setText(user.getUp() + " 回");
-		downCount.setText(user.getDown() + " 回");
 	}
 }
