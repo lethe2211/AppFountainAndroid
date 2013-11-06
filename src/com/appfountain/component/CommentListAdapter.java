@@ -249,11 +249,62 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 					}
 				});
 		queue.add(req);
+
+		// Usefulの変化により質問が解決済み/未解決かを送信する
+		if (c.isUseful())
+			sendFinishQuestion(c, true);
+		else if (!finishQuestion(comments)) {
+			sendFinishQuestion(c, false);
+		}
 	}
 
 	private String getUsefulEvaluateURL(Comment c) {
 		return Common.getApiBaseUrl(context) + "comment/" + c.getId()
 				+ "/useful";
+	}
+
+	// Usefulなコメントが存在するか
+	private boolean finishQuestion(List<Comment> comments) {
+		for (Comment c : comments) {
+			if (c.isUseful())
+				return true;
+		}
+		return false;
+	}
+
+	// 質問が解決済み/未解決か送信
+	private void sendFinishQuestion(Comment c, boolean isFinished) {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(Common.getPostHeader(context),
+				Common.getUserContainer(context).getRk());
+
+		GsonRequest<SimpleSource> req = new GsonRequest<SimpleSource>(
+				Method.POST, getFinishQuestionURL(isFinished),
+				SimpleSource.class, null, headers,
+				new Listener<SimpleSource>() {
+					@Override
+					public void onResponse(SimpleSource response) {
+						// do nothing
+					}
+				}, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(context, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
+					}
+				});
+		queue.add(req);
+	}
+
+	private String getFinishQuestionURL(boolean isFinished) {
+		String url = Common.getApiBaseUrl(context) + "question/"
+				+ question.getId();
+		return isFinished ? url + "/finish" : url + "/unfinish";
 	}
 
 	@Override
