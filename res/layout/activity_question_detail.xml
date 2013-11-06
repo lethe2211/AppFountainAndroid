@@ -36,6 +36,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/question_detail_question_created"
                 android:padding="5dp"
+                android:autoLink="web"
                 android:text="question_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_body" />
 
             <ImageView
