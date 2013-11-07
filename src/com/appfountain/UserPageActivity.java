@@ -54,7 +54,7 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 					}
 				});
 
-		actionBar.addTab(actionBar.newTab().setText("ユーザ情報")
+		actionBar.addTab(actionBar.newTab().setText("基本情報")
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("質問一覧")
 				.setTabListener(this));
