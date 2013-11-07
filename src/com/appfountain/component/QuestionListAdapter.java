@@ -41,8 +41,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder = new QuestionItemHolder();
 			holder.title = (TextView) view
 					.findViewById(R.id.list_item_question_title);
-			// holder.snippet = (TextView) view
-			// .findViewById(R.id.list_item_question_snippet);
+			holder.finished = (TextView) view
+					.findViewById(R.id.list_item_question_comment_done);
 			holder.category = (ImageView) view
 					.findViewById(R.id.list_item_question_category);
 			holder.created = (TextView) view
@@ -55,9 +55,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 		Question q = questions.get(position);
 		holder.title.setText(q.getTitle(MAX_TITLE_SIZE));
-		// holder.snippet.setText(q.getBody(MAX_SNIPPET_SIZE));
 		holder.category.setImageResource(q.getCategory().getDrawableId());
 		holder.created.setText(q.getCreatedString());
+		if (q.isFinished())
+			holder.finished.setText("解決済み");
+		else
+			holder.finished.setText("未解決");
 
 		return view;
 	}
@@ -69,8 +72,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 	static class QuestionItemHolder {
 		TextView title;
-		// TextView snippet;
 		ImageView category;
 		TextView created;
+		TextView finished;
 	}
 }
