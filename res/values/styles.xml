@@ -1,14 +1,14 @@
 <resources>
 
     <!-- the theme applied to the application or activity -->
-    <style name="CustomActionBarTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="CustomActionBarTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBar</item>
     </style>
 
     <!-- ActionBar styles -->
-    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
 
         <!-- Support library compatibility -->
         <item name="background">@color/actionbar_background</item>
