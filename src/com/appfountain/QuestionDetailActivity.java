@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -70,7 +71,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private ListView commentList;
 	private List<Comment> comments = new ArrayList<Comment>();
 	private CommentListAdapter commentListAdapter;
-	// コメント投稿ボタン
+	// コメント投稿フォーム・ボタン
+	private EditText commentPostEditText;
 	private Button commentPostButton;
 
 	@Override
@@ -167,22 +169,33 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		commentList.setOnScrollListener(this);
 
 		// コメント投稿用フォーム
+		commentPostEditText = (EditText) findViewById(R.id.comment_post_text);
 
-		// コメント投稿用Button
+		// コメント投稿用ボタン
 		commentPostButton = (Button) findViewById(R.id.comment_post_button);
 		commentPostButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Log.d("comment_post_button", "clicked");
-				final String commentPostBody = "hogehogehoge";
-				postComment(commentPostBody);
+				final String commentPostBody = commentPostEditText.getText()
+						.toString();
+				if (user == null) { // ログインしていないならコメントできない
+					// TODO ログイン画面へいい感じに(メッセージつけて)遷移
+					Toast.makeText(self, "ログインしてください", Toast.LENGTH_SHORT).show();	
+				} else if (isValidComment(commentPostBody)) {
+					postComment(commentPostBody);
+				}
 			}
 		});
 	}
 
 	private Boolean isQuestionAuthor(UserContainer userContainer, int userId) {
 		return userContainer != null && userContainer.getId() == userId;
+	}
+	
+	private Boolean isValidComment(String commentPostBody) {
+		return commentPostBody.length() != 0;
 	}
 
 	// 質問者のユーザ情報表示
@@ -287,6 +300,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		return url;
 	}
 
+	// コメントを投稿する
 	private void postComment(String commentPostBody) {
 		if (queue == null)
 			queue = Volley.newRequestQueue(this);
@@ -298,25 +312,30 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		headers.put(Common.getPostHeader(this), user.getRk()); // POST時はrkをヘッダに付与
 
 		GsonRequest<CommentSource> req = new GsonRequest<CommentSource>(
-				Method.POST, Common.getApiBaseUrl(this) + "question/" + "40",
-				CommentSource.class, params, headers,
-				new Listener<CommentSource>() {
+				Method.POST, Common.getApiBaseUrl(this) + "question/"
+						+ question.getId(), CommentSource.class, params,
+				headers, new Listener<CommentSource>() {
 					@Override
 					public void onResponse(CommentSource response) {
 						Log.d("comment_post", "posted");
 						comments.add(response.getComment());
 						commentListAdapter.notifyDataSetChanged();
+
+						// 投稿後の処理
+						commentPostEditText.setText("");
+						Toast.makeText(self, "コメントが投稿されました", Toast.LENGTH_SHORT)
+								.show();
 					}
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-//						try {
-//							String responseBody = new String(
-//									error.networkResponse.data, "utf-8");
-//							Toast.makeText(self, responseBody,
-//									Toast.LENGTH_SHORT).show();
-//						} catch (UnsupportedEncodingException e) {
-//						}
+						try {
+							String responseBody = new String(
+									error.networkResponse.data, "utf-8");
+							Toast.makeText(self, responseBody,
+									Toast.LENGTH_SHORT).show();
+						} catch (UnsupportedEncodingException e) {
+						}
 					}
 				});
 

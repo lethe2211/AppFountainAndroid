@@ -35,8 +35,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/question_detail_question_created"
-                android:padding="5dp"
                 android:autoLink="web"
+                android:padding="5dp"
                 android:text="question_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_body" />
 
             <ImageView
@@ -79,7 +79,6 @@
                 android:layout_alignLeft="@+id/question_detail_question_body"
                 android:layout_alignTop="@+id/relativeLayout1" >
             </ListView>
-
         </RelativeLayout>
     </LinearLayout>
 
@@ -87,15 +86,34 @@
         android:id="@+id/question_detail_comment_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@null"
-        android:background="#fff" >
+        android:layout_weight="1"
+        android:background="#fff"
+        android:divider="@null">
     </ListView>
-    
-    <Button
-        android:id="@+id/comment_post_button"
+
+    <LinearLayout
+        android:id="@+id/comment_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="コメント投稿" >
-    </Button>
+        android:gravity="bottom"
+        android:background="#5e4a1a"
+        android:padding="10dp" >
+
+        <EditText
+            android:id="@+id/comment_post_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="コメント" >
+        </EditText>
+
+        <Button
+            android:id="@+id/comment_post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="コメント投稿" >
+        </Button>
+    </LinearLayout>
 
 </LinearLayout>
