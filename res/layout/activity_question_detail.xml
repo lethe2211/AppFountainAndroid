@@ -90,5 +90,12 @@
         android:divider="@null"
         android:background="#fff" >
     </ListView>
+    
+    <Button
+        android:id="@+id/comment_post_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="コメント投稿" >
+    </Button>
 
 </LinearLayout>

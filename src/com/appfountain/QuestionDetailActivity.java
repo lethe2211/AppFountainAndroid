@@ -2,7 +2,9 @@ package com.appfountain;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,8 +35,10 @@ import com.appfountain.component.EndlessScrollActionBarActivity;
 import com.appfountain.component.QuestionAppAdapter;
 import com.appfountain.external.AppsSource;
 import com.appfountain.external.BitmapLruCache;
+import com.appfountain.external.CommentSource;
 import com.appfountain.external.CommentsSource;
 import com.appfountain.external.GsonRequest;
+import com.appfountain.external.QuestionSource;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.App;
 import com.appfountain.model.Comment;
@@ -52,6 +57,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private static final int DEFAULT_COMMENT_GET_COUNT = 20;
 
 	private ActionBarActivity self = this;
+	private UserContainer user = null;
 	private RequestQueue queue = null;
 	private Question question = null;
 	// 質問に付与されたアプリ情報
@@ -64,6 +70,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private ListView commentList;
 	private List<Comment> comments = new ArrayList<Comment>();
 	private CommentListAdapter commentListAdapter;
+	// コメント投稿ボタン
+	private Button commentPostButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,10 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 
 		// Homeボタンを押せるようにする
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		user = Common.getUserContainer(this);
+		if (user == null)
+			finish();
 
 		// 遷移前画面からQuestionを受け取る
 		Intent intent = getIntent();
@@ -127,15 +139,19 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		appList.setAdapter(appAdapter);
 		appList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				App selectedApp = apps.get(position);
 				String packageName = selectedApp.getPackageName();
 				try {
-				    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+packageName)));
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri
+							.parse("market://details?id=" + packageName)));
 				} catch (android.content.ActivityNotFoundException anfe) {
-				    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id="+packageName)));
-				}				
+					startActivity(new Intent(
+							Intent.ACTION_VIEW,
+							Uri.parse("http://play.google.com/store/apps/details?id="
+									+ packageName)));
+				}
 			}
 		});
 		// 質問者の情報表示用View
@@ -144,9 +160,25 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		// コメント情報表用View
 		commentList = (ListView) findViewById(R.id.question_detail_comment_list);
 		commentListAdapter = new CommentListAdapter(this,
-				R.layout.list_item_comment, comments, question, isQuestionAuthor(Common.getUserContainer(this), question.getUserId()));
+				R.layout.list_item_comment, comments, question,
+				isQuestionAuthor(Common.getUserContainer(this),
+						question.getUserId()));
 		commentList.setAdapter(commentListAdapter);
 		commentList.setOnScrollListener(this);
+
+		// コメント投稿用フォーム
+
+		// コメント投稿用Button
+		commentPostButton = (Button) findViewById(R.id.comment_post_button);
+		commentPostButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Log.d("comment_post_button", "clicked");
+				final String commentPostBody = "hogehogehoge";
+				postComment(commentPostBody);
+			}
+		});
 	}
 
 	private Boolean isQuestionAuthor(UserContainer userContainer, int userId) {
@@ -253,5 +285,41 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 			url += "&user_id=" + uc.getId();
 		}
 		return url;
+	}
+
+	private void postComment(String commentPostBody) {
+		if (queue == null)
+			queue = Volley.newRequestQueue(this);
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("body", commentPostBody);
+
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(Common.getPostHeader(this), user.getRk()); // POST時はrkをヘッダに付与
+
+		GsonRequest<CommentSource> req = new GsonRequest<CommentSource>(
+				Method.POST, Common.getApiBaseUrl(this) + "question/" + "40",
+				CommentSource.class, params, headers,
+				new Listener<CommentSource>() {
+					@Override
+					public void onResponse(CommentSource response) {
+						Log.d("comment_post", "posted");
+						comments.add(response.getComment());
+						commentListAdapter.notifyDataSetChanged();
+					}
+				}, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+//						try {
+//							String responseBody = new String(
+//									error.networkResponse.data, "utf-8");
+//							Toast.makeText(self, responseBody,
+//									Toast.LENGTH_SHORT).show();
+//						} catch (UnsupportedEncodingException e) {
+//						}
+					}
+				});
+
+		queue.add(req);
 	}
 }
