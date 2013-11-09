@@ -1,12 +1,14 @@
 package com.appfountain.external;
 
-import com.appfountain.model.UserComments;
+import java.util.List;
+
+import com.appfountain.model.UserComment;
 
 public class UserCommentsSource extends BaseSource {
 	// for success case
-	private UserComments questions;
+	private List<UserComment> questioncomments;
 
-	public UserComments getQuestions() {
-		return questions;
+	public List<UserComment> getUserComments() {
+		return questioncomments;
 	}
 }
