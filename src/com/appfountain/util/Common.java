@@ -15,8 +15,7 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 
 import com.appfountain.R;
 import com.appfountain.model.Category;
@@ -100,11 +99,10 @@ public class Common {
 	 * @param parent
 	 * @param message
 	 */
-	public static void initializeProgressBar(ActionBarActivity parent,
+	public static void initializeProgressBar(FragmentManager manager,
 			String message) {
 		progressDialog = ProgressDialogFragment.newInstance(message);
-		progressDialog.show(parent.getSupportFragmentManager(),
-				"progress_dialog_fragment");
+		progressDialog.show(manager, "progress_dialog_fragment");
 	}
 
 	/**

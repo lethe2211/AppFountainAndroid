@@ -140,7 +140,7 @@ public class LoginActivity extends ActionBarActivity {
 				});
 
 		queue.add(req);
-		Common.initializeProgressBar(this, "login...");
+		Common.initializeProgressBar(this.getSupportFragmentManager(), "login...");
 	}
 
 	// 入力チェック
