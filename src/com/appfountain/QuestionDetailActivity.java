@@ -84,8 +84,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		user = Common.getUserContainer(this);
-		if (user == null)
-			finish();
 
 		// 遷移前画面からQuestionを受け取る
 		Intent intent = getIntent();
