@@ -211,7 +211,7 @@ public class PostActivity extends ActionBarActivity implements
 				});
 
 		queue.add(req);
-		Common.initializeProgressBar(this, "投稿中...");
+		Common.initializeProgressBar(this.getSupportFragmentManager(), "投稿中...");
 	}
 
 	private int index = 0;

@@ -145,7 +145,7 @@ public class RegisterActivity extends ActionBarActivity {
 				});
 
 		queue.add(req);
-		Common.initializeProgressBar(this, "signup...");
+		Common.initializeProgressBar(this.getSupportFragmentManager(), "signup...");
 	}
 
 	// 入力チェック
