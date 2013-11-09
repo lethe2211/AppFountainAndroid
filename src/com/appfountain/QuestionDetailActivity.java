@@ -56,6 +56,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 			.getSimpleName();
 	protected static final String EXTRA_QUESTION = "question_detail_extra_question";
 	private static final int DEFAULT_COMMENT_GET_COUNT = 20;
+	private static final int COMMENT_POST = 1;
 
 	private ActionBarActivity self = this;
 	private UserContainer user = null;
@@ -71,8 +72,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private ListView commentList;
 	private List<Comment> comments = new ArrayList<Comment>();
 	private CommentListAdapter commentListAdapter;
-	// コメント投稿フォーム・ボタン
-	private EditText commentPostEditText;
+	// コメント投稿ボタン
 	private Button commentPostButton;
 
 	@Override
@@ -168,35 +168,45 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		commentList.setAdapter(commentListAdapter);
 		commentList.setOnScrollListener(this);
 
-		// コメント投稿用フォーム
-		commentPostEditText = (EditText) findViewById(R.id.comment_post_text);
-
-		// コメント投稿用ボタン
 		commentPostButton = (Button) findViewById(R.id.comment_post_button);
 		commentPostButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Log.d("comment_post_button", "clicked");
-				final String commentPostBody = commentPostEditText.getText()
-						.toString();
 				if (user == null) { // ログインしていないならコメントできない
 					// TODO ログイン画面へいい感じに(メッセージつけて)遷移
-					Toast.makeText(self, "ログインしてください", Toast.LENGTH_SHORT).show();	
-				} else if (isValidComment(commentPostBody)) {
-					postComment(commentPostBody);
+					Toast.makeText(self, "ログインしてください", Toast.LENGTH_SHORT)
+							.show();
+				} else {
+					Intent intent = new Intent(self, CommentBodyActivity.class);
+					intent.putExtra("EXTRA_QUESTION", question);
+					startActivityForResult(intent, COMMENT_POST);
 				}
 			}
 		});
+
 	}
 
 	private Boolean isQuestionAuthor(UserContainer userContainer, int userId) {
 		return userContainer != null && userContainer.getId() == userId;
 	}
 	
-	private Boolean isValidComment(String commentPostBody) {
-		return commentPostBody.length() != 0;
-	}
+	// startActivityForResultで呼ばれたActivityが停止した際に呼ばれる
+		@Override
+		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+			super.onActivityResult(requestCode, resultCode, data);
+			
+			switch (requestCode) {
+			case COMMENT_POST:
+				// コメント投稿後は再読み込みさせる
+				if (resultCode == RESULT_OK) { // 起動先のActivityでsetResult(RESULT_OK)を呼ばれていたら
+					comments.clear();
+					loadComments();
+				}
+				break;
+			}
+		}
 
 	// 質問者のユーザ情報表示
 	private void loadQuestionRelation(Question q) {
@@ -257,7 +267,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 
 	@Override
 	protected void loadPage() {
-		int next = comments.size();
+		final int next = comments.size();
 		GsonRequest<CommentsSource> req = new GsonRequest<CommentsSource>(
 				Method.GET, getCommentsUrl(DEFAULT_COMMENT_GET_COUNT, next),
 				CommentsSource.class, null, null,
@@ -298,47 +308,5 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 			url += "&user_id=" + uc.getId();
 		}
 		return url;
-	}
-
-	// コメントを投稿する
-	private void postComment(String commentPostBody) {
-		if (queue == null)
-			queue = Volley.newRequestQueue(this);
-
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("body", commentPostBody);
-
-		Map<String, String> headers = new HashMap<String, String>();
-		headers.put(Common.getPostHeader(this), user.getRk()); // POST時はrkをヘッダに付与
-
-		GsonRequest<CommentSource> req = new GsonRequest<CommentSource>(
-				Method.POST, Common.getApiBaseUrl(this) + "question/"
-						+ question.getId(), CommentSource.class, params,
-				headers, new Listener<CommentSource>() {
-					@Override
-					public void onResponse(CommentSource response) {
-						Log.d("comment_post", "posted");
-						comments.add(response.getComment());
-						commentListAdapter.notifyDataSetChanged();
-
-						// 投稿後の処理
-						commentPostEditText.setText("");
-						Toast.makeText(self, "コメントが投稿されました", Toast.LENGTH_SHORT)
-								.show();
-					}
-				}, new ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						try {
-							String responseBody = new String(
-									error.networkResponse.data, "utf-8");
-							Toast.makeText(self, responseBody,
-									Toast.LENGTH_SHORT).show();
-						} catch (UnsupportedEncodingException e) {
-						}
-					}
-				});
-
-		queue.add(req);
 	}
 }

@@ -277,6 +277,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		}
 	}
 
+	// startActivityForResultで呼ばれたActivityが停止した際に呼ばれる
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

@@ -98,6 +98,22 @@
         android:gravity="bottom"
         android:background="#5e4a1a"
         android:padding="10dp" >
+        
+        <Button
+            android:id="@+id/comment_post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment_post" >
+        </Button>
+    </LinearLayout>
+    
+ <!--    <LinearLayout
+        android:id="@+id/comment_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:background="#5e4a1a"
+        android:padding="10dp" >
 
         <EditText
             android:id="@+id/comment_post_text"
@@ -114,6 +130,6 @@
             android:layout_weight="1"
             android:text="コメント投稿" >
         </Button>
-    </LinearLayout>
+    </LinearLayout> -->
 
 </LinearLayout>
