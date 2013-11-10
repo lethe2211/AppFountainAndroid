@@ -42,8 +42,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:visibility="gone"
-                android:text="Button" />
+                android:text="Button"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/fragment_user_comment_load_finished"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="これ以上は読み込めません"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

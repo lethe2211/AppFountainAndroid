@@ -43,6 +43,7 @@ public class UserCommentFragment extends Fragment {
 	private Fragment self = this;
 	private LinearLayout commentList;
 	private Button loadButton;
+	private TextView loadFinishText;
 	private int userCommentCount = 0;
 	private List<UserComment> _userComments = new ArrayList<UserComment>(0);
 	private Boolean isLoading = false;
@@ -66,6 +67,7 @@ public class UserCommentFragment extends Fragment {
 				.findViewById(R.id.fragment_user_comment_list_linear);
 		loadButton = (Button) v
 				.findViewById(R.id.fragment_user_comment_load_button);
+		loadFinishText = (TextView) v.findViewById(R.id.fragment_user_comment_load_finished);
 		loadButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -173,6 +175,7 @@ public class UserCommentFragment extends Fragment {
 						if (_userComments.size() < FETCH_COUNT) {
 							loadButton.setVisibility(View.GONE);
 							finished = true;
+							loadFinishText.setVisibility(View.VISIBLE);
 						} else {
 							loadButton.setVisibility(View.VISIBLE);
 							loadButton.setClickable(true);
