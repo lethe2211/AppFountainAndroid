@@ -1,113 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".QuestionDetailActivity" >
 
-    <LinearLayout
-        android:id="@+id/question_detail_question_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#5e4a1a"
-        android:orientation="vertical"
-        android:padding="10dp" >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:padding="10dp" >
-
-            <TextView
-                android:id="@+id/question_detail_question_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/question_detail_question_created"
-                android:layout_toLeftOf="@+id/question_detail_question_category"
-                android:text="question_title"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/question_detail_question_body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/question_detail_question_created"
-                android:autoLink="web"
-                android:padding="5dp"
-                android:text="question_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_body" />
-
-            <ImageView
-                android:id="@+id/question_detail_question_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/category_1_app_widgets" />
-
-            <TextView
-                android:id="@+id/question_detail_question_created"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/question_detail_question_title"
-                android:text="created"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/question_detail_question_body" >
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/question_detail_quesion_user_name_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/question_detail_question_title"
-                android:layout_toRightOf="@+id/question_detail_question_created"
-                android:text="ユーザ名: aaaaa" />
-
-            <ListView
-                android:id="@+id/question_detail_question_apps"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_alignLeft="@+id/question_detail_question_body"
-                android:layout_alignTop="@+id/relativeLayout1" >
-            </ListView>
-        </RelativeLayout>
-    </LinearLayout>
-
     <ListView
         android:id="@+id/question_detail_comment_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/comment_post"
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
         android:background="#fff"
-        android:divider="@null">
+        android:divider="@null" >
+
     </ListView>
 
+    <!--
     <LinearLayout
-        android:id="@+id/comment_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:background="#5e4a1a"
-        android:padding="10dp" >
-        
-        <Button
-            android:id="@+id/comment_post_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/comment_post" >
-        </Button>
-    </LinearLayout>
-    
- <!--    <LinearLayout
         android:id="@+id/comment_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,6 +41,23 @@
             android:layout_weight="1"
             android:text="コメント投稿" >
         </Button>
-    </LinearLayout> -->
+    </LinearLayout>
+    -->
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/comment_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#5e4a1a"
+        android:gravity="bottom"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/comment_post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment_post" />
+    </LinearLayout>
+
+</RelativeLayout>
