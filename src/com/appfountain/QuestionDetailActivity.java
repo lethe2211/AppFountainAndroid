@@ -11,13 +11,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +33,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.component.CommentListAdapter;
 import com.appfountain.component.EndlessScrollActionBarActivity;
@@ -57,10 +64,9 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private UserContainer user = null;
 	private RequestQueue queue = null;
 	private Question question = null;
+	private ImageLoader imageLoader;
 	// 質問に付与されたアプリ情報
-	private ListView appList;
-	private List<App> apps = new ArrayList<App>();
-	private QuestionAppAdapter appAdapter;
+	private LinearLayout appList;
 	// 質問者のユーザ情報
 	private TextView questionUserName;
 	// コメント一覧
@@ -90,6 +96,12 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 
 		queue = Volley.newRequestQueue(this);
 		initViews();
+
+		// Use 1/16th of the available memory for this memory cache.
+		int memClass = ((ActivityManager) this
+				.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+		int cacheSize = 1024 * 1024 * memClass / 16;
+		imageLoader = new ImageLoader(queue, new BitmapLruCache(cacheSize));
 
 		// 通信処理
 		loadQuestionRelation(question);
@@ -123,32 +135,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				.getDrawableId());
 
 		// 関連app情報
-		appList = (ListView) findViewById(R.id.question_detail_question_apps);
-		// Use 1/16th of the available memory for this memory cache.
-		int memClass = ((ActivityManager) this
-				.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
-		int cacheSize = 1024 * 1024 * memClass / 16;
-		appAdapter = new QuestionAppAdapter(this,
-				R.layout.list_item_question_app, apps, new ImageLoader(queue,
-						new BitmapLruCache(cacheSize)));
-		appList.setAdapter(appAdapter);
-		appList.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				App selectedApp = apps.get(position);
-				String packageName = selectedApp.getPackageName();
-				try {
-					startActivity(new Intent(Intent.ACTION_VIEW, Uri
-							.parse("market://details?id=" + packageName)));
-				} catch (android.content.ActivityNotFoundException anfe) {
-					startActivity(new Intent(
-							Intent.ACTION_VIEW,
-							Uri.parse("http://play.google.com/store/apps/details?id="
-									+ packageName)));
-				}
-			}
-		});
+		appList = (LinearLayout) findViewById(R.id.question_detail_question_apps);
+
 		// 質問者の情報表示用View
 		questionUserName = (TextView) findViewById(R.id.question_detail_quesion_user_name_value);
 
@@ -208,10 +196,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				null, new Listener<AppsSource>() {
 					@Override
 					public void onResponse(AppsSource response) {
-						List<App> applications = response.getApplications();
-						if (applications != null && !applications.isEmpty()) {
-							apps.addAll(applications);
-							appAdapter.notifyDataSetChanged();
+						for (App app : response.getApplications()) {
+							addQuestionAppLayout(app);
 						}
 					}
 				}, new ErrorListener() {
@@ -229,6 +215,44 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 					}
 				});
 		queue.add(req);
+	}
+
+	private void addQuestionAppLayout(App app) {
+		LayoutInflater myinflater = (LayoutInflater) getApplicationContext()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LinearLayout appLayout = (LinearLayout) myinflater.inflate(
+				R.layout.list_item_question_app, null);
+		setQuestionAppLayout(app, appLayout);
+
+		appList.addView(appLayout);
+	}
+
+	private void setQuestionAppLayout(final App app, LinearLayout appLayout) {
+		((TextView) appLayout.findViewById(R.id.list_item_question_app_name))
+		.setText(app.getName());
+		NetworkImageView niv = (NetworkImageView) appLayout
+				.findViewById(R.id.list_item_question_app_network_image_view);
+		niv.setImageUrl(getImageResourceURL(app), imageLoader);
+
+		appLayout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String packageName = app.getPackageName();
+				try {
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri
+							.parse("market://details?id=" + packageName)));
+				} catch (android.content.ActivityNotFoundException anfe) {
+					startActivity(new Intent(
+							Intent.ACTION_VIEW,
+							Uri.parse("http://play.google.com/store/apps/details?id="
+									+ packageName)));
+				}
+			}
+		});
+	}
+
+	private String getImageResourceURL(App app) {
+		return Common.getIconBaseUrl(this) + app.getPackageName() + ".png";
 	}
 
 	private String getQuestionRelationUrl(int id) {
@@ -273,6 +297,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 							finishLoading();
 						comments.addAll(response.getComments());
 						commentListAdapter.notifyDataSetChanged();
+						fixListViewHeight(commentList, commentListAdapter);
 					}
 				}, new ErrorListener() {
 					@Override
@@ -287,6 +312,20 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 					}
 				});
 		queue.add(req);
+	}
+
+	// scroll viewの中にlist viewがあるため，list viewの高さを修正せねばならん
+	private void fixListViewHeight(ListView listView, ArrayAdapter<?> adapter) {
+		int height = 0;
+		for (int i = 0; i < adapter.getCount(); ++i) {
+			View item = adapter.getView(i, null, listView);
+			item.measure(0, 0);
+			height += item.getMeasuredHeight();
+		}
+		ViewGroup.LayoutParams p = listView.getLayoutParams();
+		p.height = height
+				+ (listView.getDividerHeight() * (adapter.getCount() - 1));
+		listView.setLayoutParams(p);
 	}
 
 	// ユーザ情報取得するAPIのURI
