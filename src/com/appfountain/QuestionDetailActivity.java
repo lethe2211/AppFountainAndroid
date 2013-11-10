@@ -70,7 +70,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	// 質問者のユーザ情報
 	private TextView questionUserName;
 	// コメント一覧
-	private ListView commentList;
+	private ListView commentListWithQuestionDetailHeader;
 	private List<Comment> comments = new ArrayList<Comment>();
 	private CommentListAdapter commentListAdapter;
 	// コメント投稿ボタン
@@ -123,31 +123,24 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	}
 
 	private void initViews() {
-		// 質問の情報表示用View
-		TextView questionTitle = (TextView) findViewById(R.id.question_detail_question_title);
-		questionTitle.setText(question.getTitle());
-		TextView questionCreated = (TextView) findViewById(R.id.question_detail_question_created);
-		questionCreated.setText(question.getCreatedString());
-		TextView questionBody = (TextView) findViewById(R.id.question_detail_question_body);
-		questionBody.setText(question.getBody());
-		ImageView questionCategory = (ImageView) findViewById(R.id.question_detail_question_category);
-		questionCategory.setImageResource(question.getCategory()
-				.getDrawableId());
+		// コメント情報表用View + 質問詳細をheaderにつける
+		commentListWithQuestionDetailHeader = (ListView) findViewById(R.id.question_detail_comment_list);
 
-		// 関連app情報
-		appList = (LinearLayout) findViewById(R.id.question_detail_question_apps);
+		// 質問詳細(header)
+		LayoutInflater myinflater = (LayoutInflater) getApplicationContext()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LinearLayout questionDetailContainer = (LinearLayout) myinflater
+				.inflate(R.layout.header_activity_question_detail, null);
+		setQuestionDetail(questionDetailContainer, question);
+		commentListWithQuestionDetailHeader.addHeaderView(questionDetailContainer);
 
-		// 質問者の情報表示用View
-		questionUserName = (TextView) findViewById(R.id.question_detail_quesion_user_name_value);
-
-		// コメント情報表用View
-		commentList = (ListView) findViewById(R.id.question_detail_comment_list);
+		// コメント一覧
 		commentListAdapter = new CommentListAdapter(this,
 				R.layout.list_item_comment, comments, question,
 				isQuestionAuthor(Common.getUserContainer(this),
 						question.getUserId()));
-		commentList.setAdapter(commentListAdapter);
-		commentList.setOnScrollListener(this);
+		commentListWithQuestionDetailHeader.setAdapter(commentListAdapter);
+		commentListWithQuestionDetailHeader.setOnScrollListener(this);
 
 		commentPostButton = (Button) findViewById(R.id.comment_post_button);
 		commentPostButton.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +160,31 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 			}
 		});
 
+	}
+
+	private void setQuestionDetail(LinearLayout questionDetailContainer,
+			Question question) {
+		// 質問の情報表示用View
+		((TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_title))
+				.setText(question.getTitle());
+		((TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_created))
+				.setText(question.getCreatedString());
+		((TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_body))
+				.setText(question.getBody());
+		((ImageView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_category))
+				.setImageResource(question.getCategory().getDrawableId());
+
+		// 関連app情報
+		appList = (LinearLayout) questionDetailContainer
+				.findViewById(R.id.question_detail_question_apps);
+
+		// 質問者の情報表示用View
+		questionUserName = (TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_quesion_user_name_value);
 	}
 
 	private Boolean isQuestionAuthor(UserContainer userContainer, int userId) {
@@ -229,7 +247,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 
 	private void setQuestionAppLayout(final App app, LinearLayout appLayout) {
 		((TextView) appLayout.findViewById(R.id.list_item_question_app_name))
-		.setText(app.getName());
+				.setText(app.getName());
 		NetworkImageView niv = (NetworkImageView) appLayout
 				.findViewById(R.id.list_item_question_app_network_image_view);
 		niv.setImageUrl(getImageResourceURL(app), imageLoader);
@@ -297,7 +315,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 							finishLoading();
 						comments.addAll(response.getComments());
 						commentListAdapter.notifyDataSetChanged();
-						fixListViewHeight(commentList, commentListAdapter);
+						fixListViewHeight(commentListWithQuestionDetailHeader, commentListAdapter);
 					}
 				}, new ErrorListener() {
 					@Override
