@@ -14,12 +14,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -198,13 +198,15 @@ public class PostActivity extends ActionBarActivity implements
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Common.closeProgressBar();
+						String responseBody = null;
 						try {
-							String responseBody = new String(
+							responseBody = new String(
 									error.networkResponse.data, "utf-8");
-							Toast.makeText(self, responseBody,
-									Toast.LENGTH_SHORT).show();
-						} catch (UnsupportedEncodingException e) {
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
+						Toast.makeText(self, responseBody, Toast.LENGTH_SHORT)
+								.show();
 						okButton.setClickable(false);
 						isPosting = false;
 					}

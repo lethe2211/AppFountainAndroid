@@ -2,9 +2,7 @@ package com.appfountain;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,10 +33,8 @@ import com.appfountain.component.EndlessScrollActionBarActivity;
 import com.appfountain.component.QuestionAppAdapter;
 import com.appfountain.external.AppsSource;
 import com.appfountain.external.BitmapLruCache;
-import com.appfountain.external.CommentSource;
 import com.appfountain.external.CommentsSource;
 import com.appfountain.external.GsonRequest;
-import com.appfountain.external.QuestionSource;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.App;
 import com.appfountain.model.Comment;
@@ -189,22 +184,22 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private Boolean isQuestionAuthor(UserContainer userContainer, int userId) {
 		return userContainer != null && userContainer.getId() == userId;
 	}
-	
+
 	// startActivityForResultで呼ばれたActivityが停止した際に呼ばれる
-		@Override
-		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-			super.onActivityResult(requestCode, resultCode, data);
-			
-			switch (requestCode) {
-			case COMMENT_POST:
-				// コメント投稿後は再読み込みさせる
-				if (resultCode == RESULT_OK) { // 起動先のActivityでsetResult(RESULT_OK)を呼ばれていたら
-					comments.clear();
-					loadComments();
-				}
-				break;
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch (requestCode) {
+		case COMMENT_POST:
+			// コメント投稿後は再読み込みさせる
+			if (resultCode == RESULT_OK) { // 起動先のActivityでsetResult(RESULT_OK)を呼ばれていたら
+				comments.clear();
+				loadComments();
 			}
+			break;
 		}
+	}
 
 	// 質問者のユーザ情報表示
 	private void loadQuestionRelation(Question q) {
@@ -222,13 +217,15 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				}, new ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
+						String responseBody = null;
 						try {
-							String responseBody = new String(
+							responseBody = new String(
 									error.networkResponse.data, "utf-8");
-							Toast.makeText(self, responseBody,
-									Toast.LENGTH_SHORT).show();
-						} catch (UnsupportedEncodingException e) {
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
+						Toast.makeText(self, responseBody, Toast.LENGTH_SHORT)
+								.show();
 					}
 				});
 		queue.add(req);
