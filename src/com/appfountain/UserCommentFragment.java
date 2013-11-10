@@ -32,8 +32,8 @@ import com.appfountain.util.Common;
 /*
  * UserPageActivityで，ユーザの質問情報を表示するFragment
  */
-public class UserAnswerFragment extends Fragment {
-	private static final String TAG = UserAnswerFragment.class.getSimpleName();
+public class UserCommentFragment extends Fragment {
+	private static final String TAG = UserCommentFragment.class.getSimpleName();
 
 	private static final int FETCH_COUNT = 20;
 
