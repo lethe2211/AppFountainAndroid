@@ -1,5 +1,6 @@
 package com.appfountain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -9,7 +10,9 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,13 +37,15 @@ import com.appfountain.util.Common;
 public class UserCommentFragment extends Fragment {
 	private static final String TAG = UserCommentFragment.class.getSimpleName();
 
-	private static final int FETCH_COUNT = 20;
+	private static final int FETCH_COUNT = 15;
 
 	private int userId = -1;
 	private Fragment self = this;
 	private LinearLayout commentList;
+	private Button loadButton;
 	private int userCommentCount = 0;
-	private List<UserComment> _userComments;
+	private List<UserComment> _userComments = new ArrayList<UserComment>(0);
+	private Boolean isLoading = false;
 	private Boolean finished = false;
 
 	@Override
@@ -58,7 +63,20 @@ public class UserCommentFragment extends Fragment {
 		View v = inflater.inflate(R.layout.fragment_user_comment, container,
 				false);
 		commentList = (LinearLayout) v
-				.findViewById(R.id.fragment_user_answer_list_linear);
+				.findViewById(R.id.fragment_user_comment_list_linear);
+		loadButton = (Button) v
+				.findViewById(R.id.fragment_user_comment_load_button);
+		loadButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if (!isLoading) {
+					isLoading = true;
+					loadButton.setVisibility(View.GONE);
+					loadButton.setClickable(false);
+					fetchUserComment(userCommentCount);
+				}
+			}
+		});
 
 		return v;
 	}
@@ -67,7 +85,7 @@ public class UserCommentFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 
-		if (_userComments == null) {
+		if (_userComments.size() == 0 && !finished && !isLoading) {
 			userCommentCount = 0;
 			fetchUserComment(0);
 		} else {
@@ -150,7 +168,16 @@ public class UserCommentFragment extends Fragment {
 					@Override
 					public void onResponse(UserCommentsSource response) {
 						_userComments = response.getUserComments();
+						userCommentCount += _userComments.size();
 						addUserComment(_userComments);
+						if (_userComments.size() < FETCH_COUNT) {
+							loadButton.setVisibility(View.GONE);
+							finished = true;
+						} else {
+							loadButton.setVisibility(View.VISIBLE);
+							loadButton.setClickable(true);
+						}
+						isLoading = false;
 					}
 				}, new ErrorListener() {
 					@Override
