@@ -12,9 +12,7 @@
         android:layout_above="@+id/comment_post"
         android:layout_alignParentTop="true"
         android:layout_margin="8dp"
-        android:background="#fff"
         android:divider="@null" >
-
     </ListView>
 
     <!--
