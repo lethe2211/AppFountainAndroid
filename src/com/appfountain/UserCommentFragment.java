@@ -55,7 +55,7 @@ public class UserCommentFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_user_answer, container,
+		View v = inflater.inflate(R.layout.fragment_user_comment, container,
 				false);
 		commentList = (LinearLayout) v
 				.findViewById(R.id.fragment_user_answer_list_linear);
