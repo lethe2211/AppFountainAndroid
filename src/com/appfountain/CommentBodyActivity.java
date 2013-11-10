@@ -1,8 +1,16 @@
 package com.appfountain;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -15,15 +23,6 @@ import com.appfountain.external.GsonRequest;
 import com.appfountain.model.Question;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 public class CommentBodyActivity extends ActionBarActivity {
 	private static final String TAG = QuestionDetailActivity.class
@@ -57,7 +56,7 @@ public class CommentBodyActivity extends ActionBarActivity {
 
 		if (question == null)
 			finish(); // 受け取りに失敗したら画面終了
-		 Log.d(TAG, "get question => id: " + question.getId() + ", title: "
+		Log.d(TAG, "get question => id: " + question.getId() + ", title: "
 				+ question.getTitle(10));
 
 		queue = Volley.newRequestQueue(this);
@@ -123,17 +122,19 @@ public class CommentBodyActivity extends ActionBarActivity {
 					public void onErrorResponse(VolleyError error) {
 						commentPostEditText.setText("");
 						commentPostButton.setClickable(true);
+						String responseBody = null;
 						try {
-							String responseBody = new String(
+							responseBody = new String(
 									error.networkResponse.data, "utf-8");
-							Toast.makeText(self, responseBody,
-									Toast.LENGTH_SHORT).show();
-						} catch (UnsupportedEncodingException e) {
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
+						Toast.makeText(self, responseBody, Toast.LENGTH_SHORT)
+								.show();
 					}
 				});
 
 		queue.add(req);
 	}
-	
+
 }

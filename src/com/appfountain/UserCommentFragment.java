@@ -1,6 +1,5 @@
 package com.appfountain;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import android.content.Context;
@@ -134,11 +133,9 @@ public class UserCommentFragment extends Fragment {
 		((TextView) commentLayout
 				.findViewById(R.id.list_item_comment_user_name))
 				.setText(comment.getUserName());
-		((TextView) commentLayout
-				.findViewById(R.id.list_item_comment_created))
+		((TextView) commentLayout.findViewById(R.id.list_item_comment_created))
 				.setText(comment.getCreatedString());
-		((TextView) commentLayout
-				.findViewById(R.id.list_item_comment_body))
+		((TextView) commentLayout.findViewById(R.id.list_item_comment_body))
 				.setText(comment.getBody(20));
 	}
 
