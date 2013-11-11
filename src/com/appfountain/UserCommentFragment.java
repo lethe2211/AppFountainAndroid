@@ -1,6 +1,6 @@
 package com.appfountain;
 
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -10,7 +10,9 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,16 +34,19 @@ import com.appfountain.util.Common;
 /*
  * UserPageActivityで，ユーザの質問情報を表示するFragment
  */
-public class UserAnswerFragment extends Fragment {
-	private static final String TAG = UserAnswerFragment.class.getSimpleName();
+public class UserCommentFragment extends Fragment {
+	private static final String TAG = UserCommentFragment.class.getSimpleName();
 
-	private static final int FETCH_COUNT = 20;
+	private static final int FETCH_COUNT = 15;
 
 	private int userId = -1;
 	private Fragment self = this;
 	private LinearLayout commentList;
+	private Button loadButton;
+	private TextView loadFinishText;
 	private int userCommentCount = 0;
-	private List<UserComment> _userComments;
+	private List<UserComment> _userComments = new ArrayList<UserComment>(0);
+	private Boolean isLoading = false;
 	private Boolean finished = false;
 
 	@Override
@@ -56,10 +61,24 @@ public class UserAnswerFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_user_answer, container,
+		View v = inflater.inflate(R.layout.fragment_user_comment, container,
 				false);
 		commentList = (LinearLayout) v
-				.findViewById(R.id.fragment_user_answer_list_linear);
+				.findViewById(R.id.fragment_user_comment_list_linear);
+		loadButton = (Button) v
+				.findViewById(R.id.fragment_user_comment_load_button);
+		loadFinishText = (TextView) v.findViewById(R.id.fragment_user_comment_load_finished);
+		loadButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if (!isLoading) {
+					isLoading = true;
+					loadButton.setVisibility(View.GONE);
+					loadButton.setClickable(false);
+					fetchUserComment(userCommentCount);
+				}
+			}
+		});
 
 		return v;
 	}
@@ -68,7 +87,7 @@ public class UserAnswerFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 
-		if (_userComments == null) {
+		if (_userComments.size() == 0 && !finished && !isLoading) {
 			userCommentCount = 0;
 			fetchUserComment(0);
 		} else {
@@ -134,11 +153,9 @@ public class UserAnswerFragment extends Fragment {
 		((TextView) commentLayout
 				.findViewById(R.id.list_item_comment_user_name))
 				.setText(comment.getUserName());
-		((TextView) commentLayout
-				.findViewById(R.id.list_item_comment_created))
+		((TextView) commentLayout.findViewById(R.id.list_item_comment_created))
 				.setText(comment.getCreatedString());
-		((TextView) commentLayout
-				.findViewById(R.id.list_item_comment_body))
+		((TextView) commentLayout.findViewById(R.id.list_item_comment_body))
 				.setText(comment.getBody(20));
 	}
 
@@ -153,7 +170,17 @@ public class UserAnswerFragment extends Fragment {
 					@Override
 					public void onResponse(UserCommentsSource response) {
 						_userComments = response.getUserComments();
+						userCommentCount += _userComments.size();
 						addUserComment(_userComments);
+						if (_userComments.size() < FETCH_COUNT) {
+							loadButton.setVisibility(View.GONE);
+							finished = true;
+							loadFinishText.setVisibility(View.VISIBLE);
+						} else {
+							loadButton.setVisibility(View.VISIBLE);
+							loadButton.setClickable(true);
+						}
+						isLoading = false;
 					}
 				}, new ErrorListener() {
 					@Override

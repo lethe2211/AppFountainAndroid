@@ -5,19 +5,26 @@
     android:orientation="vertical"
     tools:context=".UserPageActivity" >
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Question History"
-        android:textColor="#10ff10"
-        android:textSize="20sp" />
+        android:layout_margin="5dp"
+        android:orientation="vertical" >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="2dp"
-        android:background="#10ff10" >
-    </View>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Question History"
+            android:textColor="#10ff10"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="#10ff10" >
+        </View>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/fragment_user_question_list"

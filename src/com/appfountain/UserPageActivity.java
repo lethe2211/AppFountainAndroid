@@ -110,7 +110,7 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 				fragment = new UserQuestionFragment();
 				break;
 			case 2:
-				fragment = new UserAnswerFragment();
+				fragment = new UserCommentFragment();
 				break;
 			}
 			if (fragment != null)

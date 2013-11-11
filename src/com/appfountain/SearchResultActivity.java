@@ -1,21 +1,7 @@
 package com.appfountain;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.Request.Method;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.toolbox.Volley;
-import com.appfountain.component.EndlessScrollActionBarActivity;
-import com.appfountain.component.QuestionListAdapter;
-import com.appfountain.external.GsonRequest;
-import com.appfountain.external.QuestionsSource;
-import com.appfountain.model.Question;
-import com.appfountain.util.Common;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +11,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.appfountain.component.EndlessScrollActionBarActivity;
+import com.appfountain.component.QuestionListAdapter;
+import com.appfountain.external.GsonRequest;
+import com.appfountain.external.QuestionsSource;
+import com.appfountain.model.Question;
+import com.appfountain.util.Common;
 
 /*
  * 検索結果表示ページ
@@ -134,13 +133,15 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						inError = true;
+						String responseBody = null;
 						try {
-							String responseBody = new String(
+							responseBody = new String(
 									error.networkResponse.data, "utf-8");
-							Toast.makeText(self, responseBody,
-									Toast.LENGTH_SHORT).show();
-						} catch (UnsupportedEncodingException e) {
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
+						Toast.makeText(self, responseBody, Toast.LENGTH_SHORT)
+								.show();
 					}
 				});
 		queue.add(req);
