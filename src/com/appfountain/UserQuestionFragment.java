@@ -70,10 +70,6 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 
 		if (userId < 0)
 			this.getActivity().finish();
-
-		if (hasNext() && !inError) {
-			loadPage();
-		}
 	}
 
 	@Override

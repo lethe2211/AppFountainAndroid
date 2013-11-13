@@ -106,7 +106,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		// 通信処理
 		loadQuestionRelation(question);
 		loadQuestionUser(question.getUserId());
-		loadComments();
 	}
 
 	@Override
@@ -201,7 +200,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 			// コメント投稿後は再読み込みさせる
 			if (resultCode == RESULT_OK) { // 起動先のActivityでsetResult(RESULT_OK)が呼ばれていたら
 				comments.clear();
-				loadComments();
 			}
 			break;
 		}
@@ -297,11 +295,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		queue.add(req);
 	}
 
-	// コメント情報など受け取る
-	private void loadComments() {
-		loadPage(); // EndlessScrollListViewを使う
-	}
-
 	@Override
 	protected void loadPage() {
 		final int next = comments.size();
@@ -315,7 +308,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 							finishLoading();
 						comments.addAll(response.getComments());
 						commentListAdapter.notifyDataSetChanged();
-						fixListViewHeight(commentListWithQuestionDetailHeader, commentListAdapter);
 					}
 				}, new ErrorListener() {
 					@Override
@@ -330,20 +322,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 					}
 				});
 		queue.add(req);
-	}
-
-	// scroll viewの中にlist viewがあるため，list viewの高さを修正せねばならん
-	private void fixListViewHeight(ListView listView, ArrayAdapter<?> adapter) {
-		int height = 0;
-		for (int i = 0; i < adapter.getCount(); ++i) {
-			View item = adapter.getView(i, null, listView);
-			item.measure(0, 0);
-			height += item.getMeasuredHeight();
-		}
-		ViewGroup.LayoutParams p = listView.getLayoutParams();
-		p.height = height
-				+ (listView.getDividerHeight() * (adapter.getCount() - 1));
-		listView.setLayoutParams(p);
 	}
 
 	// ユーザ情報取得するAPIのURI
