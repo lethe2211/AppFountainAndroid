@@ -31,8 +31,7 @@ public class PostTitleActivity extends ActionBarActivity {
 
 		// 前画面より質問文を受け取り，セットする
 		Intent intent = getIntent();
-		Log.d("2hoge", titleEditText.getText().toString());
-		titleEditText.setText(intent.getStringExtra(Intent.EXTRA_TEXT + "2"));
+		titleEditText.setText(intent.getStringExtra(Intent.EXTRA_TEXT + "title"));
 
 		updateTextCount(titleEditText.getText().toString()); // 文字数もセット
 		// 文字入力毎に文字数の表示を変えるイベントをつける
@@ -58,8 +57,8 @@ public class PostTitleActivity extends ActionBarActivity {
 	// OKボタンを推した際の処理
 	public void onOkClick(View view) {
 		Intent intent = new Intent();
-		intent.putExtra(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
-		Log.d(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
+		intent.putExtra(Intent.EXTRA_TEXT + "title", titleEditText.getText().toString());
+		Log.d(Intent.EXTRA_TEXT + "title", titleEditText.getText().toString());
 		setResult(RESULT_OK, intent);
 		finish();
 	}
@@ -68,7 +67,7 @@ public class PostTitleActivity extends ActionBarActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = new Intent();
-			intent.putExtra(Intent.EXTRA_TEXT + "2", titleEditText.getText()
+			intent.putExtra(Intent.EXTRA_TEXT + "title", titleEditText.getText()
 					.toString());
 			setResult(RESULT_CANCELED, intent);
 			finish();

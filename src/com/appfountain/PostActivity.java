@@ -129,31 +129,30 @@ public class PostActivity extends ActionBarActivity implements
 	// titleEditTextがクリックされた時に遷移
 	public void onTitleClick(View view) {
 		Intent intent = new Intent(this, PostTitleActivity.class);
-		intent.putExtra(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
-		Log.d(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
+		intent.putExtra(Intent.EXTRA_TEXT + "title", titleEditText.getText().toString());
 		startActivityForResult(intent, TITLE_RESULT); // onActivityResultで返却値を受け取るためにForResult
 	}
 	
 	// bodyEditTextがクリックされた時に遷移
 	public void onBodyClick(View view) {
 		Intent intent = new Intent(this, PostBodyActivity.class);
-		intent.putExtra(Intent.EXTRA_TEXT, bodyEditText.getText().toString());
-		Log.d("1", bodyEditText.getText().toString());
+		intent.putExtra(Intent.EXTRA_TEXT + "body", bodyEditText.getText().toString());
 		startActivityForResult(intent, BODY_RESULT); // onActivityResultで返却値を受け取るためにForResult
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		String text = data.getStringExtra(Intent.EXTRA_TEXT);
-		String text2 = data.getStringExtra(Intent.EXTRA_TEXT + "2");
-		if (text != null || text2 != null) {
+		String text_title = data.getStringExtra(Intent.EXTRA_TEXT + "title");
+		String text_body = data.getStringExtra(Intent.EXTRA_TEXT + "body");
+		if (text_title != null || text_body != null) {
 			switch (requestCode) {
 			case TITLE_RESULT:
-				Log.d("text2", text2);
-				titleEditText.setText(text2);
+				Log.d("text_title", text_title);
+				titleEditText.setText(text_title);
 				break;
 			case BODY_RESULT:
-				bodyEditText.setText(text);
+				Log.d("text_body", text_body);
+				bodyEditText.setText(text_body);
 				break;
 			}
 		}

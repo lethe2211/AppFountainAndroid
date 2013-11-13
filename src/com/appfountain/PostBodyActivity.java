@@ -31,8 +31,7 @@ public class PostBodyActivity extends ActionBarActivity {
 
 		// 前画面より質問文を受け取り，セットする
 		Intent intent = getIntent();
-		//Log.d("1hoge", intent.getStringExtra(Intent.EXTRA_TEXT));
-		bodyEditText.setText(intent.getStringExtra(Intent.EXTRA_TEXT));
+		bodyEditText.setText(intent.getStringExtra(Intent.EXTRA_TEXT + "body"));
 
 		updateTextCount(bodyEditText.getText().toString()); // 文字数もセット
 		// 文字入力毎に文字数の表示を変えるイベントをつける
@@ -58,7 +57,7 @@ public class PostBodyActivity extends ActionBarActivity {
 	// OKボタンを推した際の処理
 	public void onOkClick(View view) {
 		Intent intent = new Intent();
-		intent.putExtra(Intent.EXTRA_TEXT, bodyEditText.getText().toString());
+		intent.putExtra(Intent.EXTRA_TEXT + "body", bodyEditText.getText().toString());
 		setResult(RESULT_OK, intent);
 		finish();
 	}
@@ -67,7 +66,7 @@ public class PostBodyActivity extends ActionBarActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = new Intent();
-			intent.putExtra(Intent.EXTRA_TEXT, bodyEditText.getText()
+			intent.putExtra(Intent.EXTRA_TEXT + "body", bodyEditText.getText()
 					.toString());
 			setResult(RESULT_CANCELED, intent);
 			finish();
