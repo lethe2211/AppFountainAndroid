@@ -33,6 +33,7 @@ import com.appfountain.component.EndlessScrollActionBarActivity;
 import com.appfountain.component.QuestionListAdapter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionsSource;
+import com.appfountain.model.Category;
 import com.appfountain.model.Question;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
@@ -125,12 +126,19 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 		// ListViewとそれに対応するアダプタ
 		final ListView categoryListView = (ListView) findViewById(R.id.activity_top_page_category_list);
-		ArrayList<String> categories = new ArrayList<String>(Arrays.asList(
-				"ウィジェット", "エンタテイメント", "カスタマイズ", "コミック", "ショッピング", "スポーツ",
-				"ソーシャルネットワーク"));
-
+//		ArrayList<String> categories = new ArrayList<String>(Arrays.asList(
+//				"ウィジェット", "エンタテイメント", "カスタマイズ", "コミック", "ショッピング", "スポーツ",
+//				"ソーシャルネットワーク", "ツール", "ニュース＆雑誌", "ビジネス", "ファイナンス", "メディア＆動画",
+//				"ライフスタイル", "ライブラリ＆デモ", "ライブ壁紙", "交通", "仕事効率化", "健康＆フィットネス",
+//				"写真", "医療", "天気", "教育", "旅行＆地域", "書籍＆文献", "通信", "音楽＆オーディオ"));
+		ArrayList<String> categoryNames = new ArrayList<String>();
+		List<Category> categories = Common.getCategories();
+		for (Category c : categories) {
+			categoryNames.add(c.getName());
+		}
+		
 		final ArrayAdapter<String> categoryListAdapter = new ArrayAdapter<String>(
-				this, R.layout.list_item_category, categories); // list_item_category.xmlをレイアウトに指定(R.layout.simple_list_item_1と中身は同じ)
+				this, R.layout.list_item_category, categoryNames); // list_item_category.xmlをレイアウトに指定(R.layout.simple_list_item_1と中身は同じ)
 		categoryListView.setAdapter(categoryListAdapter);
 		categoryListView.setOnScrollListener(this);
 
