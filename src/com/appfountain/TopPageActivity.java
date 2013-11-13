@@ -107,7 +107,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				String query = searchEditText.getText().toString(); // 検索ボックスに入力されたクエリ
-				Log.d("search", query);
 				if (query.equals(""))
 					return; // クエリが空文字列なら検索しない
 
@@ -131,6 +130,8 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 //				"ソーシャルネットワーク", "ツール", "ニュース＆雑誌", "ビジネス", "ファイナンス", "メディア＆動画",
 //				"ライフスタイル", "ライブラリ＆デモ", "ライブ壁紙", "交通", "仕事効率化", "健康＆フィットネス",
 //				"写真", "医療", "天気", "教育", "旅行＆地域", "書籍＆文献", "通信", "音楽＆オーディオ"));
+		
+		// カテゴリの名前の配列
 		ArrayList<String> categoryNames = new ArrayList<String>();
 		List<Category> categories = Common.getCategories();
 		for (Category c : categories) {

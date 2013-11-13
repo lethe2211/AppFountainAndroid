@@ -11,35 +11,35 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class PostBodyActivity extends ActionBarActivity {
-	private static final String TAG = PostBodyActivity.class.getSimpleName();
-	private EditText bodyEditText; // 質問詳細
+public class PostTitleActivity extends ActionBarActivity {
+	private static final String TAG = PostTitleActivity.class.getSimpleName();
+	private EditText titleEditText; // タイトル
 	private TextView textCount; // 文字数
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_post_body);
+		setContentView(R.layout.activity_post_title);
 
 		initViews();
 	}
 
 	// viewの初期化
 	private void initViews() {
-		bodyEditText = (EditText) findViewById(R.id.post_body_body_text);
-		textCount = (TextView) findViewById(R.id.post_body_text_count);
+		titleEditText = (EditText) findViewById(R.id.post_title_body_text);
+		textCount = (TextView) findViewById(R.id.post_title_text_count);
 
 		// 前画面より質問文を受け取り，セットする
 		Intent intent = getIntent();
-		//Log.d("1hoge", intent.getStringExtra(Intent.EXTRA_TEXT));
-		bodyEditText.setText(intent.getStringExtra(Intent.EXTRA_TEXT));
+		Log.d("2hoge", titleEditText.getText().toString());
+		titleEditText.setText(intent.getStringExtra(Intent.EXTRA_TEXT + "2"));
 
-		updateTextCount(bodyEditText.getText().toString()); // 文字数もセット
+		updateTextCount(titleEditText.getText().toString()); // 文字数もセット
 		// 文字入力毎に文字数の表示を変えるイベントをつける
-		bodyEditText.addTextChangedListener(new TextWatcher() {
+		titleEditText.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				updateTextCount(bodyEditText.getText().toString());
+				updateTextCount(titleEditText.getText().toString());
 			}
 
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -58,7 +58,8 @@ public class PostBodyActivity extends ActionBarActivity {
 	// OKボタンを推した際の処理
 	public void onOkClick(View view) {
 		Intent intent = new Intent();
-		intent.putExtra(Intent.EXTRA_TEXT, bodyEditText.getText().toString());
+		intent.putExtra(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
+		Log.d(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
 		setResult(RESULT_OK, intent);
 		finish();
 	}
@@ -67,7 +68,7 @@ public class PostBodyActivity extends ActionBarActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = new Intent();
-			intent.putExtra(Intent.EXTRA_TEXT, bodyEditText.getText()
+			intent.putExtra(Intent.EXTRA_TEXT + "2", titleEditText.getText()
 					.toString());
 			setResult(RESULT_CANCELED, intent);
 			finish();

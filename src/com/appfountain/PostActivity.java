@@ -45,7 +45,8 @@ public class PostActivity extends ActionBarActivity implements
 		AppChooseListener {
 	private static final String TAG = PostActivity.class.getSimpleName();
 
-	public static final int BODY_RESULT = 1;
+	public static final int TITLE_RESULT = 1;
+	public static final int BODY_RESULT = 2;
 
 	private final String url = Common.getApiBaseUrl(this) + "question";
 
@@ -91,6 +92,7 @@ public class PostActivity extends ActionBarActivity implements
 
 	private void initViews() {
 		titleEditText = (EditText) findViewById(R.id.post_title_text);
+		titleEditText.clearFocus();
 		bodyEditText = (EditText) findViewById(R.id.post_body_text);
 		categorySpinner = (Spinner) findViewById(R.id.post_category_spinner);
 		okButton = (Button) findViewById(R.id.post_ok_button);
@@ -123,19 +125,33 @@ public class PostActivity extends ActionBarActivity implements
 	public void chooseApp(View view) {
 		new AppChooseDialog().show(getSupportFragmentManager(), "choose_app");
 	}
-
+	
+	// titleEditTextがクリックされた時に遷移
+	public void onTitleClick(View view) {
+		Intent intent = new Intent(this, PostTitleActivity.class);
+		intent.putExtra(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
+		Log.d(Intent.EXTRA_TEXT + "2", titleEditText.getText().toString());
+		startActivityForResult(intent, TITLE_RESULT); // onActivityResultで返却値を受け取るためにForResult
+	}
+	
 	// bodyEditTextがクリックされた時に遷移
 	public void onBodyClick(View view) {
 		Intent intent = new Intent(this, PostBodyActivity.class);
 		intent.putExtra(Intent.EXTRA_TEXT, bodyEditText.getText().toString());
+		Log.d("1", bodyEditText.getText().toString());
 		startActivityForResult(intent, BODY_RESULT); // onActivityResultで返却値を受け取るためにForResult
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		String text = data.getStringExtra(Intent.EXTRA_TEXT);
-		if (text != null) {
+		String text2 = data.getStringExtra(Intent.EXTRA_TEXT + "2");
+		if (text != null || text2 != null) {
 			switch (requestCode) {
+			case TITLE_RESULT:
+				Log.d("text2", text2);
+				titleEditText.setText(text2);
+				break;
 			case BODY_RESULT:
 				bodyEditText.setText(text);
 				break;

@@ -1,5 +1,7 @@
 package com.appfountain;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,7 +119,13 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 			requestUrl = url + "?category_id=" + category_id + "&count=5&next="
 					+ next;
 		} else {
-			requestUrl = url + "/search?title=" + query;
+			
+			try {
+				requestUrl = url + "/search?title=" + URLEncoder.encode(query, "utf-8");
+			} catch (UnsupportedEncodingException e) {
+				requestUrl = "";
+				e.printStackTrace();
+			}
 		}
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
 				Method.GET, requestUrl, QuestionsSource.class, null, null,

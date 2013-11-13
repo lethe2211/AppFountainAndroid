@@ -61,6 +61,7 @@
             android:label="@string/title_activity_post_body" >
         </activity>
         <activity android:name="com.appfountain.CommentBodyActivity"></activity>
+        <activity android:name="com.appfountain.PostTitleActivity"></activity>
     </application>
 
 </manifest>
