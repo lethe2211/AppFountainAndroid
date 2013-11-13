@@ -24,19 +24,21 @@ public class Question implements Serializable {
 	private final String title;
 	private final String body;
 	private final Boolean finished;
+	private final int comment_count;
 	private final String created;
 	private Date _created = null;
 	private final String updated;
 	private Date _updated = null;
 
 	public Question(int id, int categoryId, int userId, String title,
-			String body, Boolean finished, String created, String updated) {
+			String body, Boolean finished,int comment_count, String created, String updated) {
 		this.id = id;
 		this.category_id = categoryId;
 		this.user_id = userId;
 		this.title = title;
 		this.body = body;
 		this.finished = finished;
+		this.comment_count = comment_count;
 		this.created = created;
 		this.updated = updated;
 	}
@@ -82,6 +84,10 @@ public class Question implements Serializable {
 
 	public Boolean isFinished() {
 		return finished;
+	}
+
+	public int getCommentCount() {
+		return comment_count;
 	}
 
 	public String getCreatedString() {
