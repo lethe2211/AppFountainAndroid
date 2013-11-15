@@ -377,4 +377,11 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 	}
+
+	public void moveReplyComment(Comment c) {
+		Intent intent = new Intent(self, CommentBodyActivity.class);
+		intent.putExtra("EXTRA_QUESTION", question);
+		intent.putExtra("EXTRA_REFER_COMMENT", c);
+		startActivityForResult(intent, COMMENT_POST);
+	}
 }

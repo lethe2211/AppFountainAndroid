@@ -3,14 +3,17 @@ package com.appfountain;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.external.CommentSource;
 import com.appfountain.external.GsonRequest;
+import com.appfountain.model.Comment;
 import com.appfountain.model.Question;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
@@ -35,7 +39,8 @@ public class CommentBodyActivity extends ActionBarActivity {
 	private UserContainer user = null;
 	private RequestQueue queue = null;
 	private Question question = null;
-	private String questionUserName = "";
+	private Comment referComment = null;
+	private String questionUserName = null;
 
 	// コメント投稿フォーム・ボタン
 	private EditText commentPostEditText;
@@ -56,9 +61,12 @@ public class CommentBodyActivity extends ActionBarActivity {
 		// 遷移前画面からQuestionを受け取る
 		Intent intent = getIntent();
 		question = (Question) intent.getSerializableExtra("EXTRA_QUESTION");
+		referComment = (Comment) intent
+				.getSerializableExtra("EXTRA_REFER_COMMENT");
 		questionUserName = intent.getStringExtra("EXTRA_QUESTION_USER_NAME");
 
-		if (question == null)
+		// どちらかは受け取れるはず(普通のコメントor返信のコメント)
+		if (questionUserName == null && referComment == null)
 			finish(); // 受け取りに失敗したら画面終了
 
 		queue = Volley.newRequestQueue(this);
@@ -67,10 +75,14 @@ public class CommentBodyActivity extends ActionBarActivity {
 	}
 
 	private void initViews() {
-		if (question != null)
-			initQuestion();
-		else
-			initReferComment();
+		LinearLayout header = (LinearLayout) findViewById(R.id.comment_body_header_container);
+		if (questionUserName != null)
+			header.addView(initQuestion());
+		else {
+			((TextView) findViewById(R.id.comment_body_header_title))
+					.setText(referComment.getUserName() + " への返信入力");
+			header.addView(initReferComment());
+		}
 
 		// コメント投稿用フォーム
 		commentPostEditText = (EditText) findViewById(R.id.comment_post_body);
@@ -93,22 +105,48 @@ public class CommentBodyActivity extends ActionBarActivity {
 		});
 	}
 
-	private void initQuestion() {
-		((TextView) findViewById(R.id.question_detail_question_title))
+	private View initQuestion() {
+		LayoutInflater myinflater = (LayoutInflater) getApplicationContext()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LinearLayout questionDetailContainer = (LinearLayout) myinflater
+				.inflate(R.layout.header_activity_question_detail, null);
+		((TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_title))
 				.setText(question.getTitle());
-		((TextView) findViewById(R.id.question_detail_question_created))
+		((TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_created))
 				.setText(question.getCreatedString());
-		((TextView) findViewById(R.id.question_detail_question_body))
+		((TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_body))
 				.setText(question.getBody());
-		((ImageView) findViewById(R.id.question_detail_question_category))
+		((ImageView) questionDetailContainer
+				.findViewById(R.id.question_detail_question_category))
 				.setImageResource(question.getCategory().getDrawableId());
-		((TextView) findViewById(R.id.question_detail_quesion_user_name_value))
+		((TextView) questionDetailContainer
+				.findViewById(R.id.question_detail_quesion_user_name_value))
 				.setText(questionUserName);
+		return questionDetailContainer;
 	}
 
-	private void initReferComment() {
-		// TODO Auto-generated method stub
+	private View initReferComment() {
+		LayoutInflater myinflater = (LayoutInflater) getApplicationContext()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LinearLayout commentDetailContainer = (LinearLayout) myinflater
+				.inflate(R.layout.list_item_comment_detail, null);
+		((TextView) commentDetailContainer
+				.findViewById(R.id.list_item_comment_user_name))
+				.setText(referComment.getUserName());
+		((TextView) commentDetailContainer
+				.findViewById(R.id.list_item_comment_body))
+				.setText(referComment.getBody());
+		((TextView) commentDetailContainer
+				.findViewById(R.id.list_item_comment_created))
+				.setText(referComment.getCreatedString());
+		((TextView) commentDetailContainer
+				.findViewById(R.id.list_item_comment_up_count)).setText(""
+				+ referComment.getUp());
 
+		return commentDetailContainer;
 	}
 
 	private Boolean isValidComment(String commentPostBody) {
@@ -122,6 +160,10 @@ public class CommentBodyActivity extends ActionBarActivity {
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("body", commentPostBody);
+		if (referComment != null) {
+			params.put("refer_comment_id", "" + referComment.getId());
+			params.put("refer_comment_user_name", referComment.getUserName());
+		}
 
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put(Common.getPostHeader(this), user.getRk()); // POST時はrkをヘッダに付与

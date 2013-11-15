@@ -13,81 +13,10 @@
         android:background="#fcfcfe"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <include
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/list_item_comment_user_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ユーザ名" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20sp"
-                    android:src="@drawable/comment_star" />
-
-                <TextView
-                    android:id="@+id/list_item_comment_up_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/list_item_comment_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:paddingTop="2dp"
-                android:text="TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:id="@+id/question_detail_useful_comment_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <ImageView
-                        android:layout_width="20sp"
-                        android:layout_height="20sp"
-                        android:src="@drawable/question_detail_comment_useful" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Useful Information"
-                        android:textColor="#f16a99" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/list_item_comment_created"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="Created" />
-            </RelativeLayout>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            layout="@layout/list_item_comment_detail" />
 
         <LinearLayout
             android:layout_width="match_parent"
