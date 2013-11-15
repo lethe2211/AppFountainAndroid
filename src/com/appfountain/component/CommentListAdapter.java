@@ -96,6 +96,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.findViewById(R.id.list_item_comment_reply_button_star);
 				holder.upImage = (ImageView) view
 						.findViewById(R.id.list_item_comment_reply_button_useful_image);
+				holder.referUserName = (TextView) view
+						.findViewById(R.id.list_item_comment_reply_refer_user_name);
 			} else {
 				view = inflater.inflate(R.layout.list_item_comment, parent,
 						false);
@@ -139,6 +141,11 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 			} else {
 				holder.upImage.setImageResource(R.drawable.comment_star_null);
 			}
+		}
+
+		if (c.isReply()) {
+			holder.referUserName.setText(">> " + c.getReferCommentUserName()
+					+ " への返信");
 		}
 
 		holder.personButton.setOnClickListener(new OnClickListener() {
@@ -355,5 +362,6 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		LinearLayout replyButton;
 		LinearLayout upButton;
 		ImageView upImage;
+		TextView referUserName;
 	}
 }
