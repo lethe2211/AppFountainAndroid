@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -33,6 +35,7 @@ public class CommentBodyActivity extends ActionBarActivity {
 	private UserContainer user = null;
 	private RequestQueue queue = null;
 	private Question question = null;
+	private String questionUserName = "";
 
 	// コメント投稿フォーム・ボタン
 	private EditText commentPostEditText;
@@ -53,11 +56,10 @@ public class CommentBodyActivity extends ActionBarActivity {
 		// 遷移前画面からQuestionを受け取る
 		Intent intent = getIntent();
 		question = (Question) intent.getSerializableExtra("EXTRA_QUESTION");
+		questionUserName = intent.getStringExtra("EXTRA_QUESTION_USER_NAME");
 
 		if (question == null)
 			finish(); // 受け取りに失敗したら画面終了
-		Log.d(TAG, "get question => id: " + question.getId() + ", title: "
-				+ question.getTitle(10));
 
 		queue = Volley.newRequestQueue(this);
 
@@ -65,6 +67,11 @@ public class CommentBodyActivity extends ActionBarActivity {
 	}
 
 	private void initViews() {
+		if (question != null)
+			initQuestion();
+		else
+			initReferComment();
+
 		// コメント投稿用フォーム
 		commentPostEditText = (EditText) findViewById(R.id.comment_post_body);
 
@@ -84,6 +91,24 @@ public class CommentBodyActivity extends ActionBarActivity {
 				}
 			}
 		});
+	}
+
+	private void initQuestion() {
+		((TextView) findViewById(R.id.question_detail_question_title))
+				.setText(question.getTitle());
+		((TextView) findViewById(R.id.question_detail_question_created))
+				.setText(question.getCreatedString());
+		((TextView) findViewById(R.id.question_detail_question_body))
+				.setText(question.getBody());
+		((ImageView) findViewById(R.id.question_detail_question_category))
+				.setImageResource(question.getCategory().getDrawableId());
+		((TextView) findViewById(R.id.question_detail_quesion_user_name_value))
+				.setText(questionUserName);
+	}
+
+	private void initReferComment() {
+		// TODO Auto-generated method stub
+
 	}
 
 	private Boolean isValidComment(String commentPostBody) {

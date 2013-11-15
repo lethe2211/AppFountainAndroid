@@ -161,6 +161,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 				} else {
 					Intent intent = new Intent(self, CommentBodyActivity.class);
 					intent.putExtra("EXTRA_QUESTION", question);
+					intent.putExtra("EXTRA_QUESTION_USER_NAME", questionUserName.getText());
 					startActivityForResult(intent, COMMENT_POST);
 				}
 			}
