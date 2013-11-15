@@ -32,14 +32,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Basic Information"
-                    android:textColor="#10ff10"
+                    android:textColor="#6ac000"
                     android:textSize="20sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="#10ff10" >
+                    android:background="#6ac000" >
                 </View>
 
                 <LinearLayout
@@ -66,7 +66,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="abcd1234"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
 
@@ -88,7 +87,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="2013-11-2"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
                 </LinearLayout>
@@ -104,14 +102,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Question and Answer"
-                    android:textColor="#FBE731"
+                    android:textColor="#ffac00"
                     android:textSize="20sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="#FBE731" >
+                    android:background="#ffac00" >
                 </View>
 
                 <LinearLayout
@@ -139,7 +137,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="102"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
 
@@ -162,7 +159,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="123"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
                 </LinearLayout>
@@ -179,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Contribution"
-                    android:textColor="#EF75BC"
+                    android:textColor="#f16a99"
                     android:textSize="20sp" />
 
                 <View
@@ -187,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="#EF75BC" >
+                    android:background="#f16a99" >
                 </View>
 
                 <LinearLayout
@@ -214,7 +210,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="abcd1234"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
 
@@ -236,7 +231,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="2013-11-2"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
                 </LinearLayout>

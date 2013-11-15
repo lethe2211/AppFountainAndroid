@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ユーザ名" />
+            android:textColor="#000" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -30,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000" />
     </LinearLayout>
 
     <TextView
@@ -40,7 +41,7 @@
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:paddingTop="2dp"
-        android:text="TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText" />
+        android:textColor="#000" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -72,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:gravity="right"
-            android:text="Created" />
+            android:textColor="#000" />
     </RelativeLayout>
 
 </LinearLayout>
