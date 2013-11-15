@@ -37,7 +37,6 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	private static final String TAG = CommentListAdapter.class.getSimpleName();
 
 	private List<Comment> comments;
-	private int resource;
 	private Context context;
 	private RequestQueue queue;
 	private Question question;
@@ -49,9 +48,22 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 
 		this.context = context;
 		this.comments = comments;
-		this.resource = resource;
 		this.question = question;
 		this.isQuestionAuthor = isQuestionAuthor;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return 2;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		Comment comment = comments.get(position);
+		if (comment.isReply())
+			return 1;
+		else
+			return 0;
 	}
 
 	@Override
@@ -59,34 +71,56 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		View view = convertView;
 		final CommentItemHolder holder;
 
+		final Comment c = comments.get(position);
+
 		if (view == null) {
+			holder = new CommentItemHolder();
 			LayoutInflater inflater = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = inflater.inflate(resource, parent, false);
-			holder = new CommentItemHolder();
-			holder.userName = (TextView) view
-					.findViewById(R.id.list_item_comment_user_name);
-			holder.created = (TextView) view
-					.findViewById(R.id.list_item_comment_created);
-			holder.body = (TextView) view
-					.findViewById(R.id.list_item_comment_body);
-			holder.upCount = (TextView) view
-					.findViewById(R.id.list_item_comment_up_count);
-			holder.personButton = (LinearLayout) view
-					.findViewById(R.id.list_item_comment_button_person);
-			holder.replyButton = (LinearLayout) view
-					.findViewById(R.id.list_item_comment_button_reply);
-			holder.upButton = (LinearLayout) view
-					.findViewById(R.id.list_item_comment_button_star);
-			holder.upImage = (ImageView) view
-					.findViewById(R.id.list_item_comment_button_useful_image);
-
+			if (c.isReply()) {
+				view = inflater.inflate(R.layout.list_item_comment_reply,
+						parent, false);
+				holder.userName = (TextView) view
+						.findViewById(R.id.list_item_comment_reply_user_name);
+				holder.created = (TextView) view
+						.findViewById(R.id.list_item_comment_reply_created);
+				holder.body = (TextView) view
+						.findViewById(R.id.list_item_comment_reply_body);
+				holder.upCount = (TextView) view
+						.findViewById(R.id.list_item_comment_reply_up_count);
+				holder.personButton = (LinearLayout) view
+						.findViewById(R.id.list_item_comment_reply_button_person);
+				holder.replyButton = (LinearLayout) view
+						.findViewById(R.id.list_item_comment_reply_button_reply);
+				holder.upButton = (LinearLayout) view
+						.findViewById(R.id.list_item_comment_reply_button_star);
+				holder.upImage = (ImageView) view
+						.findViewById(R.id.list_item_comment_reply_button_useful_image);
+			} else {
+				view = inflater.inflate(R.layout.list_item_comment, parent,
+						false);
+				holder.userName = (TextView) view
+						.findViewById(R.id.list_item_comment_user_name);
+				holder.created = (TextView) view
+						.findViewById(R.id.list_item_comment_created);
+				holder.body = (TextView) view
+						.findViewById(R.id.list_item_comment_body);
+				holder.upCount = (TextView) view
+						.findViewById(R.id.list_item_comment_up_count);
+				holder.personButton = (LinearLayout) view
+						.findViewById(R.id.list_item_comment_button_person);
+				holder.replyButton = (LinearLayout) view
+						.findViewById(R.id.list_item_comment_button_reply);
+				holder.upButton = (LinearLayout) view
+						.findViewById(R.id.list_item_comment_button_star);
+				holder.upImage = (ImageView) view
+						.findViewById(R.id.list_item_comment_button_useful_image);
+			}
 			view.setTag(holder);
 		} else {
 			holder = (CommentItemHolder) view.getTag();
 		}
 
-		final Comment c = comments.get(position);
 		holder.userName.setText(c.getUserName());
 		holder.created.setText(c.getCreatedString());
 		holder.body.setText(c.getBody());

@@ -57,7 +57,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private static final String TAG = QuestionDetailActivity.class
 			.getSimpleName();
 	protected static final String EXTRA_QUESTION = "question_detail_extra_question";
-	private static final int DEFAULT_COMMENT_GET_COUNT = 20;
+	private static final int DEFAULT_COMMENT_GET_COUNT = 200;
 	private static final int COMMENT_POST = 1;
 
 	private ActionBarActivity self = this;

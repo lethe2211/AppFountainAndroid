@@ -18,6 +18,8 @@ public class Comment {
 	private final int user_id;
 	private final String user_name;
 	private final String body;
+	private final int refer_comment_id;
+	private final String refer_comment_user_name;
 	private final String created;
 	private Date _created = null;
 	private final String updated;
@@ -28,13 +30,15 @@ public class Comment {
 	private String evaluation;
 
 	public Comment(int id, int questionId, int userId, String userName,
-			String body, String created, String updated, int up, int down,
+			String body, int referCommentId, String referCommentUserName, String created, String updated, int up, int down,
 			Boolean useful, String evaluation) {
 		this.id = id;
 		this.question_id = questionId;
 		this.user_id = userId;
 		this.user_name = userName;
 		this.body = body;
+		this.refer_comment_id = referCommentId;
+		this.refer_comment_user_name = referCommentUserName;
 		this.created = created;
 		this.updated = updated;
 		this.up = up;
@@ -67,6 +71,14 @@ public class Comment {
 		if (body.length() > maxBodySize)
 			return body.substring(0, maxBodySize);
 		return body;
+	}
+
+	public int getReferCommentId() {
+		return refer_comment_id;
+	}
+
+	public String getReferCommentUserName() {
+		return refer_comment_user_name;
 	}
 
 	public String getCreatedString() {
@@ -131,5 +143,9 @@ public class Comment {
 
 	public void usefulEvaluate() {
 		this.useful = !useful;
+	}
+
+	public boolean isReply() {
+		return refer_comment_id != 0;
 	}
 }
