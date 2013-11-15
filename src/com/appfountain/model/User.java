@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.text.format.DateFormat;
+
 /**
  * "created":"2013-10-04T17:23:11","invalid_count":0,
  * "name":"aaaaaa","useful_count":0,"down":0,"up":0,
@@ -45,8 +47,8 @@ public class User {
 		return rk;
 	}
 
-	public String getCreatedString() {
-		return created;
+	public CharSequence getCreatedString() {
+		return DateFormat.format("yyyy/MM/dd kk:mm", getCreated());
 	}
 
 	public Date getCreated() {

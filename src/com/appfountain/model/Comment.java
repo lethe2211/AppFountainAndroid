@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.text.format.DateFormat;
+
 /**
  * 
  * {"up":0,"useful":0,"user_id": 1,
@@ -28,7 +30,7 @@ public class Comment {
 	private final int down;
 	private Boolean useful;
 	private String evaluation;
-
+	
 	public Comment(int id, int questionId, int userId, String userName,
 			String body, int referCommentId, String referCommentUserName, String created, String updated, int up, int down,
 			Boolean useful, String evaluation) {
@@ -81,8 +83,8 @@ public class Comment {
 		return refer_comment_user_name;
 	}
 
-	public String getCreatedString() {
-		return created;
+	public CharSequence getCreatedString() {
+		return DateFormat.format("yyyy/MM/dd kk:mm", getCreated());
 	}
 
 	public Date getCreated() {
@@ -99,8 +101,8 @@ public class Comment {
 		return _created;
 	}
 
-	public String getUpdatedString() {
-		return updated;
+	public CharSequence getUpdatedString() {
+		return DateFormat.format("yyyy/MM/dd kk:mm", getUpdated());
 	}
 
 	public Date getUpdated() {
