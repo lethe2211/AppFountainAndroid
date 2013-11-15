@@ -96,6 +96,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.findViewById(R.id.list_item_comment_reply_button_star);
 				holder.upImage = (ImageView) view
 						.findViewById(R.id.list_item_comment_reply_button_useful_image);
+				holder.usefulContainer = (LinearLayout) view
+						.findViewById(R.id.question_detail_useful_comment_container);
 				holder.referUserName = (TextView) view
 						.findViewById(R.id.list_item_comment_reply_refer_user_name);
 			} else {
@@ -117,6 +119,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.findViewById(R.id.list_item_comment_button_star);
 				holder.upImage = (ImageView) view
 						.findViewById(R.id.list_item_comment_button_useful_image);
+				holder.usefulContainer = (LinearLayout) view
+						.findViewById(R.id.question_detail_useful_comment_container);
 			}
 			view.setTag(holder);
 		} else {
@@ -141,6 +145,12 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 			} else {
 				holder.upImage.setImageResource(R.drawable.comment_star_null);
 			}
+		}
+
+		if (c.isUseful()) {
+			holder.usefulContainer.setVisibility(View.VISIBLE);
+		} else {
+			holder.usefulContainer.setVisibility(View.GONE);
 		}
 
 		if (c.isReply()) {
@@ -362,6 +372,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		LinearLayout replyButton;
 		LinearLayout upButton;
 		ImageView upImage;
+		LinearLayout usefulContainer;
 		TextView referUserName;
 	}
 }
