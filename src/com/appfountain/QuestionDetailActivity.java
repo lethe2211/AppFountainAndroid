@@ -208,6 +208,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 			// コメント投稿後は再読み込みさせる
 			if (resultCode == RESULT_OK) { // 起動先のActivityでsetResult(RESULT_OK)が呼ばれていたら
 				comments.clear();
+				loadPage();
 			}
 			break;
 		}
