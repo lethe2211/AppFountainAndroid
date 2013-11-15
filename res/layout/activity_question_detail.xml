@@ -15,47 +15,16 @@
         android:divider="@null" >
     </ListView>
 
-    <!--
-    <LinearLayout
-        android:id="@+id/comment_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:background="#5e4a1a"
-        android:padding="10dp" >
-
-        <EditText
-            android:id="@+id/comment_post_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="コメント" >
-        </EditText>
-
-        <Button
-            android:id="@+id/comment_post_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="コメント投稿" >
-        </Button>
-    </LinearLayout>
-    -->
-
-    <LinearLayout
-        android:id="@+id/comment_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/comment_post_button"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
         android:layout_alignParentBottom="true"
-        android:background="#5e4a1a"
-        android:gravity="bottom"
-        android:padding="10dp" >
-
-        <Button
-            android:id="@+id/comment_post_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/comment_post" />
-    </LinearLayout>
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/comment_post_button_state" />
 
 </RelativeLayout>

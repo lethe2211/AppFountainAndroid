@@ -13,133 +13,90 @@
         android:background="#fcfcfe"
         android:orientation="vertical" >
 
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/list_item_comment_detail" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="vertical" >
+            android:layout_height="32dp"
+            android:orientation="horizontal" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/list_item_comment_user_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ユーザ名" />
+                android:id="@+id/list_item_comment_button_person"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/comment_button_state"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingTop="2dp" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20sp"
-                    android:src="@drawable/comment_star" />
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/comment_person" />
 
                 <TextView
-                    android:id="@+id/list_item_comment_up_count"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="User"
+                    android:textSize="16sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/list_item_comment_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:paddingTop="2dp"
-                android:text="TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText" />
+            <LinearLayout
+                android:id="@+id/list_item_comment_button_reply"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/comment_button_state"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingTop="2dp" >
 
-            <TextView
-                android:id="@+id/list_item_comment_created"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="Created" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/comment_reply" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Reply"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:orientation="horizontal" >
+                android:id="@+id/list_item_comment_button_star"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/comment_button_state"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingTop="2dp" >
 
-                <LinearLayout
-                    android:id="@+id/list_item_comment_button_person"
+                <ImageView
+                    android:id="@+id/list_item_comment_button_useful_image"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/comment_button_background"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp" >
+                    android:src="@drawable/comment_star_null" />
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/comment_person" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="User"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/list_item_comment_button_reply"
+                <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@drawable/comment_button_background"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp" >
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/comment_reply" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="Reply"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/list_item_comment_button_star"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/comment_button_background"
-                    android:clickable="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp" >
-
-                    <ImageView
-                        android:id="@+id/list_item_comment_button_useful_image"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/comment_star_null" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="Star"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    android:text="Star"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

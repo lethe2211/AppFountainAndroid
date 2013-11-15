@@ -24,6 +24,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.appfountain.QuestionDetailActivity;
 import com.appfountain.R;
 import com.appfountain.UserPageActivity;
 import com.appfountain.external.GsonRequest;
@@ -37,16 +38,16 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	private static final String TAG = CommentListAdapter.class.getSimpleName();
 
 	private List<Comment> comments;
-	private Context context;
+	private QuestionDetailActivity parent;
 	private RequestQueue queue;
 	private Question question;
 	private Boolean isQuestionAuthor;
 
-	public CommentListAdapter(Context context, int resource,
+	public CommentListAdapter(QuestionDetailActivity parent, int resource,
 			List<Comment> comments, Question question, Boolean isQuestionAuthor) {
-		super(context, resource);
+		super(parent, resource);
 
-		this.context = context;
+		this.parent = parent;
 		this.comments = comments;
 		this.question = question;
 		this.isQuestionAuthor = isQuestionAuthor;
@@ -67,7 +68,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup vg) {
 		View view = convertView;
 		final CommentItemHolder holder;
 
@@ -79,7 +80,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			if (c.isReply()) {
 				view = inflater.inflate(R.layout.list_item_comment_reply,
-						parent, false);
+						vg, false);
 				holder.userName = (TextView) view
 						.findViewById(R.id.list_item_comment_reply_user_name);
 				holder.created = (TextView) view
@@ -96,10 +97,12 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.findViewById(R.id.list_item_comment_reply_button_star);
 				holder.upImage = (ImageView) view
 						.findViewById(R.id.list_item_comment_reply_button_useful_image);
+				holder.usefulContainer = (LinearLayout) view
+						.findViewById(R.id.question_detail_useful_comment_container);
 				holder.referUserName = (TextView) view
 						.findViewById(R.id.list_item_comment_reply_refer_user_name);
 			} else {
-				view = inflater.inflate(R.layout.list_item_comment, parent,
+				view = inflater.inflate(R.layout.list_item_comment, vg,
 						false);
 				holder.userName = (TextView) view
 						.findViewById(R.id.list_item_comment_user_name);
@@ -117,6 +120,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.findViewById(R.id.list_item_comment_button_star);
 				holder.upImage = (ImageView) view
 						.findViewById(R.id.list_item_comment_button_useful_image);
+				holder.usefulContainer = (LinearLayout) view
+						.findViewById(R.id.question_detail_useful_comment_container);
 			}
 			view.setTag(holder);
 		} else {
@@ -143,6 +148,12 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 			}
 		}
 
+		if (c.isUseful()) {
+			holder.usefulContainer.setVisibility(View.VISIBLE);
+		} else {
+			holder.usefulContainer.setVisibility(View.GONE);
+		}
+
 		if (c.isReply()) {
 			holder.referUserName.setText(">> " + c.getReferCommentUserName()
 					+ " への返信");
@@ -152,27 +163,26 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 			@Override
 			public void onClick(View arg0) {
 				// コメントしたユーザ情報表示
-				Intent intent = new Intent(context, UserPageActivity.class);
+				Intent intent = new Intent(parent, UserPageActivity.class);
 				intent.putExtra(Intent.EXTRA_UID, c.getUserId());
-				context.startActivity(intent);
+				parent.startActivity(intent);
 			}
 		});
 
 		holder.replyButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO 返信付きコメント画面への遷移
-				Log.d(TAG, "reply button clicked");
+				parent.moveReplyComment(c);
 			}
 		});
 
 		holder.upButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				UserContainer user = Common.getUserContainer(context);
+				UserContainer user = Common.getUserContainer(parent);
 				// ログイン済みの場合のみ変更可能
 				if (user == null) {
-					Toast.makeText(context, "ログインして下さい", Toast.LENGTH_SHORT)
+					Toast.makeText(parent, "ログインして下さい", Toast.LENGTH_SHORT)
 							.show();
 				} else {
 					if (isQuestionAuthor) {
@@ -194,14 +204,14 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 
 		// 変更のrequest投げる
 		if (queue == null)
-			queue = Volley.newRequestQueue(context);
+			queue = Volley.newRequestQueue(parent);
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("value", c.isUpEvaluation() ? "up" : "none");
 
 		Map<String, String> headers = new HashMap<String, String>();
-		headers.put(Common.getPostHeader(context),
-				Common.getUserContainer(context).getRk());
+		headers.put(Common.getPostHeader(parent),
+				Common.getUserContainer(parent).getRk());
 
 		GsonRequest<SimpleSource> req = new GsonRequest<SimpleSource>(
 				Method.POST, getCommentEvaluateURL(c), SimpleSource.class,
@@ -231,7 +241,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						try {
 							String responseBody = new String(
 									error.networkResponse.data, "utf-8");
-							Toast.makeText(context, responseBody,
+							Toast.makeText(parent, responseBody,
 									Toast.LENGTH_SHORT).show();
 						} catch (UnsupportedEncodingException e) {
 						}
@@ -241,7 +251,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	}
 
 	private String getCommentEvaluateURL(Comment c) {
-		return Common.getApiBaseUrl(context) + "comment/" + c.getId()
+		return Common.getApiBaseUrl(parent) + "comment/" + c.getId()
 				+ "/evaluate";
 	}
 
@@ -252,7 +262,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 
 		// 変更のrequest投げる
 		if (queue == null)
-			queue = Volley.newRequestQueue(context);
+			queue = Volley.newRequestQueue(parent);
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("useful", c.isUseful() ? "true" : "false");
@@ -260,8 +270,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		params.put("comment_author", c.getUserName());
 
 		Map<String, String> headers = new HashMap<String, String>();
-		headers.put(Common.getPostHeader(context),
-				Common.getUserContainer(context).getRk());
+		headers.put(Common.getPostHeader(parent),
+				Common.getUserContainer(parent).getRk());
 
 		GsonRequest<SimpleSource> req = new GsonRequest<SimpleSource>(
 				Method.POST, getUsefulEvaluateURL(c), SimpleSource.class,
@@ -283,7 +293,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						try {
 							String responseBody = new String(
 									error.networkResponse.data, "utf-8");
-							Toast.makeText(context, responseBody,
+							Toast.makeText(parent, responseBody,
 									Toast.LENGTH_SHORT).show();
 						} catch (UnsupportedEncodingException e) {
 						}
@@ -300,7 +310,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	}
 
 	private String getUsefulEvaluateURL(Comment c) {
-		return Common.getApiBaseUrl(context) + "comment/" + c.getId()
+		return Common.getApiBaseUrl(parent) + "comment/" + c.getId()
 				+ "/useful";
 	}
 
@@ -316,8 +326,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	// 質問が解決済み/未解決か送信
 	private void sendFinishQuestion(Comment c, boolean isFinished) {
 		Map<String, String> headers = new HashMap<String, String>();
-		headers.put(Common.getPostHeader(context),
-				Common.getUserContainer(context).getRk());
+		headers.put(Common.getPostHeader(parent),
+				Common.getUserContainer(parent).getRk());
 
 		GsonRequest<SimpleSource> req = new GsonRequest<SimpleSource>(
 				Method.POST, getFinishQuestionURL(isFinished),
@@ -333,7 +343,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						try {
 							String responseBody = new String(
 									error.networkResponse.data, "utf-8");
-							Toast.makeText(context, responseBody,
+							Toast.makeText(parent, responseBody,
 									Toast.LENGTH_SHORT).show();
 						} catch (UnsupportedEncodingException e) {
 						}
@@ -343,7 +353,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 	}
 
 	private String getFinishQuestionURL(boolean isFinished) {
-		String url = Common.getApiBaseUrl(context) + "question/"
+		String url = Common.getApiBaseUrl(parent) + "question/"
 				+ question.getId();
 		return isFinished ? url + "/finish" : url + "/unfinish";
 	}
@@ -362,6 +372,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		LinearLayout replyButton;
 		LinearLayout upButton;
 		ImageView upImage;
+		LinearLayout usefulContainer;
 		TextView referUserName;
 	}
 }
