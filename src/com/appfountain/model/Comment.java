@@ -1,5 +1,6 @@
 package com.appfountain.model;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,8 @@ import android.text.format.DateFormat;
  * :"2013-10-05T06:34:03","question_id":1,"updated":"2013-10-05T06:34:03"
  * ,"id":3,"down":0}
  */
-public class Comment {
+public class Comment implements Serializable{
+	private static final long serialVersionUID = 7791890472926200527L;
 	private final int id;
 	private final int question_id;
 	private final int user_id;
