@@ -7,7 +7,6 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -79,8 +78,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 			LayoutInflater inflater = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			if (c.isReply()) {
-				view = inflater.inflate(R.layout.list_item_comment_reply,
-						vg, false);
+				view = inflater.inflate(R.layout.list_item_comment_reply, vg,
+						false);
 				holder.userName = (TextView) view
 						.findViewById(R.id.list_item_comment_reply_user_name);
 				holder.created = (TextView) view
@@ -97,13 +96,14 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.findViewById(R.id.list_item_comment_reply_button_star);
 				holder.upImage = (ImageView) view
 						.findViewById(R.id.list_item_comment_reply_button_useful_image);
+				holder.upText = (TextView) view
+						.findViewById(R.id.list_item_comment_button_useful_text);
 				holder.usefulContainer = (LinearLayout) view
 						.findViewById(R.id.question_detail_useful_comment_container);
 				holder.referUserName = (TextView) view
 						.findViewById(R.id.list_item_comment_reply_refer_user_name);
 			} else {
-				view = inflater.inflate(R.layout.list_item_comment, vg,
-						false);
+				view = inflater.inflate(R.layout.list_item_comment, vg, false);
 				holder.userName = (TextView) view
 						.findViewById(R.id.list_item_comment_user_name);
 				holder.created = (TextView) view
@@ -120,6 +120,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.findViewById(R.id.list_item_comment_button_star);
 				holder.upImage = (ImageView) view
 						.findViewById(R.id.list_item_comment_button_useful_image);
+				holder.upText = (TextView) view
+						.findViewById(R.id.list_item_comment_button_useful_text);
 				holder.usefulContainer = (LinearLayout) view
 						.findViewById(R.id.question_detail_useful_comment_container);
 			}
@@ -133,6 +135,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		holder.body.setText(c.getBody());
 		holder.upCount.setText("" + c.getUp());
 		if (isQuestionAuthor) {
+			holder.upText.setText("Useful");
 			if (c.isUseful()) {
 				holder.upImage
 						.setImageResource(R.drawable.question_detail_comment_useful);
@@ -141,6 +144,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						.setImageResource(R.drawable.question_detail_comment_unuseful);
 			}
 		} else {
+			holder.upText.setText("Star");
 			if (c.isUpEvaluation()) {
 				holder.upImage.setImageResource(R.drawable.comment_star);
 			} else {
@@ -372,6 +376,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		LinearLayout replyButton;
 		LinearLayout upButton;
 		ImageView upImage;
+		TextView upText;
 		LinearLayout usefulContainer;
 		TextView referUserName;
 	}

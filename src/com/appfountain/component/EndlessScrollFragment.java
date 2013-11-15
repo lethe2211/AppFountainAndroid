@@ -14,7 +14,7 @@ public abstract class EndlessScrollFragment extends Fragment implements
 	private int visibleThreshold = 3;
 	private int previousTotal = 0;
 	private boolean loading = true;
-	private boolean isLast = false;
+	protected boolean isLast = false;
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,

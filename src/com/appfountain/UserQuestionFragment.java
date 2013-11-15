@@ -68,6 +68,8 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 	public void onResume() {
 		super.onResume();
 
+		if (!isLast)
+			loadPage();
 		if (userId < 0)
 			this.getActivity().finish();
 	}
