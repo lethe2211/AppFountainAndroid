@@ -276,15 +276,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-
-		if (hasNext() && !inError) {
-			loadPage();
-		}
-	}
-
 	// startActivityForResultで呼ばれたActivityが停止した際に呼ばれる
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -296,7 +287,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 			if (resultCode == RESULT_OK) {
 				questions.clear();
 				inError = false;
-				loadPage();
 			}
 			break;
 		}

@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.text.format.DateFormat;
+
 import com.appfountain.util.Common;
 
 /**
@@ -90,8 +92,8 @@ public class Question implements Serializable {
 		return comment_count;
 	}
 
-	public String getCreatedString() {
-		return created;
+	public CharSequence getCreatedString() {
+		return DateFormat.format("yyyy/MM/dd kk:mm", getCreated());
 	}
 
 	public Date getCreated() {
@@ -108,8 +110,8 @@ public class Question implements Serializable {
 		return _created;
 	}
 
-	public String getUpdatedString() {
-		return updated;
+	public CharSequence getUpdatedString() {
+		return DateFormat.format("yyyy/MM/dd kk:mm", getUpdated());
 	}
 
 	public Date getUpdated() {

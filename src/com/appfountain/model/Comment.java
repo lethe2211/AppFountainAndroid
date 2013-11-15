@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.text.format.DateFormat;
+
 /**
  * 
  * {"up":0,"useful":0,"user_id": 1,
@@ -18,6 +20,8 @@ public class Comment {
 	private final int user_id;
 	private final String user_name;
 	private final String body;
+	private final int refer_comment_id;
+	private final String refer_comment_user_name;
 	private final String created;
 	private Date _created = null;
 	private final String updated;
@@ -26,15 +30,17 @@ public class Comment {
 	private final int down;
 	private Boolean useful;
 	private String evaluation;
-
+	
 	public Comment(int id, int questionId, int userId, String userName,
-			String body, String created, String updated, int up, int down,
+			String body, int referCommentId, String referCommentUserName, String created, String updated, int up, int down,
 			Boolean useful, String evaluation) {
 		this.id = id;
 		this.question_id = questionId;
 		this.user_id = userId;
 		this.user_name = userName;
 		this.body = body;
+		this.refer_comment_id = referCommentId;
+		this.refer_comment_user_name = referCommentUserName;
 		this.created = created;
 		this.updated = updated;
 		this.up = up;
@@ -69,8 +75,16 @@ public class Comment {
 		return body;
 	}
 
-	public String getCreatedString() {
-		return created;
+	public int getReferCommentId() {
+		return refer_comment_id;
+	}
+
+	public String getReferCommentUserName() {
+		return refer_comment_user_name;
+	}
+
+	public CharSequence getCreatedString() {
+		return DateFormat.format("yyyy/MM/dd kk:mm", getCreated());
 	}
 
 	public Date getCreated() {
@@ -87,8 +101,8 @@ public class Comment {
 		return _created;
 	}
 
-	public String getUpdatedString() {
-		return updated;
+	public CharSequence getUpdatedString() {
+		return DateFormat.format("yyyy/MM/dd kk:mm", getUpdated());
 	}
 
 	public Date getUpdated() {
@@ -131,5 +145,9 @@ public class Comment {
 
 	public void usefulEvaluate() {
 		this.useful = !useful;
+	}
+
+	public boolean isReply() {
+		return refer_comment_id != 0;
 	}
 }
