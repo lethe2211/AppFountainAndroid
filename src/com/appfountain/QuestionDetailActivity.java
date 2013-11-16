@@ -16,10 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -53,11 +57,12 @@ import com.appfountain.util.Common;
 /**
  * 質問詳細ページ：コメント等
  */
-public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
+public class QuestionDetailActivity extends ActionBarActivity implements
+		OnScrollListener {
 	private static final String TAG = QuestionDetailActivity.class
 			.getSimpleName();
 	protected static final String EXTRA_QUESTION = "question_detail_extra_question";
-	private static final int DEFAULT_COMMENT_GET_COUNT = 20;
+	private static final int DEFAULT_COMMENT_GET_COUNT = 200;
 	private static final int COMMENT_POST = 1;
 
 	private ActionBarActivity self = this;
@@ -74,7 +79,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 	private List<Comment> comments = new ArrayList<Comment>();
 	private CommentListAdapter commentListAdapter;
 	// コメント投稿ボタン
-	private Button commentPostButton;
+	private ImageButton commentPostButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +102,13 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		queue = Volley.newRequestQueue(this);
 		initViews();
 
+		if (!Common.isInternetAvailable(self)) {
+			Toast.makeText(
+					self,
+					getString(R.string.common_internet_unavailable),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 		// Use 1/16th of the available memory for this memory cache.
 		int memClass = ((ActivityManager) this
 				.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
@@ -106,7 +118,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		// 通信処理
 		loadQuestionRelation(question);
 		loadQuestionUser(question.getUserId());
-		loadComments();
+		loadPage();
 	}
 
 	@Override
@@ -132,7 +144,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		LinearLayout questionDetailContainer = (LinearLayout) myinflater
 				.inflate(R.layout.header_activity_question_detail, null);
 		setQuestionDetail(questionDetailContainer, question);
-		commentListWithQuestionDetailHeader.addHeaderView(questionDetailContainer);
+		commentListWithQuestionDetailHeader
+				.addHeaderView(questionDetailContainer);
 
 		// コメント一覧
 		commentListAdapter = new CommentListAdapter(this,
@@ -142,7 +155,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		commentListWithQuestionDetailHeader.setAdapter(commentListAdapter);
 		commentListWithQuestionDetailHeader.setOnScrollListener(this);
 
-		commentPostButton = (Button) findViewById(R.id.comment_post_button);
+		commentPostButton = (ImageButton) findViewById(R.id.comment_post_button);
 		commentPostButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -155,6 +168,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				} else {
 					Intent intent = new Intent(self, CommentBodyActivity.class);
 					intent.putExtra("EXTRA_QUESTION", question);
+					intent.putExtra("EXTRA_QUESTION_USER_NAME", questionUserName.getText());
 					startActivityForResult(intent, COMMENT_POST);
 				}
 			}
@@ -201,7 +215,7 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 			// コメント投稿後は再読み込みさせる
 			if (resultCode == RESULT_OK) { // 起動先のActivityでsetResult(RESULT_OK)が呼ばれていたら
 				comments.clear();
-				loadComments();
+				loadPage();
 			}
 			break;
 		}
@@ -297,12 +311,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		queue.add(req);
 	}
 
-	// コメント情報など受け取る
-	private void loadComments() {
-		loadPage(); // EndlessScrollListViewを使う
-	}
-
-	@Override
 	protected void loadPage() {
 		final int next = comments.size();
 		GsonRequest<CommentsSource> req = new GsonRequest<CommentsSource>(
@@ -311,11 +319,8 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 				new Listener<CommentsSource>() {
 					@Override
 					public void onResponse(CommentsSource response) {
-						if (response.getComments().isEmpty())
-							finishLoading();
 						comments.addAll(response.getComments());
 						commentListAdapter.notifyDataSetChanged();
-						fixListViewHeight(commentListWithQuestionDetailHeader, commentListAdapter);
 					}
 				}, new ErrorListener() {
 					@Override
@@ -332,20 +337,6 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 		queue.add(req);
 	}
 
-	// scroll viewの中にlist viewがあるため，list viewの高さを修正せねばならん
-	private void fixListViewHeight(ListView listView, ArrayAdapter<?> adapter) {
-		int height = 0;
-		for (int i = 0; i < adapter.getCount(); ++i) {
-			View item = adapter.getView(i, null, listView);
-			item.measure(0, 0);
-			height += item.getMeasuredHeight();
-		}
-		ViewGroup.LayoutParams p = listView.getLayoutParams();
-		p.height = height
-				+ (listView.getDividerHeight() * (adapter.getCount() - 1));
-		listView.setLayoutParams(p);
-	}
-
 	// ユーザ情報取得するAPIのURI
 	private String getUserInfoUrl(int userId) {
 		return Common.getApiBaseUrl(this) + "user/info?id=" + userId;
@@ -360,5 +351,44 @@ public class QuestionDetailActivity extends EndlessScrollActionBarActivity {
 			url += "&user_id=" + uc.getId();
 		}
 		return url;
+	}
+
+	private int lastFirstVisibleItem = 0;
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
+		if (lastFirstVisibleItem < firstVisibleItem) {
+			// 下移動
+			if (commentPostButton.isClickable()) {
+				lastFirstVisibleItem = firstVisibleItem;
+				commentPostButton.setClickable(false);
+				AlphaAnimation alpha = new AlphaAnimation(1, 0);
+				alpha.setDuration(300);
+				alpha.setFillAfter(true);
+				commentPostButton.startAnimation(alpha);
+			}
+		} else if (lastFirstVisibleItem > firstVisibleItem) {
+			// 上移動
+			if (!commentPostButton.isClickable()) {
+				lastFirstVisibleItem = firstVisibleItem;
+				commentPostButton.setClickable(true);
+				AlphaAnimation alpha = new AlphaAnimation(0, 1);
+				alpha.setDuration(300);
+				alpha.setFillAfter(true);
+				commentPostButton.startAnimation(alpha);
+			}
+		}
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+	}
+
+	public void moveReplyComment(Comment c) {
+		Intent intent = new Intent(self, CommentBodyActivity.class);
+		intent.putExtra("EXTRA_QUESTION", question);
+		intent.putExtra("EXTRA_REFER_COMMENT", c);
+		startActivityForResult(intent, COMMENT_POST);
 	}
 }

@@ -1,5 +1,6 @@
 package com.appfountain.component;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -13,15 +14,16 @@ public abstract class EndlessScrollFragment extends Fragment implements
 	private int visibleThreshold = 3;
 	private int previousTotal = 0;
 	private boolean loading = true;
-	private boolean isLast = false;
+	protected boolean isLast = false;
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		if (loading) {
 			if (totalItemCount > previousTotal) {
-				loading = false;
 				previousTotal = totalItemCount;
+				Handler hdl = new Handler();
+				hdl.postDelayed(new ReloadHandler(), 500);
 			}
 		}
 		if (!loading
@@ -51,5 +53,11 @@ public abstract class EndlessScrollFragment extends Fragment implements
 
 	protected void restartLoading() {
 		isLast = false;
+	}
+
+	class ReloadHandler implements Runnable {
+		public void run() {
+			loading = false;
+		}
 	}
 }

@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:ems="10"
-            android:hint="user name" >
+            android:hint="user name"
+            android:inputType="textVisiblePassword" >
         </EditText>
 
         <EditText
@@ -37,7 +38,7 @@
             android:layout_margin="3dp"
             android:ems="10"
             android:hint="password"
-            android:inputType="numberPassword" />
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/register_password_confirm"
@@ -46,7 +47,7 @@
             android:layout_margin="3dp"
             android:ems="10"
             android:hint="password confirm"
-            android:inputType="numberPassword" />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/register_button"

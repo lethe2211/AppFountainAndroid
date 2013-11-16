@@ -1,5 +1,6 @@
 package com.appfountain.component;
 
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -12,7 +13,7 @@ public abstract class EndlessScrollActionBarActivity extends ActionBarActivity
 
 	private int visibleThreshold = 3;
 	private int previousTotal = 0;
-	private boolean loading = true;
+	private boolean loading = false;
 	private boolean isLast = false;
 
 	@Override
@@ -20,15 +21,16 @@ public abstract class EndlessScrollActionBarActivity extends ActionBarActivity
 			int visibleItemCount, int totalItemCount) {
 		if (loading) {
 			if (totalItemCount > previousTotal) {
-				loading = false;
 				previousTotal = totalItemCount;
+				Handler hdl = new Handler();
+				hdl.postDelayed(new ReloadHandler(), 500);
 			}
 		}
 		if (!loading
 				&& !isLast
 				&& (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-			loadPage();
 			loading = true;
+			loadPage();
 		}
 	}
 
@@ -51,5 +53,11 @@ public abstract class EndlessScrollActionBarActivity extends ActionBarActivity
 
 	protected void restartLoading() {
 		isLast = false;
+	}
+
+	class ReloadHandler implements Runnable {
+		public void run() {
+			loading = false;
+		}
 	}
 }

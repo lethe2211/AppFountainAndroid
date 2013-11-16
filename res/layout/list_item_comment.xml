@@ -13,42 +13,10 @@
         android:background="#fcfcfe"
         android:orientation="vertical" >
 
-        <RelativeLayout
+        <include
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp" >
-
-            <TextView
-                android:id="@+id/list_item_comment_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ユーザ名" />
-
-            <TextView
-                android:id="@+id/list_item_comment_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/list_item_comment_user_name"
-                android:layout_toLeftOf="@+id/list_item_comment_up_count"
-                android:text="TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText" />
-
-            <TextView
-                android:id="@+id/list_item_comment_up_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/list_item_comment_body"
-                android:text="20"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/list_item_comment_created"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:text="Created" />
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            layout="@layout/list_item_comment_detail" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/comment_button_background"
+                android:background="@drawable/comment_button_state"
                 android:clickable="true"
                 android:orientation="horizontal"
                 android:paddingTop="2dp" >
@@ -85,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/comment_button_background"
+                android:background="@drawable/comment_button_state"
                 android:clickable="true"
                 android:orientation="horizontal"
                 android:paddingTop="2dp" >
@@ -110,7 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/comment_button_background"
+                android:background="@drawable/comment_button_state"
                 android:clickable="true"
                 android:orientation="horizontal"
                 android:paddingTop="2dp" >
@@ -123,6 +91,7 @@
                     android:src="@drawable/comment_star_null" />
 
                 <TextView
+                    android:id="@+id/list_item_comment_button_useful_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

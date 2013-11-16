@@ -18,8 +18,8 @@
             android:layout_alignLeft="@+id/question_detail_question_created"
             android:layout_toLeftOf="@+id/question_detail_question_category"
             android:text="question_title"
-            android:textColor="#000"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000" />
 
         <TextView
             android:id="@+id/question_detail_question_body"
@@ -30,7 +30,7 @@
             android:layout_below="@+id/question_detail_question_created"
             android:autoLink="web"
             android:padding="5dp"
-            android:text="question_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_bodyquestion_body" />
+            android:textColor="#000" />
 
         <ImageView
             android:id="@+id/question_detail_question_category"
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/question_detail_question_title"
-            android:text="created"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout1"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/question_detail_question_title"
             android:layout_toRightOf="@+id/question_detail_question_created"
-            android:text="ユーザ名: aaaaa" />
+            android:textColor="#000" />
 
         <LinearLayout
             android:id="@+id/question_detail_question_apps"

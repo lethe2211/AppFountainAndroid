@@ -47,7 +47,7 @@
     <string name="drawer_close">close!</string>
     <string name="search_text">検索</string>
     <string name="search_hint">検索語を入力</string>
-    <string name="comment_text">コメント</string>
+    <string name="comment_text">コメント入力</string>
     <string name="comment_post">コメント投稿</string>
     <string name="title_activity_comment_body">コメント投稿</string>
     <string name="title_text">タイトル</string>

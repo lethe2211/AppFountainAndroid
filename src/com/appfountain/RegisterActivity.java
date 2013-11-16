@@ -76,9 +76,6 @@ public class RegisterActivity extends ActionBarActivity {
 		registerPassword = (EditText) findViewById(R.id.register_password);
 		registerPasswordConfirm = (EditText) findViewById(R.id.register_password_confirm);
 
-		registerName.setFilters(filters);
-		registerPassword.setFilters(filters);
-
 		findViewById(R.id.register_button).setOnClickListener(
 				new OnClickListener() {
 					@Override
@@ -87,7 +84,7 @@ public class RegisterActivity extends ActionBarActivity {
 							Toast.makeText(
 									self,
 									getString(R.string.common_internet_unavailable),
-									Toast.LENGTH_LONG).show();
+									Toast.LENGTH_SHORT).show();
 							return;
 						}
 						registerButtonClicked(
@@ -166,6 +163,15 @@ public class RegisterActivity extends ActionBarActivity {
 					Toast.LENGTH_SHORT).show();
 			return false;
 		}
+		
+        String pattern = "^[a-zA-Z0-9]*$";
+        if(!name.matches(pattern) || !password.matches(pattern)) {
+        	Toast.makeText(this,
+					"入力は英数字で行ってください",
+					Toast.LENGTH_SHORT).show();
+			return false;
+        }
+
 
 		if (!password.equals(passwordConfirm)) {
 			Toast.makeText(this, getString(R.string.register_password_invalid),
@@ -183,6 +189,4 @@ public class RegisterActivity extends ActionBarActivity {
 		registerPasswordConfirm.setText("");
 	}
 
-	// 入力文字を制限するフィルター
-	private InputFilter[] filters = { new InputJapaneseFilter() };
 }

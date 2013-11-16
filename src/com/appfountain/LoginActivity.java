@@ -74,9 +74,6 @@ public class LoginActivity extends ActionBarActivity {
 		loginName = (EditText) findViewById(R.id.login_name);
 		loginPassword = (EditText) findViewById(R.id.login_password);
 
-		loginName.setFilters(filters);
-		loginPassword.setFilters(filters);
-
 		// ボタンのinitialize
 		findViewById(R.id.login_button).setOnClickListener(
 				new OnClickListener() {
@@ -86,7 +83,7 @@ public class LoginActivity extends ActionBarActivity {
 							Toast.makeText(
 									self,
 									getString(R.string.common_internet_unavailable),
-									Toast.LENGTH_LONG).show();
+									Toast.LENGTH_SHORT).show();
 							return;
 						}
 						loginButtonClicked(loginName.getText().toString(),
@@ -161,6 +158,12 @@ public class LoginActivity extends ActionBarActivity {
 			return false;
 		}
 
+		String pattern = "^[a-zA-Z0-9]*$";
+		if (!name.matches(pattern) || !password.matches(pattern)) {
+			Toast.makeText(this, "入力は英数字で行ってください", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
 		return true;
 	}
 
@@ -169,7 +172,4 @@ public class LoginActivity extends ActionBarActivity {
 		loginName.setText("");
 		loginPassword.setText("");
 	}
-
-	// 入力文字を制限するフィルター
-	private InputFilter[] filters = { new InputJapaneseFilter() };
 }
