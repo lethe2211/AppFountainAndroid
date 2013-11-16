@@ -132,7 +132,7 @@ public class CommentBodyActivity extends ActionBarActivity {
 		LayoutInflater myinflater = (LayoutInflater) getApplicationContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		LinearLayout commentDetailContainer = (LinearLayout) myinflater
-				.inflate(R.layout.list_item_comment_detail, null);
+				.inflate(R.layout.header_simple_comment_cotainer, null);
 		((TextView) commentDetailContainer
 				.findViewById(R.id.list_item_comment_user_name))
 				.setText(referComment.getUserName());
