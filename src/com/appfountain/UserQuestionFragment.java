@@ -9,8 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -60,6 +62,18 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 				R.layout.list_item_question, questions);
 		questionListView.setAdapter(questionListAdapter);
 		questionListView.setOnScrollListener(this);
+		questionListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// クリックされた質問を取得し，次の画面へ渡す
+				Question question = questions.get(position);
+				Intent intent = new Intent(self.getActivity(),
+						QuestionDetailActivity.class);
+				intent.putExtra(QuestionDetailActivity.EXTRA_QUESTION, question);
+				startActivity(intent);
+			}
+		});
 
 		return v;
 	}
