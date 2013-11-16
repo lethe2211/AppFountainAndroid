@@ -143,7 +143,7 @@ public class UserCommentFragment extends Fragment {
 				.getApplicationContext().getSystemService(
 						Context.LAYOUT_INFLATER_SERVICE);
 		LinearLayout commentLayout = (LinearLayout) myinflater.inflate(
-				R.layout.list_item_comment, null);
+				R.layout.header_simple_comment_reply_cotainer, null);
 		setCommentLayout(comment, commentLayout);
 
 		commentList.addView(commentLayout);
@@ -197,6 +197,13 @@ public class UserCommentFragment extends Fragment {
 					}
 				});
 		queue.add(req);
+	}
+	
+	private void moveToQuestionDetail(Question question) {
+		Intent intent = new Intent(self.getActivity(),
+				QuestionDetailActivity.class);
+		intent.putExtra(QuestionDetailActivity.EXTRA_QUESTION, question);
+		startActivity(intent);
 	}
 
 	/**
