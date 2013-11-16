@@ -23,43 +23,53 @@
         android:background="@drawable/text_frame"
         android:focusable="false"
         android:inputType="textMultiLine"
+        android:hint="例：道案内アプリが欲しい"
         android:lines="2"
         android:minLines="2"
         android:onClick="onTitleClick" >
 
         <requestFocus />
     </EditText>
-    
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="質問詳細"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/light_yellow" />
 
-        <EditText
-            android:id="@+id/post_body_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_frame"
-            android:ems="10"
-            android:focusable="false"
-            android:inputType="none"
-            android:lines="5"
-            android:onClick="onBodyClick" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="質問詳細"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_yellow" />
+
+    <EditText
+        android:id="@+id/post_body_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_frame"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="none"
+        android:hint="例：目的地までのルート、距離、時間がリアルタイムにわかるアプリが欲しいです。よろしくお願いします。"
+        android:lines="5"
+        android:onClick="onBodyClick" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="カテゴリ選択"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_pink" />
 
     <Spinner
         android:id="@+id/post_category_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:background="@drawable/blue_spinner"
         android:entries="@array/Categories" />
 
     <Button
         android:id="@+id/post_app_spinner"
         style="@android:style/Widget.Spinner"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:onClick="chooseApp"
         android:text="参考アプリを選択" />
 
@@ -71,9 +81,12 @@
 
     <Button
         android:id="@+id/post_ok_button"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/post_button_background"
         android:onClick="onOkClick"
-        android:text="@string/post_ok" />
+        android:text="@string/post_ok"
+        android:textColor="#fff" />
 
 </LinearLayout>

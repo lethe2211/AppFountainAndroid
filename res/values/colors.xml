@@ -2,6 +2,7 @@
 <resources>
 
     <color name="actionbar_background">#00b6e5</color>
+    <color name="actionbar_background_pressed">#44F8FF</color>
     <color name="light_green">#6ac000</color>
     <color name="background">#e7e7e7</color>
     <color name="light_pink">#f16a99</color>
