@@ -108,6 +108,15 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 	}
 
 	protected void loadPage() {
+		if (!Common.isInternetAvailable(self)) {
+			Toast.makeText(
+					self,
+					getString(R.string.common_internet_unavailable),
+					Toast.LENGTH_SHORT).show();
+			inError = true;
+			return;
+		}
+		
 		RequestQueue queue = Volley.newRequestQueue(this);
 
 		int next = questions.size();

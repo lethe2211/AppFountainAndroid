@@ -175,6 +175,13 @@ public class UserCommentFragment extends Fragment {
 	}
 
 	private void fetchUserComment(int next) {
+		if (!Common.isInternetAvailable(self.getActivity())) {
+			Toast.makeText(
+					self.getActivity(),
+					getString(R.string.common_internet_unavailable),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 		RequestQueue queue = Volley.newRequestQueue(this.getActivity());
 
 		Log.d(TAG, getUrl() + "?count=" + FETCH_COUNT + "&next=" + 0);

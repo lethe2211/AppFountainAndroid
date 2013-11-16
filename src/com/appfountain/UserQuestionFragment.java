@@ -90,6 +90,14 @@ public class UserQuestionFragment extends EndlessScrollFragment {
 
 	@Override
 	protected void loadPage() {
+		if (!Common.isInternetAvailable(self.getActivity())) {
+			Toast.makeText(
+					self.getActivity(),
+					getString(R.string.common_internet_unavailable),
+					Toast.LENGTH_SHORT).show();
+			inError = true;
+			return;
+		}
 		RequestQueue queue = Volley.newRequestQueue(this.getActivity());
 
 		int next = questions.size();

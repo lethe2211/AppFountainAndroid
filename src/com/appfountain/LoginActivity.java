@@ -83,7 +83,7 @@ public class LoginActivity extends ActionBarActivity {
 							Toast.makeText(
 									self,
 									getString(R.string.common_internet_unavailable),
-									Toast.LENGTH_LONG).show();
+									Toast.LENGTH_SHORT).show();
 							return;
 						}
 						loginButtonClicked(loginName.getText().toString(),

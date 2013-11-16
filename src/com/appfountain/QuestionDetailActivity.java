@@ -102,6 +102,13 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 		queue = Volley.newRequestQueue(this);
 		initViews();
 
+		if (!Common.isInternetAvailable(self)) {
+			Toast.makeText(
+					self,
+					getString(R.string.common_internet_unavailable),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 		// Use 1/16th of the available memory for this memory cache.
 		int memClass = ((ActivityManager) this
 				.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();

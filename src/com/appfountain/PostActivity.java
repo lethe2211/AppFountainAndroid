@@ -177,6 +177,13 @@ public class PostActivity extends ActionBarActivity implements
 	}
 
 	private void postQuestion(String title, String body, int categoryId) {
+		if (!Common.isInternetAvailable(self)) {
+			Toast.makeText(
+					self,
+					getString(R.string.common_internet_unavailable),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 		if (queue == null)
 			queue = Volley.newRequestQueue(this);
 
