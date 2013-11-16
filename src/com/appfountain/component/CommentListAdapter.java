@@ -226,17 +226,11 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 						if (c.isUpEvaluation()) {
 							holder.upImage
 									.setImageResource(R.drawable.comment_star);
-							holder.upCount.setText(Integer
-									.parseInt(holder.upCount.getText()
-											.toString())
-									+ 1 + "");
+							holder.upCount.setText(c.incrementUp() + "");
 						} else {
 							holder.upImage
 									.setImageResource(R.drawable.comment_star_null);
-							holder.upCount.setText(Integer
-									.parseInt(holder.upCount.getText()
-											.toString())
-									- 1 + "");
+							holder.upCount.setText(c.decrementUp() + "");
 						}
 					}
 				}, new ErrorListener() {
