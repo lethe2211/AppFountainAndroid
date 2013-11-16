@@ -28,7 +28,7 @@ public class Comment implements Serializable{
 	private Date _created = null;
 	private final String updated;
 	private Date _updated = null;
-	private final int up;
+	private int up;
 	private final int down;
 	private Boolean useful;
 	private String evaluation;
@@ -123,6 +123,13 @@ public class Comment implements Serializable{
 
 	public int getUp() {
 		return up;
+	}
+	
+	public int incrementUp() {
+		return ++up;
+	}
+	public int decrementUp() {
+		return --up;
 	}
 
 	public int getDown() {
