@@ -36,7 +36,8 @@
                     android:id="@+id/list_item_comment_reply_user_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="wrap_content"

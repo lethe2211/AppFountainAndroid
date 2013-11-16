@@ -67,7 +67,8 @@ public class UserCommentFragment extends Fragment {
 				.findViewById(R.id.fragment_user_comment_list_linear);
 		loadButton = (Button) v
 				.findViewById(R.id.fragment_user_comment_load_button);
-		loadFinishText = (TextView) v.findViewById(R.id.fragment_user_comment_load_finished);
+		loadFinishText = (TextView) v
+				.findViewById(R.id.fragment_user_comment_load_finished);
 		loadButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -107,13 +108,20 @@ public class UserCommentFragment extends Fragment {
 		}
 	}
 
-	private void addQuestionLayout(Question question) {
+	private void addQuestionLayout(final Question question) {
 		LayoutInflater myinflater = (LayoutInflater) getActivity()
 				.getApplicationContext().getSystemService(
 						Context.LAYOUT_INFLATER_SERVICE);
 		LinearLayout questionLayout = (LinearLayout) myinflater.inflate(
 				R.layout.list_item_question, null);
 		setQuestionLayout(question, questionLayout);
+		questionLayout.setClickable(true);
+		questionLayout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				moveToQuestionDetail(question);
+			}
+		});
 
 		commentList.addView(questionLayout);
 	}
@@ -138,13 +146,20 @@ public class UserCommentFragment extends Fragment {
 				.setText(question.getCreatedString());
 	}
 
-	private void addCommentLayout(Question quesiton, Comment comment) {
+	private void addCommentLayout(final Question question, Comment comment) {
 		LayoutInflater myinflater = (LayoutInflater) getActivity()
 				.getApplicationContext().getSystemService(
 						Context.LAYOUT_INFLATER_SERVICE);
 		LinearLayout commentLayout = (LinearLayout) myinflater.inflate(
 				R.layout.header_simple_comment_reply_cotainer, null);
 		setCommentLayout(comment, commentLayout);
+		commentLayout.setClickable(true);
+		commentLayout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				moveToQuestionDetail(question);
+			}
+		});
 
 		commentList.addView(commentLayout);
 	}
@@ -198,7 +213,7 @@ public class UserCommentFragment extends Fragment {
 				});
 		queue.add(req);
 	}
-	
+
 	private void moveToQuestionDetail(Question question) {
 		Intent intent = new Intent(self.getActivity(),
 				QuestionDetailActivity.class);
