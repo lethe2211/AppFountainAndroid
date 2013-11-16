@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,88 +10,49 @@
     tools:context=".PostActivity" >
 
     <TextView
-        android:id="@+id/post_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="質問投稿"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="@string/title_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_green" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/post_title_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/post_header"
-        android:orientation="vertical" >
+        android:background="@drawable/text_frame"
+        android:focusable="false"
+        android:inputType="textMultiLine"
+        android:lines="2"
+        android:minLines="2"
+        android:onClick="onTitleClick" >
 
+        <requestFocus />
+    </EditText>
+    
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="タイトル"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="質問詳細"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/light_yellow" />
 
         <EditText
-            android:id="@+id/post_title_text"
+            android:id="@+id/post_body_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_frame"
-            android:inputType="textMultiLine"
-            android:lines="2"
-            android:minLines="2" 
+            android:ems="10"
             android:focusable="false"
-            android:onClick="onTitleClick">
-
-            <requestFocus />
-        </EditText>
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="質問詳細"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/post_body_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/text_frame"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="none"
-                android:lines="5"
-                android:onClick="onBodyClick" />
-        </LinearLayout>
-    </ScrollView>
-
-    <Button
-        android:id="@+id/post_ok_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="onOkClick"
-        android:text="@string/post_ok" />
+            android:inputType="none"
+            android:lines="5"
+            android:onClick="onBodyClick" />
 
     <Spinner
         android:id="@+id/post_category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/post_header"
         android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/post_header"
         android:entries="@array/Categories" />
 
     <Button
@@ -99,18 +60,20 @@
         style="@android:style/Widget.Spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/scrollView1"
         android:onClick="chooseApp"
         android:text="参考アプリを選択" />
 
     <ListView
         android:id="@+id/post_app_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/post_ok_button"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/post_app_spinner" >
+        android:layout_height="wrap_content" >
     </ListView>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/post_ok_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onOkClick"
+        android:text="@string/post_ok" />
+
+</LinearLayout>

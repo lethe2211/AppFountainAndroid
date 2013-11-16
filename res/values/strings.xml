@@ -50,5 +50,6 @@
     <string name="comment_text">コメント</string>
     <string name="comment_post">コメント投稿</string>
     <string name="title_activity_comment_body">コメント投稿</string>
+    <string name="title_text">タイトル</string>
 
 </resources>
