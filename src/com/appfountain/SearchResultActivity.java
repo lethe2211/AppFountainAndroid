@@ -54,7 +54,7 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_result);
-
+		
 		questionListView = (ListView) findViewById(R.id.activity_top_page_question_list);
 		questionListAdapter = new QuestionListAdapter(this,
 				R.layout.list_item_question, questions);
