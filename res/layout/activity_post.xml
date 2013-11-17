@@ -23,7 +23,7 @@
         android:background="@drawable/text_frame"
         android:focusable="false"
         android:inputType="textMultiLine"
-        android:hint="例：道案内アプリが欲しい"
+        android:hint="@string/post_title_hint"
         android:lines="2"
         android:minLines="2"
         android:onClick="onTitleClick" >
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="質問詳細"
+        android:text="@string/post_body_text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_yellow" />
 
@@ -46,14 +46,14 @@
         android:ems="10"
         android:focusable="false"
         android:inputType="none"
-        android:hint="例：目的地までのルート、距離、時間がリアルタイムにわかるアプリが欲しいです。よろしくお願いします。"
+        android:hint="@string/post_body_hint"
         android:lines="5"
         android:onClick="onBodyClick" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="カテゴリ選択"
+        android:text="@string/category_select_text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_pink" />
 
@@ -79,6 +79,7 @@
         android:layout_height="wrap_content" >
     </ListView>
 
+    
     <Button
         android:id="@+id/post_ok_button"
         android:layout_width="100dp"

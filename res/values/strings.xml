@@ -51,5 +51,9 @@
     <string name="comment_post">コメント投稿</string>
     <string name="title_activity_comment_body">コメント投稿</string>
     <string name="title_text">タイトル</string>
+    <string name="post_title_hint">例：道案内アプリが欲しい</string>
+    <string name="post_body_hint">例：目的地までのルート、距離、時間がリアルタイムにわかるアプリが欲しいです．よろしくお願いします。</string>
+    <string name="post_body_text">質問詳細</string>
+    <string name="category_select_text">カテゴリ選択</string>
 
 </resources>
