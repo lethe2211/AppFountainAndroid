@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/category_10_business" />
+        android:src="@drawable/category_app_wallpaper" />
 
     <TextView
         android:id="@+id/list_item_app_name"

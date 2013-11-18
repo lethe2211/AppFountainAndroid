@@ -42,54 +42,54 @@ public class Common {
 	private static final List<Category> categories = new ArrayList<Category>(26) {
 		{
 			add(new Category(1, "APP_WIDGETS", "ウィジェット",
-					R.drawable.category_1_app_widgets));
+					R.drawable.category_app_widgets));
 			add(new Category(2, "ENTERTAINMENT", "エンタテイメント",
-					R.drawable.category_2_entertainment));
+					R.drawable.category_entertainment));
 			add(new Category(3, "PERSONALIZATION", "カスタマイズ",
-					R.drawable.category_3_personalization));
-			add(new Category(4, "COMICS", "コミック", R.drawable.category_4_comics));
+					R.drawable.category_personalization));
+			add(new Category(4, "COMICS", "コミック", R.drawable.category_comics));
 			add(new Category(5, "SHOPPING", "ショッピング",
-					R.drawable.category_5_shopping));
-			add(new Category(6, "SPORTS", "スポーツ", R.drawable.category_6_sports));
+					R.drawable.category_shopping));
+			add(new Category(6, "SPORTS", "スポーツ", R.drawable.category_sports));
 			add(new Category(7, "SOCIAL", "ソーシャルネットワーク",
-					R.drawable.category_7_social));
-			add(new Category(8, "TOOLS", "ツール", R.drawable.category_8_tools));
+					R.drawable.category_social));
+			add(new Category(8, "TOOLS", "ツール", R.drawable.category_tools));
 			add(new Category(9, "NEWS_AND_MAGAZINES", "ニュース＆雑誌",
-					R.drawable.category_9_news_and_magazines));
+					R.drawable.category_news_and_magazines));
 			add(new Category(10, "BUSINESS", "ビジネス",
-					R.drawable.category_10_business));
+					R.drawable.category_business));
 			add(new Category(11, "FINANCE", "ファイナンス",
-					R.drawable.category_11_finance));
+					R.drawable.category_finance));
 			add(new Category(12, "MEDIA_AND_VIDEO", "メディア＆動画",
-					R.drawable.category_12_media_and_video));
+					R.drawable.category_media_and_video));
 			add(new Category(13, "LIFESTYLE", "ライフスタイル",
-					R.drawable.category_13_lifestyle));
+					R.drawable.category_lifestyle));
 			add(new Category(14, "LIBRARIES_AND_DEMO", "ライブラリ＆デモ",
-					R.drawable.category_14_libraries_and_demo));
+					R.drawable.category_libraries_and_demo));
 			add(new Category(15, "APP_WALLPAPER", "ライブ壁紙",
-					R.drawable.category_15_app_wallpaper));
+					R.drawable.category_app_wallpaper));
 			add(new Category(16, "TRANSPORTATION", "交通",
-					R.drawable.category_16_transportation));
+					R.drawable.category_transportation));
 			add(new Category(17, "PRODUCTIVITY", "仕事効率化",
-					R.drawable.category_17_productivity));
+					R.drawable.category_productivity));
 			add(new Category(18, "HEALTH_AND_FITNESS", "健康＆フィットネス",
-					R.drawable.category_18_health_and_fitness));
+					R.drawable.category_health_and_fitness));
 			add(new Category(19, "PHOTOGRAPHY", "写真",
-					R.drawable.category_19_photography));
+					R.drawable.category_photography));
 			add(new Category(20, "MEDICAL", "医療",
-					R.drawable.category_20_medical));
+					R.drawable.category_medical));
 			add(new Category(21, "WEATHER", "天気",
-					R.drawable.category_21_weather));
+					R.drawable.category_weather));
 			add(new Category(22, "EDUCATION", "教育",
-					R.drawable.category_22_education));
+					R.drawable.category_education));
 			add(new Category(23, "TRAVEL_AND_LOCAL", "旅行＆地域",
-					R.drawable.category_23_travel_and_local));
+					R.drawable.category_travel_and_local));
 			add(new Category(24, "BOOKS_AND_REFERENCE", "書籍＆文献",
-					R.drawable.category_24_books_and_reference));
+					R.drawable.category_books_and_reference));
 			add(new Category(25, "COMMUNICATION", "通信",
-					R.drawable.category_25_communication));
+					R.drawable.category_communication));
 			add(new Category(26, "MUSIC_AND_AUDIO", "音楽＆オーディオ",
-					R.drawable.category_26_music_and_audio));
+					R.drawable.category_music_and_audio));
 		}
 	};
 

@@ -33,7 +33,7 @@
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/category_1_app_widgets" />
+                android:src="@drawable/category_app_wallpaper" />
 
             <TextView
                 android:id="@+id/list_item_question_title"
