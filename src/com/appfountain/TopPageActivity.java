@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,7 +100,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		drawerLayout.setDrawerListener(drawerToggle);
 
 		final EditText searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
-		Button searchExecButton = (Button) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
+		ImageButton searchExecButton = (ImageButton) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
 
 		searchExecButton.setOnClickListener(new View.OnClickListener() {
 

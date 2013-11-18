@@ -42,11 +42,11 @@
                 android:hint="@string/search_hint"
                 android:inputType="none" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/search_exec_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/search_text" />
+                android:src="@android:drawable/ic_menu_search" />
         </LinearLayout>
 
         <View
@@ -73,7 +73,6 @@
             android:padding="10dp"
             android:text="ログアウト"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        区切り線
 
         <View
             android:layout_width="match_parent"
@@ -99,7 +98,6 @@
             android:padding="10dp"
             android:text="ユーザ登録"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        区切り
 
         <RelativeLayout
             android:layout_width="match_parent"
