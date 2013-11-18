@@ -81,6 +81,8 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 	// コメント投稿ボタン
 	private ImageButton commentPostButton;
 
+	private TextView commentEmptyText;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -103,8 +105,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 		initViews();
 
 		if (!Common.isInternetAvailable(self)) {
-			Toast.makeText(
-					self,
+			Toast.makeText(self,
 					getString(R.string.common_internet_unavailable),
 					Toast.LENGTH_SHORT).show();
 			return;
@@ -168,12 +169,14 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 				} else {
 					Intent intent = new Intent(self, CommentBodyActivity.class);
 					intent.putExtra("EXTRA_QUESTION", question);
-					intent.putExtra("EXTRA_QUESTION_USER_NAME", questionUserName.getText());
+					intent.putExtra("EXTRA_QUESTION_USER_NAME",
+							questionUserName.getText());
 					startActivityForResult(intent, COMMENT_POST);
 				}
 			}
 		});
 
+		commentEmptyText = (TextView) findViewById(R.id.question_detail_comment_empty_text);
 	}
 
 	private void setQuestionDetail(LinearLayout questionDetailContainer,
@@ -321,6 +324,11 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 					public void onResponse(CommentsSource response) {
 						comments.addAll(response.getComments());
 						commentListAdapter.notifyDataSetChanged();
+						if (comments.isEmpty()) {
+							commentEmptyText.setVisibility(View.VISIBLE);
+						} else {
+							commentEmptyText.setVisibility(View.GONE);
+						}
 					}
 				}, new ErrorListener() {
 					@Override

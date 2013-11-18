@@ -15,6 +15,18 @@
         android:divider="@null" >
     </ListView>
 
+    <TextView
+        android:id="@+id/question_detail_comment_empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/question_detail_comment_list"
+        android:text="コメントが投稿されていません"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <ImageButton
         android:id="@+id/comment_post_button"
         android:layout_width="50sp"
