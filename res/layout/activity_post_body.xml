@@ -16,13 +16,6 @@
         android:background="#55eeeeee"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/post_body_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/post_body_title"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/light_yellow" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -35,6 +28,7 @@
                 android:id="@+id/post_body_body_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:gravity="top"
                 android:background="@drawable/text_frame"
                 android:hint="@string/post_body_placeholder" />

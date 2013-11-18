@@ -109,14 +109,13 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 
 	protected void loadPage() {
 		if (!Common.isInternetAvailable(self)) {
-			Toast.makeText(
-					self,
+			Toast.makeText(self,
 					getString(R.string.common_internet_unavailable),
 					Toast.LENGTH_SHORT).show();
 			inError = true;
 			return;
 		}
-		
+
 		RequestQueue queue = Volley.newRequestQueue(this);
 
 		int next = questions.size();
@@ -128,12 +127,17 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 			requestUrl = url + "?category_id=" + category_id + "&count=5&next="
 					+ next;
 		} else {
-			
-			try {
-				requestUrl = url + "/search?title=" + URLEncoder.encode(query, "utf-8");
-			} catch (UnsupportedEncodingException e) {
+			if (query == null) { // FIXME:よくわかんないけどquery == null弾いとくと動く
 				requestUrl = "";
-				e.printStackTrace();
+				return;
+			} else {
+				try {
+					requestUrl = url + "/search?title="
+							+ URLEncoder.encode(query, "utf-8");
+				} catch (UnsupportedEncodingException e) {
+					requestUrl = "";
+					e.printStackTrace();
+				}
 			}
 		}
 		GsonRequest<QuestionsSource> req = new GsonRequest<QuestionsSource>(
