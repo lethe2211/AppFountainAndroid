@@ -81,6 +81,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 	// コメント投稿ボタン
 	private ImageButton commentPostButton;
 
+	private TextView appsTitle;
 	private TextView commentEmptyText;
 
 	@Override
@@ -176,6 +177,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 			}
 		});
 
+		appsTitle = (TextView) findViewById(R.id.question_detail_question_apps_title);
 		commentEmptyText = (TextView) findViewById(R.id.question_detail_comment_empty_text);
 	}
 
@@ -224,7 +226,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 		}
 	}
 
-	// 質問者のユーザ情報表示
+	// 関連アプリ情報追加
 	private void loadQuestionRelation(Question q) {
 		GsonRequest<AppsSource> req = new GsonRequest<AppsSource>(Method.GET,
 				getQuestionRelationUrl(q.getId()), AppsSource.class, null,
@@ -232,6 +234,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 					@Override
 					public void onResponse(AppsSource response) {
 						for (App app : response.getApplications()) {
+							appsTitle.setVisibility(View.VISIBLE);
 							addQuestionAppLayout(app);
 						}
 					}

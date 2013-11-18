@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/question_detail_question_title"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_marginRight="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000" />
 
         <TextView
@@ -60,15 +60,26 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textColor="#000" />
-
-        <LinearLayout
-            android:id="@+id/question_detail_question_apps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/question_detail_question_body"
-            android:orientation="horizontal" >
-        </LinearLayout>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/question_detail_question_apps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/question_detail_question_apps_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参考"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:textColor="#000"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
