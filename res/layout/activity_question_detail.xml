@@ -9,7 +9,6 @@
         android:id="@+id/question_detail_comment_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/comment_post"
         android:layout_alignParentTop="true"
         android:layout_margin="8dp"
         android:divider="@null" >

@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/post_body_button_layout"
-            android:layout_below="@+id/post_body_title"
             android:fillViewport="true" >
 
             <EditText

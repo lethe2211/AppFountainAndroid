@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/post_title_button_layout"
-            android:layout_below="@+id/post_title_title"
             android:fillViewport="true" >
 
             <EditText
