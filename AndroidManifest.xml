@@ -58,10 +58,10 @@
         </activity>
         <activity
             android:name="com.appfountain.PostBodyActivity"
-            android:label="@string/title_activity_post_body" >
+            android:label="@string/post_body_title" >
         </activity>
-        <activity android:name="com.appfountain.CommentBodyActivity"></activity>
-        <activity android:name="com.appfountain.PostTitleActivity"></activity>
+        <activity android:name="com.appfountain.CommentBodyActivity" android:label="@string/comment_text"></activity>
+        <activity android:name="com.appfountain.PostTitleActivity" android:label="@string/title_text"></activity>
     </application>
 
 </manifest>

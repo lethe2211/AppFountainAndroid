@@ -79,8 +79,9 @@ public class CommentBodyActivity extends ActionBarActivity {
 		if (questionUserName != null)
 			header.addView(initQuestion());
 		else {
-			((TextView) findViewById(R.id.comment_body_header_title))
-					.setText(referComment.getUserName() + " への返信入力");
+//			((TextView) findViewById(R.id.comment_body_header_title))
+//					.setText(referComment.getUserName() + " への返信入力");
+			setTitle(referComment.getUserName() + " への返信入力"); // TODO:タイトルバーに返信元を書くと文字数多くなって見えなくなる
 			header.addView(initReferComment());
 		}
 

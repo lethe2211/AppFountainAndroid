@@ -101,10 +101,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
         区切り
 
-        <RelativeLayout
+        <!-- <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="10dp" >
-        </RelativeLayout>
+        </RelativeLayout> -->
 
         <TextView
             android:id="@+id/category_text"
