@@ -131,13 +131,13 @@ public class UserCommentFragment extends Fragment {
 		((TextView) questionLayout.findViewById(R.id.list_item_question_title))
 				.setText(question.getTitle());
 		if (question.isFinished())
-			((TextView) questionLayout
-					.findViewById(R.id.list_item_question_comment_done))
-					.setText("解決済み");
+			((ImageView) questionLayout
+					.findViewById(R.id.list_item_question_done))
+					.setImageResource(R.drawable.top_page_question_sloved);
 		else
-			((TextView) questionLayout
-					.findViewById(R.id.list_item_question_comment_done))
-					.setText("未解決");
+			((ImageView) questionLayout
+					.findViewById(R.id.list_item_question_done))
+					.setImageResource(R.drawable.top_page_question_unsloved);
 		((ImageView) questionLayout
 				.findViewById(R.id.list_item_question_category))
 				.setImageResource(question.getCategory().getDrawableId());
@@ -176,8 +176,7 @@ public class UserCommentFragment extends Fragment {
 
 	private void fetchUserComment(int next) {
 		if (!Common.isInternetAvailable(self.getActivity())) {
-			Toast.makeText(
-					self.getActivity(),
+			Toast.makeText(self.getActivity(),
 					getString(R.string.common_internet_unavailable),
 					Toast.LENGTH_SHORT).show();
 			return;
