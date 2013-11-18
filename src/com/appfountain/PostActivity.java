@@ -6,19 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -27,10 +29,8 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.appfountain.component.AppAdapter;
 import com.appfountain.component.AppChooseDialog;
 import com.appfountain.component.AppChooseListener;
-import com.appfountain.component.EndlessScrollActionBarActivity;
 import com.appfountain.external.DrawableUploadRequest;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionSource;
@@ -56,9 +56,8 @@ public class PostActivity extends ActionBarActivity implements
 	private EditText titleEditText;
 	private EditText bodyEditText;
 	private Spinner categorySpinner;
-	private ListView applicationList;
+	private LinearLayout applicationList;
 	private List<App> applications = new ArrayList<App>(3);
-	private AppAdapter applicationAdapter;
 	private Button okButton;
 	private Boolean isPosting = false;
 	private RequestQueue queue = null;
@@ -97,47 +96,27 @@ public class PostActivity extends ActionBarActivity implements
 		bodyEditText = (EditText) findViewById(R.id.post_body_text);
 		categorySpinner = (Spinner) findViewById(R.id.post_category_spinner);
 		okButton = (Button) findViewById(R.id.post_ok_button);
-		applicationList = (ListView) findViewById(R.id.post_app_list);
-
-		applicationAdapter = new AppAdapter(this,
-				R.layout.list_item_choose_app, applications);
-		applicationList.setAdapter(applicationAdapter);
-
-		applicationList.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				App selectedApp = applications.get(position);
-				String packageName = selectedApp.getPackageName();
-				try {
-					startActivity(new Intent(Intent.ACTION_VIEW, Uri
-							.parse("market://details?id=" + packageName)));
-				} catch (android.content.ActivityNotFoundException anfe) {
-					startActivity(new Intent(
-							Intent.ACTION_VIEW,
-							Uri.parse("http://play.google.com/store/apps/details?id="
-									+ packageName)));
-				}
-			}
-		});
+		applicationList = (LinearLayout) findViewById(R.id.post_app_list);
 	}
 
 	// アプリ選択ボタン押下時
 	public void chooseApp(View view) {
 		new AppChooseDialog().show(getSupportFragmentManager(), "choose_app");
 	}
-	
+
 	// titleEditTextがクリックされた時に遷移
 	public void onTitleClick(View view) {
 		Intent intent = new Intent(this, PostTitleActivity.class);
-		intent.putExtra(Intent.EXTRA_TEXT + "title", titleEditText.getText().toString());
+		intent.putExtra(Intent.EXTRA_TEXT + "title", titleEditText.getText()
+				.toString());
 		startActivityForResult(intent, TITLE_RESULT); // onActivityResultで返却値を受け取るためにForResult
 	}
-	
+
 	// bodyEditTextがクリックされた時に遷移
 	public void onBodyClick(View view) {
 		Intent intent = new Intent(this, PostBodyActivity.class);
-		intent.putExtra(Intent.EXTRA_TEXT + "body", bodyEditText.getText().toString());
+		intent.putExtra(Intent.EXTRA_TEXT + "body", bodyEditText.getText()
+				.toString());
 		startActivityForResult(intent, BODY_RESULT); // onActivityResultで返却値を受け取るためにForResult
 	}
 
@@ -179,8 +158,7 @@ public class PostActivity extends ActionBarActivity implements
 
 	private void postQuestion(String title, String body, int categoryId) {
 		if (!Common.isInternetAvailable(self)) {
-			Toast.makeText(
-					self,
+			Toast.makeText(self,
 					getString(R.string.common_internet_unavailable),
 					Toast.LENGTH_SHORT).show();
 			return;
@@ -313,8 +291,24 @@ public class PostActivity extends ActionBarActivity implements
 	public void onChoosed(App app) {
 		if (!containApps(applications, app)) {
 			applications.add(app);
-			applicationAdapter.notifyDataSetChanged();
+			applicationList.addView(setApplicationContainer(app));
 		}
+	}
+
+	private View setApplicationContainer(App app) {
+		LayoutInflater myinflater = (LayoutInflater) getApplicationContext()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		RelativeLayout appLayout = (RelativeLayout) myinflater.inflate(
+				R.layout.list_item_choose_app, null);
+		setApplicationLayout(app, appLayout);
+		return appLayout;
+	}
+
+	private void setApplicationLayout(App app, RelativeLayout appLayout) {
+		((ImageView) appLayout.findViewById(R.id.list_item_app_icon))
+				.setImageDrawable(app.getIcon());
+		((TextView) appLayout.findViewById(R.id.list_item_app_name))
+				.setText(app.getName());
 	}
 
 	private boolean containApps(List<App> applications, App app) {
