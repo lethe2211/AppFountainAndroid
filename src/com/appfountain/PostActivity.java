@@ -290,8 +290,13 @@ public class PostActivity extends ActionBarActivity implements
 	@Override
 	public void onChoosed(App app) {
 		if (!containApps(applications, app)) {
+			if(applications.size() < 3){
 			applications.add(app);
 			applicationList.addView(setApplicationContainer(app));
+			}else{
+				Toast.makeText(self, "参考アプリは最大3個です",
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
