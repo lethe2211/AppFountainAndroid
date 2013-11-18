@@ -3,6 +3,7 @@ package com.appfountain;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -10,9 +11,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -20,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -52,9 +56,10 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	private List<Question> questions = new ArrayList<Question>();
 	private QuestionListAdapter questionListAdapter;
 	private UserContainer user = null;
-
 	private DrawerLayout drawerLayout; // DrawerLayout(NavigationDrawerを使うのに必要なレイアウト)
 	private ActionBarDrawerToggle drawerToggle; // ActionBar中のアイコンをタップすると，NavigationDrawerが開く/閉じるようにする
+	private EditText searchEditText;
+	private Button searchExecButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +103,38 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		// レイアウトにボタンを設定
 		drawerLayout.setDrawerListener(drawerToggle);
 
-		final EditText searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
-		Button searchExecButton = (Button) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
+		searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
+//		searchEditText
+//				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//
+//					@Override
+//					public boolean onEditorAction(TextView v, int actionId,
+//							KeyEvent event) {
+//						if (event != null
+//								&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+//							String query = searchEditText.getText().toString(); // 検索ボックスに入力されたクエリ
+//							if (query.equals(""))
+//								return false; // クエリが空文字列なら検索しない
+//
+//							// NavigationDrawerを閉じる
+//							drawerLayout.closeDrawers();
+//
+//							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//							imm.hideSoftInputFromWindow(v.getWindowToken(),
+//									InputMethodManager.HIDE_NOT_ALWAYS);
+//
+//							// 画面遷移
+//							Intent intent = new Intent(TopPageActivity.this,
+//									SearchResultActivity.class);
+//							intent.putExtra("query", query);
+//							Log.d("search", "query:" + query);
+//							startActivity(intent);
+//						}
+//						return false;
+//					}
+//				});
 
+		searchExecButton = (Button) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
 		searchExecButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -115,8 +149,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 				// 画面遷移
 				Intent intent = new Intent(TopPageActivity.this,
 						SearchResultActivity.class);
-				// intent.putExtra("category_id", position + 1); //
-				// category_idを持ち越す
 				intent.putExtra("query", query);
 				startActivity(intent);
 			}
@@ -124,11 +156,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 		// ListViewとそれに対応するアダプタ
 		final ListView categoryListView = (ListView) findViewById(R.id.activity_top_page_category_list);
-		// ArrayList<String> categories = new ArrayList<String>(Arrays.asList(
-		// "ウィジェット", "エンタテイメント", "カスタマイズ", "コミック", "ショッピング", "スポーツ",
-		// "ソーシャルネットワーク", "ツール", "ニュース＆雑誌", "ビジネス", "ファイナンス", "メディア＆動画",
-		// "ライフスタイル", "ライブラリ＆デモ", "ライブ壁紙", "交通", "仕事効率化", "健康＆フィットネス",
-		// "写真", "医療", "天気", "教育", "旅行＆地域", "書籍＆文献", "通信", "音楽＆オーディオ"));
 
 		// カテゴリの名前の配列
 		ArrayList<String> categoryNames = new ArrayList<String>();
@@ -294,8 +321,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	@Override
 	protected void loadPage() {
 		if (!Common.isInternetAvailable(self)) {
-			Toast.makeText(
-					self,
+			Toast.makeText(self,
 					getString(R.string.common_internet_unavailable),
 					Toast.LENGTH_SHORT).show();
 			inError = true;

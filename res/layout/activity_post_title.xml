@@ -16,15 +16,6 @@
         android:background="#55eeeeee"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/post_title_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="@string/title_text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/light_green" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,6 +27,7 @@
                 android:id="@+id/post_title_body_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/text_frame"
                 android:gravity="top"
                 android:hint="@string/post_body_placeholder" />

@@ -39,8 +39,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:hint="@string/search_hint"
-                android:background="@drawable/text_frame"
-                android:inputType="none" />
+                android:background="@drawable/text_frame" />
 
             <Button
                 android:id="@+id/search_exec_btn"
@@ -102,10 +101,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
         区切り
 
-        <RelativeLayout
+        <!-- <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="10dp" >
-        </RelativeLayout>
+        </RelativeLayout> -->
 
         <TextView
             android:id="@+id/category_text"
