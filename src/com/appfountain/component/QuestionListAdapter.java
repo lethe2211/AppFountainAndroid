@@ -41,8 +41,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			holder = new QuestionItemHolder();
 			holder.title = (TextView) view
 					.findViewById(R.id.list_item_question_title);
-			holder.finished = (TextView) view
-					.findViewById(R.id.list_item_question_comment_done);
+			holder.finished = (ImageView) view
+					.findViewById(R.id.list_item_question_done);
 			holder.category = (ImageView) view
 					.findViewById(R.id.list_item_question_category);
 			holder.commentCount = (TextView) view
@@ -61,9 +61,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		holder.commentCount.setText(q.getCommentCount() + "");
 		holder.created.setText(q.getCreatedString());
 		if (q.isFinished())
-			holder.finished.setText("解決済み");
+			holder.finished
+					.setImageResource(R.drawable.top_page_question_sloved);
 		else
-			holder.finished.setText("未解決");
+			holder.finished
+					.setImageResource(R.drawable.top_page_question_unsloved);
 
 		return view;
 	}
@@ -78,6 +80,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		ImageView category;
 		TextView commentCount;
 		TextView created;
-		TextView finished;
+		ImageView finished;
 	}
 }

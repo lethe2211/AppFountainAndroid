@@ -9,91 +9,102 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".PostActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/title_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/light_green" />
-
-    <EditText
-        android:id="@+id/post_title_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/text_frame"
-        android:focusable="false"
-        android:inputType="textMultiLine"
-        android:hint="@string/post_title_hint"
-        android:lines="2"
-        android:minLines="2"
-        android:onClick="onTitleClick" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/post_body_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/light_yellow" />
-
-    <EditText
-        android:id="@+id/post_body_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/text_frame"
-        android:ems="10"
-        android:focusable="false"
-        android:inputType="none"
-        android:hint="@string/post_body_hint"
-        android:lines="5"
-        android:onClick="onBodyClick" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/category_select_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/light_pink" />
-
-    <Spinner
-        android:id="@+id/post_category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/blue_spinner"
-        android:entries="@array/Categories" />
-
-    <Button
-        android:id="@+id/post_app_spinner"
-        style="@android:style/Widget.Spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:onClick="chooseApp"
-        android:text="参考アプリを選択" />
-
-    <ListView
-        android:id="@+id/post_app_list"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
 
-    
-    <Button
-        android:id="@+id/post_ok_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/post_button_background"
-        android:onClick="onOkClick"
-        android:text="@string/post_ok"
-        android:textColor="#fff" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/title_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_green" />
+
+            <EditText
+                android:id="@+id/post_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/text_frame"
+                android:focusable="false"
+                android:hint="@string/post_title_hint"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:minLines="2"
+                android:onClick="onTitleClick" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/post_body_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_yellow" />
+
+            <EditText
+                android:id="@+id/post_body_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/text_frame"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/post_body_hint"
+                android:inputType="none"
+                android:lines="5"
+                android:onClick="onBodyClick" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/category_select_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_pink" />
+
+            <Spinner
+                android:id="@+id/post_category_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/blue_spinner"
+                android:entries="@array/Categories" />
+
+            <Button
+                android:id="@+id/post_app_spinner"
+                style="@android:style/Widget.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:onClick="chooseApp"
+                android:text="参考アプリを選択" />
+
+            <LinearLayout
+                android:id="@+id/post_app_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/post_ok_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/post_button_background"
+                android:onClick="onOkClick"
+                android:text="@string/post_ok"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -24,8 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp" >
+            android:padding="5dp" >
 
             <ImageView
                 android:id="@+id/list_item_question_category"
@@ -53,19 +52,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp" >
+            android:layout_marginRight="10dp" >
 
-            <TextView
-                android:id="@+id/list_item_question_comment_done"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/list_item_question_done"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:text="解決済み"
-                android:textColor="#000"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:src="@drawable/top_page_question_sloved" />
 
             <TextView
                 android:id="@+id/list_item_question_created"
