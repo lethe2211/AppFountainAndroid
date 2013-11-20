@@ -33,6 +33,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.appfountain.component.CategoryListAdapter;
 import com.appfountain.component.EndlessScrollActionBarActivity;
 import com.appfountain.component.QuestionListAdapter;
 import com.appfountain.external.GsonRequest;
@@ -61,6 +62,9 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 	private ActionBarDrawerToggle drawerToggle; // ActionBar中のアイコンをタップすると，NavigationDrawerが開く/閉じるようにする
 	private EditText searchEditText;
 	private Button searchExecButton;
+	private ListView categoryListView;
+	private List<Category> categories = new ArrayList<Category>();
+	private ArrayAdapter<Category> categoryListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +109,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		drawerLayout.setDrawerListener(drawerToggle);
 
 		final EditText searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
+		
 		ImageButton searchExecButton = (ImageButton) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
 
 		searchExecButton.setOnClickListener(new View.OnClickListener() {
@@ -127,17 +132,17 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 		});
 
 		// ListViewとそれに対応するアダプタ
-		final ListView categoryListView = (ListView) findViewById(R.id.activity_top_page_category_list);
+		categoryListView = (ListView) findViewById(R.id.activity_top_page_category_list);
 
 		// カテゴリの名前の配列
-		ArrayList<String> categoryNames = new ArrayList<String>();
-		List<Category> categories = Common.getCategories();
-		for (Category c : categories) {
-			categoryNames.add(c.getName());
-		}
+		// ArrayList<String> categoryNames = new ArrayList<String>();
+		categories = Common.getCategories();
+//		for (Category c : categories) {
+//			categoryNames.add(c.getName());
+//		}
 
-		final ArrayAdapter<String> categoryListAdapter = new ArrayAdapter<String>(
-				this, R.layout.list_item_category, categoryNames); // list_item_category.xmlをレイアウトに指定(R.layout.simple_list_item_1と中身は同じ)
+		categoryListAdapter = new CategoryListAdapter(
+				this, R.layout.list_item_category, categories); // list_item_category.xmlをレイアウトに指定
 		categoryListView.setAdapter(categoryListAdapter);
 		categoryListView.setOnScrollListener(this);
 
@@ -146,10 +151,6 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						ListView listView = (ListView) parent;
-						String item = (String) listView
-								.getItemAtPosition(position); // 押されたリスト要素の文字列
-						Log.d("click", String.format("onItemClick: %s", item));
 
 						// NavigationDrawerを閉じる
 						drawerLayout.closeDrawers();
