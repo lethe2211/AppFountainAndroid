@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/post_button_background"
+                android:background="@drawable/blue_button_background"
                 android:onClick="onOkClick"
                 android:text="@string/post_ok"
                 android:textColor="#fff" />

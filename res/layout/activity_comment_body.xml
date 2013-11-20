@@ -56,7 +56,7 @@
             style="@style/OkButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/post_button_background"
+            android:background="@drawable/blue_button_background"
             android:text="@string/comment_post"
             android:textColor="#fff" />
     </LinearLayout>

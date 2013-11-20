@@ -57,9 +57,10 @@
                 android:id="@+id/post_body_ok_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ok_button_background"
+                android:background="@drawable/blue_button_background"
                 android:onClick="onOkClick"
-                android:text="@string/post_body_ok" />
+                android:text="@string/post_body_ok"
+                android:textColor="#fff" />
         </LinearLayout>
     </RelativeLayout>
 
