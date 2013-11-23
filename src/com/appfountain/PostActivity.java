@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,11 +32,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.appfountain.component.AppChooseDialog;
 import com.appfountain.component.AppChooseListener;
+import com.appfountain.component.CategoryListAdapter;
 import com.appfountain.external.DrawableUploadRequest;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.QuestionSource;
 import com.appfountain.external.SimpleSource;
 import com.appfountain.model.App;
+import com.appfountain.model.Category;
 import com.appfountain.model.UserContainer;
 import com.appfountain.util.Common;
 
@@ -56,6 +59,8 @@ public class PostActivity extends ActionBarActivity implements
 	private EditText titleEditText;
 	private EditText bodyEditText;
 	private Spinner categorySpinner;
+	private List<Category> categories = new ArrayList<Category>();
+	private ArrayAdapter<Category> categoryListAdapter;
 	private LinearLayout applicationList;
 	private List<App> applications = new ArrayList<App>(3);
 	private Button okButton;
@@ -93,8 +98,11 @@ public class PostActivity extends ActionBarActivity implements
 	private void initViews() {
 		titleEditText = (EditText) findViewById(R.id.post_title_text);
 		titleEditText.clearFocus();
+		
 		bodyEditText = (EditText) findViewById(R.id.post_body_text);
+		
 		categorySpinner = (Spinner) findViewById(R.id.post_category_spinner);
+		
 		okButton = (Button) findViewById(R.id.post_ok_button);
 		applicationList = (LinearLayout) findViewById(R.id.post_app_list);
 	}

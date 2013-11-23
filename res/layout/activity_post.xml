@@ -22,6 +22,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:text="@string/category_select_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_pink" />
+
+            <Spinner
+                android:id="@+id/post_category_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/blue_spinner" 
+                android:entries="@array/Categories"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="@string/title_text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/light_green" />
@@ -62,22 +78,6 @@
                 android:inputType="none"
                 android:lines="5"
                 android:onClick="onBodyClick" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/category_select_text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/light_pink" />
-
-            <Spinner
-                android:id="@+id/post_category_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/blue_spinner"
-                android:entries="@array/Categories" />
 
             <Button
                 android:id="@+id/post_app_spinner"

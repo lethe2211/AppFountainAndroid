@@ -129,13 +129,8 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
 		// ListViewとそれに対応するアダプタ
 		categoryListView = (ListView) findViewById(R.id.activity_top_page_category_list);
-
-		// カテゴリの名前の配列
-		// ArrayList<String> categoryNames = new ArrayList<String>();
-		categories = Common.getCategories();
-//		for (Category c : categories) {
-//			categoryNames.add(c.getName());
-//		}
+		
+		categories = Common.getCategories(); // カテゴリの配列
 
 		categoryListAdapter = new CategoryListAdapter(
 				this, R.layout.list_item_category, categories); // list_item_category.xmlをレイアウトに指定
