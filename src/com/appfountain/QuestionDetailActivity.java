@@ -165,7 +165,7 @@ public class QuestionDetailActivity extends ActionBarActivity implements
 				Log.d("comment_post_button", "clicked");
 				if (user == null) { // ログインしていないならコメントできない
 					// TODO ログイン画面へいい感じに(メッセージつけて)遷移
-					Toast.makeText(self, "ログインしてください", Toast.LENGTH_SHORT)
+					Toast.makeText(self, "コメントの投稿にはログインが必要です", Toast.LENGTH_SHORT)
 							.show();
 				} else {
 					Intent intent = new Intent(self, CommentBodyActivity.class);

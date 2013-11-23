@@ -30,7 +30,7 @@
     <string name="title_activity_post_body">質問入力</string>
     <string name="post_body_title">質問詳細</string>
     <string name="post_body_ok">OK</string>
-    <string name="post_body_placeholder">本文を入力して下さい</string>
+    <string name="post_title_placeholder">例：道案内アプリが欲しい</string>
 
     <!-- UserPageActivity -->
     <string name="title_activity_user_page">ユーザ情報</string>
@@ -54,6 +54,9 @@
     <string name="post_title_hint">例：道案内アプリが欲しい</string>
     <string name="post_body_hint">例：目的地までのルート、距離、時間がリアルタイムにわかるアプリが欲しいです．よろしくお願いします。</string>
     <string name="post_body_text">質問詳細</string>
-    <string name="category_select_text">カテゴリ選択</string>
+    <string name="category_select_text">カテゴリ</string>
+    <string name="title_text_with_description">▶タイトル ※(4字以上)</string>
+    <string name="post_body_text_with_description">▶質問詳細</string>
+    <string name="category_select_text_with_description">▶カテゴリ ※</string>
 
 </resources>

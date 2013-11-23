@@ -296,7 +296,7 @@ public class PostActivity extends ActionBarActivity implements
 
 	private boolean isValidInfo(String title, int categoryId) {
 		if (title.length() < 4) {
-			Toast.makeText(this, "タイトルが短すぎます", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "タイトルは4字以上にしてください", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 

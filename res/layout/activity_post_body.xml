@@ -30,7 +30,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="top"
                 android:background="@drawable/text_frame"
-                android:hint="@string/post_body_placeholder" />
+                android:hint="@string/post_body_hint" />
         </ScrollView>
 
         <LinearLayout
