@@ -60,7 +60,9 @@ public class PostActivity extends ActionBarActivity implements
 	private EditText bodyEditText;
 	private Spinner categorySpinner;
 	private List<Category> categories = new ArrayList<Category>();
-	private ArrayAdapter<Category> categoryListAdapter;
+	private List<String> categoryNames = new ArrayList<String>();
+	private CategoryListAdapter categoryListAdapter;
+	private ArrayAdapter<String> categoryNameListAdapter;
 	private LinearLayout applicationList;
 	private List<App> applications = new ArrayList<App>(3);
 	private Button okButton;
@@ -102,6 +104,16 @@ public class PostActivity extends ActionBarActivity implements
 		bodyEditText = (EditText) findViewById(R.id.post_body_text);
 		
 		categorySpinner = (Spinner) findViewById(R.id.post_category_spinner);
+//		categories = Common.getCategories();
+//		categoryListAdapter = new CategoryListAdapter(this, R.layout.list_item_category, categories);
+//		categoryListAdapter.setDropDownViewResource(R.layout.list_item_category);
+//		categorySpinner.setAdapter(categoryListAdapter);
+		for (Category c : Common.getCategories()) {
+			categoryNames.add(c.getName());
+		}
+		categoryNameListAdapter = new ArrayAdapter<String>(this, R.layout.list_item_category_name, categoryNames);
+		categoryNameListAdapter.setDropDownViewResource(R.layout.list_item_category_name_dropdown);
+		categorySpinner.setAdapter(categoryNameListAdapter);
 		
 		okButton = (Button) findViewById(R.id.post_ok_button);
 		applicationList = (LinearLayout) findViewById(R.id.post_app_list);

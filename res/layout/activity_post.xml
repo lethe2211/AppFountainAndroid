@@ -31,8 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/blue_spinner" 
-                android:entries="@array/Categories"/>
+                android:background="@drawable/blue_spinner" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,8 +84,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:background="@drawable/yellow_button_background"
                 android:onClick="chooseApp"
-                android:text="参考アプリを選択" />
+                android:text="参考アプリを選択"
+                android:textColor="#fff" />
 
             <LinearLayout
                 android:id="@+id/post_app_list"
