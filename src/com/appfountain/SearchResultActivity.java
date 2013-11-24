@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,18 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 				R.layout.list_item_question, questions);
 		questionListView.setAdapter(questionListAdapter);
 		questionListView.setOnScrollListener(this);
+        questionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // クリックされた質問を取得し，次の画面へ渡す
+                Question question = questions.get(position);
+                Intent intent = new Intent(SearchResultActivity.this,
+                        QuestionDetailActivity.class);
+                intent.putExtra(QuestionDetailActivity.EXTRA_QUESTION, question);
+                startActivity(intent);
+            }
+        });
 
 		// Homeボタンを押せるようにする
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
