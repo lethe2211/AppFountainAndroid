@@ -45,6 +45,7 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/text_frame"
             android:ems="10"
+            android:padding="6dp"
             android:inputType="none"
             android:lines="3" >
 
