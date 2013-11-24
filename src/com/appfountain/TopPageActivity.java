@@ -336,6 +336,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity implements T
     public boolean onEditorAction(TextView textView, int i, KeyEvent event) {
         if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
             searchQuestions();
+            return true;
         }
         return false;
     }
