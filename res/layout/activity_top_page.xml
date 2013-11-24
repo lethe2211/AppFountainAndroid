@@ -71,18 +71,17 @@
             android:layout_height="1px"
             android:background="#FFF" />
 
-        
         <TextView
-            android:id="@+id/left_drawer_user_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/green_button_background"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="ユーザ登録"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#fff" />
+                android:id="@+id/left_drawer_user_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/yellow_button_background"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="ログイン"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff" />
 
         <TextView
             android:id="@+id/category_text"
@@ -106,16 +105,16 @@
             android:dividerHeight="3dp"/>
 
         <TextView
-            android:id="@+id/left_drawer_user_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/yellow_button_background"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="ログイン"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#fff" />
+                android:id="@+id/left_drawer_user_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/green_button_background"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="ユーザ登録"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff" />
         
         <TextView
             android:id="@+id/left_drawer_user_logout"

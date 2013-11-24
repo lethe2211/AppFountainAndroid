@@ -9,59 +9,66 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:background="@drawable/login_border"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:text="▶ユーザ名(4字以上32字以下)"
-            android:textColor="@color/light_green"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/login_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/text_frame"
-            android:ems="10"
-            android:hint="ユーザ名を入力してください"
-            android:inputType="textVisiblePassword" >
-        </EditText>
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/login_border"
+            android:orientation="vertical"
+            android:padding="10dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:text="▶パスワード(4字以上)"
-            android:textColor="@color/light_yellow"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="▶ユーザ名(4字〜32字)"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_green" />
 
-        <EditText
-            android:id="@+id/login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/text_frame"
-            android:ems="10"
-            android:hint="パスワードを入力してください"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/login_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/text_frame"
+                android:ems="10"
+                android:hint="ユーザ名を入力してください"
+                android:inputType="textVisiblePassword"
+                android:padding="12dp" >
+            </EditText>
 
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="@drawable/blue_button_background"
-            android:text="ログイン"
-            android:textColor="#fff" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="▶パスワード(4字以上)"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_yellow" />
+
+            <EditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/text_frame"
+                android:ems="10"
+                android:hint="パスワードを入力してください"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@drawable/blue_button_background"
+                android:text="ログイン"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
