@@ -1,96 +1,101 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              tools:context=".RegisterActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegisterActivity" >
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/login_border"
-                android:padding="10dp"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/login_border"
+            android:orientation="vertical"
+            android:padding="10dp" >
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="@string/register_text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="@string/register_text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="▶ユーザ名(4〜32文字)"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="▶ユーザ名(4〜32文字)"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_green" />
 
             <EditText
-                    android:id="@+id/register_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:ems="10"
-                    android:background="@drawable/text_frame"
-
-                    android:hint="user name"
-                    android:padding="12dp"
-                    android:inputType="textVisiblePassword">
+                android:id="@+id/register_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/text_frame"
+                android:ems="10"
+                android:hint="user name"
+                android:inputType="textVisiblePassword"
+                android:padding="12dp" >
             </EditText>
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="▶パスワード(4字以上)"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="▶パスワード(4字以上)"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_yellow" />
 
             <EditText
-                    android:id="@+id/register_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:ems="10"
-                    android:background="@drawable/text_frame"
-
-                    android:hint="password"
-                    android:padding="12dp"
-                    android:inputType="textPassword"/>
+                android:id="@+id/register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/text_frame"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:padding="12dp" />
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="▶パスワードの確認"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="▶パスワードの確認"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_pink" />
+
             <EditText
-                    android:id="@+id/register_password_confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:ems="10"
-                    android:hint="password confirm"
-                    android:padding="12dp"
-                    android:background="@drawable/text_frame"
-                    android:inputType="textPassword"/>
+                android:id="@+id/register_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/text_frame"
+                android:ems="10"
+                android:hint="password confirm"
+                android:inputType="textPassword"
+                android:padding="12dp" />
 
             <Button
-                    android:id="@+id/register_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/green_button_background"
-                    android:text="新規登録"/>
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/green_button_background"
+                android:text="新規登録"
+                android:textColor="#fff" />
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>
