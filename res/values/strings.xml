@@ -11,7 +11,7 @@
 
     <!-- RegisterActivity -->
     <string name="title_activity_register">ユーザ登録</string>
-    <string name="register_text">ユーザを作成します\n入力は英数字で行ってください</string>
+    <string name="register_text">入力は英数字で行ってください</string>
     <string name="register_password_invalid">パスワードが一致していません</string>
     <string name="register_name_length_invalid">usernameは4文字以上32文字以内にしてください</string>
     <string name="register_password_too_short">パスワードは4文字以上にしてください</string>
