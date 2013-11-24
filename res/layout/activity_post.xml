@@ -24,7 +24,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/category_select_text_with_description"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/light_pink" />
+                android:textColor="@color/light_green" />
 
             <Spinner
                 android:id="@+id/post_category_spinner"
@@ -39,7 +39,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/title_text_with_description"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/light_green" />
+                android:textColor="@color/light_yellow" />
 
             <EditText
                 android:id="@+id/post_title_text"
@@ -63,7 +63,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/post_body_text_with_description"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/light_yellow" />
+                android:textColor="@color/light_pink" />
 
             <EditText
                 android:id="@+id/post_body_text"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:background="@drawable/yellow_button_background"
+                android:background="@drawable/pink_button_background"
                 android:onClick="chooseApp"
                 android:text="参考アプリを選択"
                 android:textColor="#fff" />
