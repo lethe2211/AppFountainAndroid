@@ -99,9 +99,8 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
             case R.id.top_page_move_post_question:
                 // ログイン済みなら質問投稿画面へ
                 if (Common.getUserContainer(this) != null) {
-                    Intent intent = new Intent(SearchResultActivity.this,
-                            PostActivity.class);
-                    startActivityForResult(intent, QUESTION_POST);
+                    setResult(RESULT_OK);
+                    finish();
                 } else {
                     // TODO ログイン画面へいい感じに(メッセージつけて)遷移
                     Toast.makeText(this, "ログインしてください", Toast.LENGTH_SHORT).show();
