@@ -101,15 +101,15 @@ public class TopPageActivity extends EndlessScrollActionBarActivity implements T
         searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
         searchEditText.setOnEditorActionListener(this);
 
-        ImageButton searchExecButton = (ImageButton) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
-
-        searchExecButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                searchQuestions();
-            }
-        });
+//        ImageButton searchExecButton = (ImageButton) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
+//
+//        searchExecButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                searchQuestions();
+//            }
+//        });
 
         // ListViewとそれに対応するアダプタ
         categoryListView = (ListView) findViewById(R.id.activity_top_page_category_list);

@@ -36,17 +36,18 @@
             <EditText
                 android:id="@+id/search_text_box"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="12dp"
                 android:background="@drawable/text_frame"
                 android:hint="@string/search_hint"
                 android:inputType="none" />
 
-            <ImageButton
+            <!-- <ImageButton
                 android:id="@+id/search_exec_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_search" />
+                android:src="@android:drawable/ic_menu_search" /> -->
         </LinearLayout>
 
         <View
