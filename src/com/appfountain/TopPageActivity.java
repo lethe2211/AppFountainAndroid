@@ -6,6 +6,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +34,7 @@ import java.util.List;
 /*
  * トップページ
  */
-public class TopPageActivity extends EndlessScrollActionBarActivity {
+public class TopPageActivity extends EndlessScrollActionBarActivity implements TextView.OnEditorActionListener {
     private static final String TAG = TopPageActivity.class.getSimpleName();
     private static final int QUESTION_POST = 1;
     private static final int OPEN_POST_ACTIVITY = 2;
@@ -96,7 +97,8 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
         // レイアウトにボタンを設定
         drawerLayout.setDrawerListener(drawerToggle);
 
-        final EditText searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
+        searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
+        searchEditText.setOnEditorActionListener(this);
 
         ImageButton searchExecButton = (ImageButton) findViewById(R.id.search_exec_btn); // NavigationDrawer中の検索ボタン
 
@@ -104,18 +106,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                String query = searchEditText.getText().toString(); // 検索ボックスに入力されたクエリ
-                if (query.equals(""))
-                    return; // クエリが空文字列なら検索しない
-
-                // NavigationDrawerを閉じる
-                drawerLayout.closeDrawers();
-
-                // 画面遷移
-                Intent intent = new Intent(TopPageActivity.this,
-                        SearchResultActivity.class);
-                intent.putExtra("query", query);
-                startActivityForResult(intent, OPEN_POST_ACTIVITY);
+                searchQuestions();
             }
         });
 
@@ -148,6 +139,21 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
                 });
 
         setUserInfoButton();
+    }
+
+    private void searchQuestions() {
+        String query = searchEditText.getText().toString(); // 検索ボックスに入力されたクエリ
+        if (query.equals(""))
+            return; // クエリが空文字列なら検索しない
+
+        // NavigationDrawerを閉じる
+        drawerLayout.closeDrawers();
+
+        // 画面遷移
+        Intent intent = new Intent(TopPageActivity.this,
+                SearchResultActivity.class);
+        intent.putExtra("query", query);
+        startActivityForResult(intent, OPEN_POST_ACTIVITY);
     }
 
     // drawer内のユーザ情報view初期化
@@ -324,5 +330,13 @@ public class TopPageActivity extends EndlessScrollActionBarActivity {
         }
         );
         queue.add(req);
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent event) {
+        if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            searchQuestions();
+        }
+        return false;
     }
 }
