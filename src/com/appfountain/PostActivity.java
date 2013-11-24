@@ -104,10 +104,7 @@ public class PostActivity extends ActionBarActivity implements
 		bodyEditText = (EditText) findViewById(R.id.post_body_text);
 		
 		categorySpinner = (Spinner) findViewById(R.id.post_category_spinner);
-//		categories = Common.getCategories();
-//		categoryListAdapter = new CategoryListAdapter(this, R.layout.list_item_category, categories);
-//		categoryListAdapter.setDropDownViewResource(R.layout.list_item_category);
-//		categorySpinner.setAdapter(categoryListAdapter);
+        categoryNames.add("カテゴリを選択してください");
 		for (Category c : Common.getCategories()) {
 			categoryNames.add(c.getName());
 		}
