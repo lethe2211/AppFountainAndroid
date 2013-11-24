@@ -11,7 +11,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -46,6 +48,7 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 	private Intent intent; // 前の画面から受け取るインテント
 	private int category_id; // カテゴリ検索の際に取得したカテゴリID
 	private String query; // キーワード検索の際に取得したクエリ
+    private TextView emptyText;
 
 	// カテゴリ検索を行うときはtrue，キーワード検索を行うときはfalse
 	// TODO:APIの仕様変更によってどちらも同じAPIから結果を表示するようにしたい
@@ -77,6 +80,7 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 			isCategorySearch = true;
 		}
 
+        emptyText = (TextView) findViewById(R.id.activity_search_result_empty_text);
 	}
 
 	@Override
@@ -159,6 +163,9 @@ public class SearchResultActivity extends EndlessScrollActionBarActivity {
 							finishLoading();
 						questions.addAll(response.getQuestions());
 						questionListAdapter.notifyDataSetChanged();
+                        if(questions.isEmpty()) {
+                            emptyText.setVisibility(View.VISIBLE);
+                        }
 					}
 				}, new ErrorListener() {
 					@Override
