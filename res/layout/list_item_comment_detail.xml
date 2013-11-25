@@ -30,7 +30,6 @@
             android:id="@+id/list_item_comment_up_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000" />
     </LinearLayout>
