@@ -94,6 +94,16 @@ public class RegisterActivity extends ActionBarActivity {
 								registerPasswordConfirm.getText().toString());
 					}
 				});
+
+        findViewById(R.id.register_user_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(RegisterActivity.this,
+                        LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 	}
 
 	// 通信してユーザ登録する
