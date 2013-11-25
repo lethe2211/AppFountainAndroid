@@ -6,10 +6,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import com.android.volley.Request.Method;
@@ -97,6 +94,8 @@ public class TopPageActivity extends EndlessScrollActionBarActivity implements T
 
         // レイアウトにボタンを設定
         drawerLayout.setDrawerListener(drawerToggle);
+
+        setHomeAsUpIndicator(getWindow().getDecorView(), R.drawable.ic_drawer);
 
         searchEditText = (EditText) findViewById(R.id.search_text_box); // 検索ボックス
         searchEditText.setOnEditorActionListener(this);
@@ -260,6 +259,12 @@ public class TopPageActivity extends EndlessScrollActionBarActivity implements T
                     Toast.makeText(this, "質問を投稿するにはログインが必要です", Toast.LENGTH_SHORT).show();
                 }
                 return true;
+            case R.id.reload_button:
+                questions.clear();
+                questionListAdapter.notifyDataSetChanged();
+                restartLoading();
+                loadPage();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -340,5 +345,30 @@ public class TopPageActivity extends EndlessScrollActionBarActivity implements T
             return true;
         }
         return false;
+    }
+
+    private void setHomeAsUpIndicator(View view, int resId) {
+        int homeid = android.R.id.home;
+
+        final View home = view.findViewById(homeid);
+        if (home == null) {
+            // Action bar doesn't have a known configuration, an OEM messed with things.
+            return;
+        }
+
+        final ViewGroup parent = (ViewGroup) home.getParent();
+        final int childCount = parent.getChildCount();
+        if (childCount != 2) {
+            return;
+        }
+
+        final View first = parent.getChildAt(0);
+        final View second = parent.getChildAt(1);
+        final View up = first.getId() == homeid ? second : first;
+
+        if (up instanceof ImageView) {
+            ImageView upView = (ImageView) up;
+            upView.setImageResource(resId);
+        }
     }
 }

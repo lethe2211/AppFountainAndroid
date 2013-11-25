@@ -15,6 +15,7 @@
     <string name="register_password_invalid">パスワードが一致していません</string>
     <string name="register_name_length_invalid">usernameは4文字以上32文字以内にしてください</string>
     <string name="register_password_too_short">パスワードは4文字以上にしてください</string>
+    <string name="register_user_success">ユーザ登録が完了しました</string>
 
     <!-- TopPageActivity -->
     <string name="title_activity_top_page">質問一覧</string>

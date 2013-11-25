@@ -80,6 +80,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_useful_1_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -106,6 +115,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_useful_2_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -132,6 +150,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_useful_3_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -158,6 +185,16 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_useful_4_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
+
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -184,6 +221,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_useful_5_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -247,6 +293,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_star_1_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -273,6 +328,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_star_2_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -299,6 +363,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_star_3_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -325,6 +398,16 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_star_4_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
+
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -351,6 +434,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_star_5_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -416,6 +508,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_question_1_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -442,6 +543,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_question_2_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -468,6 +578,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_question_3_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -494,6 +613,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_question_4_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -520,6 +648,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_question_5_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -585,6 +722,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_comment_1_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -611,6 +757,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_comment_2_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -637,6 +792,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_comment_3_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -663,6 +827,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_comment_4_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="match_parent"
@@ -689,6 +862,15 @@
                                       android:layout_marginRight="15dp"
                                       android:layout_marginLeft="10dp"
                                       android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            <ImageButton
+                                    android:id="@+id/fragment_user_rank_comment_5_button"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@null"
+                                    android:src="@drawable/comment_person"
+                                    android:scaleType="fitXY"
+                                    android:paddingBottom="4dp"
+                                    />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

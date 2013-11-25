@@ -5,8 +5,8 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.text.InputFilter;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,6 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.appfountain.component.InputJapaneseFilter;
 import com.appfountain.external.GsonRequest;
 import com.appfountain.external.UserSource;
 import com.appfountain.model.User;
@@ -43,6 +42,8 @@ public class RegisterActivity extends ActionBarActivity {
 	private EditText registerName;
 	private EditText registerPassword;
 	private EditText registerPasswordConfirm;
+
+    private Boolean isConnecting = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,14 +94,28 @@ public class RegisterActivity extends ActionBarActivity {
 								registerPasswordConfirm.getText().toString());
 					}
 				});
+
+        findViewById(R.id.register_user_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(RegisterActivity.this,
+                        LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 	}
 
 	// 通信してユーザ登録する
 	private void registerButtonClicked(final String name,
 			final String password, final String passwordConfirm) {
+        if (isConnecting)
+            return;
+
 		if (!isValidInput(name, password, passwordConfirm))
 			return;
 
+        isConnecting = true;
 		final String md5Password = Common.md5Hex(password);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
@@ -120,10 +135,8 @@ public class RegisterActivity extends ActionBarActivity {
 						Common.setUserContainer(self, user.getId(),
 								user.getName(), md5Password, user.getRk());
 
-						// TopPageへの遷移
-						Intent intent = new Intent(self, TopPageActivity.class);
-						startActivity(intent);
-						self.finish(); // いらない画面は終了させる
+
+                        registerDone();
 					}
 				}, new ErrorListener() {
 					@Override
@@ -139,6 +152,7 @@ public class RegisterActivity extends ActionBarActivity {
 						Toast.makeText(self, responseBody, Toast.LENGTH_SHORT)
 								.show();
 						clearRegisterInfo();
+                        isConnecting = false;
 					}
 				});
 
@@ -147,7 +161,7 @@ public class RegisterActivity extends ActionBarActivity {
 				"signup...");
 	}
 
-	// 入力チェック
+    // 入力チェック
 	private boolean isValidInput(String name, String password,
 			String passwordConfirm) {
 		if (!(MIN_NAME_LENGTH <= name.length() && name.length() <= MAX_NAME_LENGTH)) {
@@ -189,4 +203,21 @@ public class RegisterActivity extends ActionBarActivity {
 		registerPasswordConfirm.setText("");
 	}
 
+    // 登録完了メッセージを出すため遅らせて遷移
+    private void registerDone() {
+        Toast.makeText(this, getString(R.string.register_user_success),
+                Toast.LENGTH_SHORT).show();
+
+        Handler hdl = new Handler();
+        hdl.postDelayed(new splashHandler(), 1500);
+    }
+
+    class splashHandler implements Runnable {
+        public void run() {
+            // TopPageへの遷移
+            Intent intent = new Intent(self, TopPageActivity.class);
+            startActivity(intent);
+            self.finish(); // いらない画面は終了させる
+        }
+    }
 }
