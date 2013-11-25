@@ -257,7 +257,7 @@ public class TopPageActivity extends EndlessScrollActionBarActivity implements T
                     drawerLayout.closeDrawers();
 
                     // TODO ログイン画面へいい感じに(メッセージつけて)遷移
-                    Toast.makeText(this, "ログインしてください", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "質問を投稿するにはログインが必要です", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             default:
