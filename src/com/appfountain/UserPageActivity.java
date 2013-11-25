@@ -58,8 +58,10 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("質問一覧")
 				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText("回答一覧")
-				.setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText("回答一覧")
+                .setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText("ランキング")
+                .setTabListener(this));
 	}
 	
 	@Override
@@ -112,6 +114,9 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 			case 2:
 				fragment = new UserCommentFragment();
 				break;
+            case 3:
+                fragment = new UserRankingFragment();
+                break;
 			}
 			if (fragment != null)
 				fragment.setArguments(bundle);
@@ -121,7 +126,7 @@ public class UserPageActivity extends ActionBarActivity implements TabListener {
 		@Override
 		public int getCount() {
 			// タブの数
-			return 3;
+			return 4;
 		}
 	}
 }
