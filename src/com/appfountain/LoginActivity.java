@@ -90,6 +90,16 @@ public class LoginActivity extends ActionBarActivity {
 								loginPassword.getText().toString());
 					}
 				});
+
+        findViewById(R.id.login_user_register).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(LoginActivity.this,
+                        RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 	}
 
 	private void loginButtonClicked(final String name, final String password) {
