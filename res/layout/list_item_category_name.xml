@@ -2,4 +2,5 @@
           android:id="@+id/list_item_category_name_text"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
+          android:textAppearance="?android:attr/textAppearanceMedium"
           android:padding="3dp"/>
