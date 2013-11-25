@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -149,6 +150,17 @@ public class CommentBodyActivity extends ActionBarActivity {
 
 		return commentDetailContainer;
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Homeボタンが押されたら戻る
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return false;
+    }
 
 	private Boolean isValidComment(String commentPostBody) {
 		return commentPostBody.length() != 0;
