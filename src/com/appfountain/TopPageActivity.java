@@ -259,6 +259,12 @@ public class TopPageActivity extends EndlessScrollActionBarActivity implements T
                     Toast.makeText(this, "質問を投稿するにはログインが必要です", Toast.LENGTH_SHORT).show();
                 }
                 return true;
+            case R.id.reload_button:
+                questions.clear();
+                questionListAdapter.notifyDataSetChanged();
+                restartLoading();
+                loadPage();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

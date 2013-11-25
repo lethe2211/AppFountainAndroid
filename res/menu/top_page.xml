@@ -1,10 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:support="http://schemas.android.com/apk/res-auto" >
-
+      xmlns:support="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/top_page_move_post_question"
-        android:icon="@drawable/top_page_post_icon_state"
-        android:title="質問を投稿する"
-        support:showAsAction="ifRoom"/>
+            android:id="@+id/reload_button"
+            android:icon="@drawable/reloader"
+            android:title="再読み込み"
+            support:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/top_page_move_post_question"
+            android:icon="@drawable/top_page_post_icon_state"
+            android:title="質問を投稿する"
+            support:showAsAction="ifRoom"/>
 
 </menu>
