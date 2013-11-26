@@ -47,10 +47,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dip"
                 android:layout_marginBottom="4dip"
-                android:padding="2dp"
+                android:padding="12dp"
                 android:layout_gravity="right"
                 android:background="@color/light_pink"
-                android:text="0 words"
+                android:text="0 characters"
                 android:textColor="#fff"
                 android:textSize="20sp" />
 

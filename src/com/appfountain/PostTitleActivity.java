@@ -51,7 +51,7 @@ public class PostTitleActivity extends ActionBarActivity {
 	}
 
 	private void updateTextCount(String text) {
-		textCount.setText(text.length() + " words");
+		textCount.setText(text.length() + " characters");
 	}
 
 	// OKボタンを推した際の処理
