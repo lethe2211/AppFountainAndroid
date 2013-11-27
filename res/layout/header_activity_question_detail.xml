@@ -23,11 +23,11 @@
 
         <TextView
             android:id="@+id/question_detail_question_body"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/question_detail_question_created"
+            android:layout_below="@+id/question_detail_question_category"
             android:autoLink="web"
             android:padding="5dp"
             android:textColor="#000" />

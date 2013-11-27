@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="3"
-                android:text="タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル"
+                android:minLines="3"
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />

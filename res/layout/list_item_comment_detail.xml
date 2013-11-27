@@ -41,6 +41,7 @@
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:paddingTop="2dp"
+        android:autoLink="web"
         android:textColor="#000" />
 
     <RelativeLayout

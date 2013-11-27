@@ -12,6 +12,7 @@
         android:id="@+id/activity_top_page_question_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+                android:background="#fcfcfe"
         android:divider="@drawable/top_page_list_view_divider" >
     </ListView>
 
