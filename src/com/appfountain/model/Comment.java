@@ -92,8 +92,8 @@ public class Comment implements Serializable{
 	public Date getCreated() {
 		if (_created == null) {
 			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy-MM-dd'T'HH:mm:ssZ", Locale.JAPAN);
-			String date = created.replaceAll("\\+0([0-9]){1}\\:00", "+0$100");
+					"yyyy-MM-dd'T'HH:mm:ss", Locale.JAPAN);
+			String date = created.replaceAll("\\+0([0-9]){1}00", "");
 			try {
 				_created = formatter.parse(date);
 			} catch (ParseException e) {
@@ -110,8 +110,8 @@ public class Comment implements Serializable{
 	public Date getUpdated() {
 		if (_updated == null) {
 			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy-MM-dd'T'HH:mm:ssZ", Locale.JAPAN);
-			String date = updated.replaceAll("\\+0([0-9]){1}\\:00", "+0$100");
+					"yyyy-MM-dd'T'HH:mm:ss", Locale.JAPAN);
+			String date = updated.replaceAll("\\+0([0-9]){1}00", "");
 			try {
 				_updated = formatter.parse(date);
 			} catch (ParseException e) {
