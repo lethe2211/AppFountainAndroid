@@ -4,6 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e8e8e8"
     tools:context=".TopPageActivity" >
 
     <!-- 通常時に表示されるビュー -->
@@ -12,7 +13,7 @@
         android:id="@+id/activity_top_page_question_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-                android:background="#fcfcfe"
+        android:background="#e8e8e8"
         android:divider="@drawable/top_page_list_view_divider" >
     </ListView>
 
@@ -39,16 +40,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="12dp"
                 android:background="@drawable/text_frame"
                 android:hint="@string/search_hint"
-                android:inputType="none" />
+                android:inputType="none"
+                android:padding="12dp" />
 
-            <!-- <ImageButton
+            <!--
+                 <ImageButton
                 android:id="@+id/search_exec_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_search" /> -->
+                android:src="@android:drawable/ic_menu_search" />
+            -->
         </LinearLayout>
 
         <View
@@ -74,16 +77,16 @@
             android:background="#FFF" />
 
         <TextView
-                android:id="@+id/left_drawer_user_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/yellow_button_background"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="ログイン"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#fff" />
+            android:id="@+id/left_drawer_user_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/yellow_button_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ログイン"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#fff" />
 
         <TextView
             android:id="@+id/category_text"
@@ -100,24 +103,24 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="start"
-            android:layout_weight="1"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:divider="#fff" 
-            android:dividerHeight="3dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:divider="#fff"
+            android:dividerHeight="3dp" />
 
         <TextView
-                android:id="@+id/left_drawer_user_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/green_button_background"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="ユーザ登録"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#fff" />
-        
+            android:id="@+id/left_drawer_user_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/green_button_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ユーザ登録"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#fff" />
+
         <TextView
             android:id="@+id/left_drawer_user_logout"
             android:layout_width="match_parent"
@@ -129,7 +132,6 @@
             android:text="ログアウト"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#fff" />
-        
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

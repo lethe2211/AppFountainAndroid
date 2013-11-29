@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#e8e8e8"
+	android:background="@drawable/top_page_question_list_state"
     android:orientation="horizontal"
     android:paddingBottom="10dp"
     android:paddingLeft="5dp"
