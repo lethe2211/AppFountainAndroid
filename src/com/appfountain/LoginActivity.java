@@ -32,6 +32,7 @@ import com.appfountain.util.Common;
 public class LoginActivity extends ActionBarActivity {
 	private static final String TAG = LoginActivity.class.getSimpleName();
 
+
 	private final String url = Common.getApiBaseUrl(this) + "user/login";
 	private static final int MAX_NAME_LENGTH = 32;
 	private static final int MIN_NAME_LENGTH = 4;
